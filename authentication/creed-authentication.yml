@@ -1,0 +1,14 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/creed-openapi-original.json
+summary:
+  types:
+  - http
+schemes:
+- name: HTTPBearer
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: Supabase JWT token
+  sources:
+  - openapi/creed-openapi-original.json
