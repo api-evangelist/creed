@@ -1,0 +1,141 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements prayers API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: prayers
+paths:
+  /api/daily-prayer:
+    post:
+      tags:
+      - prayers
+      summary: Generate Daily Prayer
+      description: "Generate a daily prayer (text only).\n\nThis endpoint creates a personalized prayer (approximately 1 minute long) that ends with \"Amen\".\nAudio is fetched separately via the /daily-prayer/audio endpoint to improve response time.\n\nArgs:\n    request: Prayer request (sendAudio flag is ignored)\n    current_user: Authenticated user\n    \nReturns:\n    PrayerResponse containing prayer_text only (audio_base64 will be None)"
+      operationId: generate_daily_prayer_api_daily_prayer_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrayerRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrayerResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/daily-prayer/audio:
+    get:
+      tags:
+      - prayers
+      summary: Get Daily Prayer Audio
+      description: "Get daily prayer audio, generating it if not already cached.\n\nThis endpoint retrieves the daily prayer audio from the database if it exists,\nor generates both the prayer text and audio if not cached.\n\nArgs:\n    current_user: Authenticated user\n    \nReturns:\n    PrayerResponse containing prayer_text and audio_base64"
+      operationId: get_daily_prayer_audio_api_daily_prayer_audio_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrayerResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    PrayerResponse:
+      properties:
+        prayer_text:
+          type: string
+          title: Prayer Text
+        audio_base64:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Audio Base64
+      type: object
+      required:
+      - prayer_text
+      title: PrayerResponse
+    PrayerRequest:
+      properties:
+        sendAudio:
+          type: boolean
+          title: Sendaudio
+          default: false
+        topic:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Topic
+      type: object
+      title: PrayerRequest
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

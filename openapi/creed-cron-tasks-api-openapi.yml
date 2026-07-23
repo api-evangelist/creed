@@ -1,0 +1,164 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements cron-tasks API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: cron-tasks
+paths:
+  /api/cron-tasks/admin/schedule-daily:
+    post:
+      tags:
+      - cron-tasks
+      summary: Schedule Daily Cron Tasks
+      description: 'Daily cron job endpoint to schedule next_run_at for all daily tasks.
+
+        Should be called once per day (e.g., at midnight UTC).
+
+
+        Queues a Celery task to:
+
+        - Fetch all active daily tasks
+
+        - Calculate next_run_at based on user timezone + schedule_time
+
+        - Update next_run_at in database
+
+
+        Requires x-api-key header for authentication.'
+      operationId: schedule_daily_cron_tasks_api_cron_tasks_admin_schedule_daily_post
+      parameters:
+      - name: x-api-key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/cron-tasks/admin/schedule-weekly:
+    post:
+      tags:
+      - cron-tasks
+      summary: Schedule Weekly Cron Tasks
+      description: 'Weekly cron job endpoint to schedule next_run_at for all weekly tasks.
+
+        Should be called once per week (e.g., Sunday midnight UTC).
+
+
+        Queues a Celery task to:
+
+        - Fetch all active weekly tasks
+
+        - Calculate next_run_at based on user timezone + schedule_day + schedule_time
+
+        - Update next_run_at in database
+
+
+        Requires x-api-key header for authentication.'
+      operationId: schedule_weekly_cron_tasks_api_cron_tasks_admin_schedule_weekly_post
+      parameters:
+      - name: x-api-key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/cron-tasks/admin/process:
+    post:
+      tags:
+      - cron-tasks
+      summary: Process Cron Tasks
+      description: '5-minute cron job endpoint to process all due cron tasks.
+
+        Should be called every 5 minutes.
+
+
+        Queues a Celery task to:
+
+        - Fetch all active tasks where next_run_at is within the 5-minute window
+
+        - Process each task based on type (e.g., send live activity for reminders)
+
+
+        Requires x-api-key header for authentication.'
+      operationId: process_cron_tasks_api_cron_tasks_admin_process_post
+      parameters:
+      - name: x-api-key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

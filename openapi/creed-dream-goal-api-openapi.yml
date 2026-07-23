@@ -1,0 +1,188 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements dream-goal API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: dream-goal
+paths:
+  /api/dream-goal/resource:
+    get:
+      tags:
+      - dream-goal
+      summary: Get User Dream Goal Resource
+      description: "Get the latest unread dream goal resource for the current user.\n\nReturns personalized articles and resources found through LLM web search\nbased on the user's dream goal.\n\nReturns:\n    Dictionary with:\n    - success: boolean indicating operation success\n    - message: descriptive status message\n    - resource: single resource object with title, description, and URL (or None if none found)"
+      operationId: get_user_dream_goal_resource_api_dream_goal_resource_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Get User Dream Goal Resource Api Dream Goal Resource Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/dream-goal/resource/{resource_id}:
+    patch:
+      tags:
+      - dream-goal
+      summary: Mark Resource As Read
+      description: "Mark a dream goal resource as read.\n\nThis endpoint allows users to mark specific resources as read, which:\n- Updates the resource status in the database\n- Provides clear feedback on the operation result\n\nArgs:\n    resource_id: Unique identifier of the resource to mark as read\n\nReturns:\n    Dictionary with success status and descriptive message"
+      operationId: mark_resource_as_read_api_dream_goal_resource__resource_id__patch
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: resource_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Resource Id
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Mark Resource As Read Api Dream Goal Resource  Resource Id  Patch
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/dream-goal/test-process:
+    post:
+      tags:
+      - dream-goal
+      summary: Process Dream Goal
+      description: "Process the user's dream goal and find relevant resources.\n\nThis endpoint:\n1. Queues the dream goal processing as a background task\n2. Uses Gemini with Google Search to find and save relevant resources\n3. Returns immediately without waiting for completion\n\nReturns:\n    Dictionary with success status indicating processing has been started"
+      operationId: process_dream_goal_api_dream_goal_test_process_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Process Dream Goal Api Dream Goal Test Process Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/dream-goal/test-dream-goal:
+    post:
+      tags:
+      - dream-goal
+      summary: Test Dream Goal
+      description: Test endpoint to search for article for a dream goal.
+      operationId: test_dream_goal_api_dream_goal_test_dream_goal_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestDreamGoalRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Test Dream Goal Api Dream Goal Test Dream Goal Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    TestDreamGoalRequest:
+      properties:
+        goal:
+          type: string
+          title: Goal
+      type: object
+      required:
+      - goal
+      title: TestDreamGoalRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

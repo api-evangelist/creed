@@ -1,0 +1,163 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements tts API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: tts
+paths:
+  /api/tts:
+    post:
+      tags:
+      - tts
+      summary: Text To Speech
+      description: "Convert text to speech using the user's preferred TTS provider.\n\nArgs:\n    request: TTS request containing text\n    current_user: Authenticated user\n\nReturns:\n    TTSResponse containing base64 encoded audio data"
+      operationId: text_to_speech_api_tts_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TTSRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TTSResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/tts.mp3:
+    get:
+      tags:
+      - tts
+      summary: Text To Speech Streaming
+      description: "Convert text to speech using OpenAI TTS and stream the audio as MP3.\n\nArgs:\n    text: Text to convert (query parameter)\n    voice: Optional voice override (VOICE_1, VOICE_2, etc)\n    current_user: Authenticated user\n\nReturns:\n    StreamingResponse with MP3 audio data"
+      operationId: text_to_speech_streaming_api_tts_mp3_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: text
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 4000
+          description: Text to convert to speech (max 400 words)
+          title: Text
+        description: Text to convert to speech (max 400 words)
+      - name: voice
+        in: query
+        required: false
+        schema:
+          type: string
+          description: Voice override (VOICE_1, VOICE_2, etc). If not provided, uses user's preferred voice
+          title: Voice
+        description: Voice override (VOICE_1, VOICE_2, etc). If not provided, uses user's preferred voice
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    TTSResponse:
+      properties:
+        audio_base64:
+          type: string
+          title: Audio Base64
+          description: Base64 encoded audio data
+        mime_type:
+          type: string
+          title: Mime Type
+          description: MIME type of the audio
+        format:
+          type: string
+          title: Format
+          description: Audio format
+      type: object
+      required:
+      - audio_base64
+      - mime_type
+      - format
+      title: TTSResponse
+    TTSRequest:
+      properties:
+        text:
+          type: string
+          maxLength: 4000
+          minLength: 1
+          title: Text
+          description: Text to convert to speech (max 400 words)
+      type: object
+      required:
+      - text
+      title: TTSRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

@@ -1,0 +1,99 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements webhooks API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: webhooks
+paths:
+  /api/webhooks/revenuecat:
+    post:
+      tags:
+      - webhooks
+      summary: Revenuecat Webhook
+      description: 'Single entry point for all RevenueCat webhook events.
+
+
+        RevenueCat sends every event for the app to this one endpoint regardless
+
+        of product. Each domain service owns its own product-id/event-type
+
+        filtering and no-ops on events that aren''t relevant to it, so the event
+
+        is simply handed to every domain that consumes RevenueCat events.
+
+
+        Processing is awaited rather than backgrounded, and unexpected errors are
+
+        intentionally left to propagate (see each service''s handle_* method) so a
+
+        genuine failure surfaces as a non-2xx response and RevenueCat retries
+
+        delivery. All DB writes here are idempotent, so a retry is always safe --
+
+        this also means a crash mid-processing just results in RC redelivering,
+
+        rather than the event being silently lost.'
+      operationId: revenuecat_webhook_api_webhooks_revenuecat_post
+      parameters:
+      - name: authorization
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Authorization
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Revenuecat Webhook Api Webhooks Revenuecat Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

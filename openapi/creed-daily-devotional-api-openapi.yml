@@ -1,0 +1,163 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements daily-devotional API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: daily-devotional
+paths:
+  /api/daily-devotional:
+    get:
+      tags:
+      - daily-devotional
+      summary: Get Daily Devotionals
+      description: 'Fetch today''s daily devotional using the user''s preferred language by default.
+
+
+        locale_override can be used for testing to force a specific locale.'
+      operationId: get_daily_devotionals_api_daily_devotional_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: locale_override
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Locale Override
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DailyDevotionalResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    DailyDevotionalResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        devotionals:
+          items:
+            $ref: '#/components/schemas/DailyDevotional'
+          type: array
+          title: Devotionals
+        count:
+          type: integer
+          title: Count
+      type: object
+      required:
+      - success
+      - devotionals
+      - count
+      title: DailyDevotionalResponse
+      description: Response model for getting daily devotionals
+    DailyDevotional:
+      properties:
+        id:
+          type: integer
+          title: Id
+        verse_string:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Verse String
+        verse_text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Verse Text
+        devotional_commentary_short:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Devotional Commentary Short
+        devotional_commentary_long:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Devotional Commentary Long
+        prayer:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prayer
+        date:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Date
+        language:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Language
+      additionalProperties: true
+      type: object
+      required:
+      - id
+      title: DailyDevotional
+      description: Model for a daily devotional entry matching the Supabase schema
+      example:
+        date: '2024-01-15'
+        devotional_commentary_long: A longer, more detailed reflection on this verse and its meaning...
+        devotional_commentary_short: A short reflection on this verse...
+        id: 1
+        language: en
+        prayer: Dear Lord, help us to...
+        verse_string: John 3:16
+        verse_text: For God so loved the world...
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

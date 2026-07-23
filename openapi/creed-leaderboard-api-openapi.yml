@@ -1,0 +1,321 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements leaderboard API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: leaderboard
+paths:
+  /api/leaderboard/country:
+    get:
+      tags:
+      - leaderboard
+      summary: Get Country Leaderboard
+      description: 'Get the country-level leaderboard based on streak count.
+
+        Returns users from the same country as the authenticated user.'
+      operationId: get_country_leaderboard_api_leaderboard_country_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 20
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaderboardResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/leaderboard/church:
+    get:
+      tags:
+      - leaderboard
+      summary: Get Church Leaderboard
+      description: 'Get the community leaderboard based on streak count.
+
+        Returns users from the authenticated user''s church PLUS their friends
+
+        (community view used by the main LeaderboardView).
+
+
+        Note: This is the church + friends view. For a leaderboard restricted
+
+        to members of a specific church only, use GET /leaderboard/by-church/{church_id}.'
+      operationId: get_church_leaderboard_api_leaderboard_church_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 20
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaderboardResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/leaderboard/by-church/{church_id}:
+    get:
+      tags:
+      - leaderboard
+      summary: Get Leaderboard By Church
+      description: 'Get the streak leaderboard for a specific church id.
+
+        Returns all users in that church, ranked by streak count.
+
+        Used by the church map detail view, and by the church-admin dashboard
+
+        (authenticated with the church-admin session cookie for its own church).'
+      operationId: get_leaderboard_by_church_api_leaderboard_by_church__church_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: church_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Church Id
+      - name: ca_session
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ca Session
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaderboardResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/leaderboard/global:
+    get:
+      tags:
+      - leaderboard
+      summary: Get Global Leaderboard
+      description: 'Get the global leaderboard based on streak count.
+
+        Returns all users ranked by their streak count.'
+      operationId: get_global_leaderboard_api_leaderboard_global_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 20
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaderboardResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    LeaderboardEntry:
+      properties:
+        rank:
+          type: integer
+          title: Rank
+        user_id:
+          type: string
+          title: User Id
+        first_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: First Name
+        last_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Name
+        profile_picture:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Profile Picture
+        streak_count:
+          type: integer
+          title: Streak Count
+          default: 0
+        church_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Church Id
+        church_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Church Name
+      type: object
+      required:
+      - rank
+      - user_id
+      title: LeaderboardEntry
+    LeaderboardResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        entries:
+          items:
+            $ref: '#/components/schemas/LeaderboardEntry'
+          type: array
+          title: Entries
+        total_count:
+          type: integer
+          title: Total Count
+        user_rank:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: User Rank
+        user_entry:
+          anyOf:
+          - $ref: '#/components/schemas/LeaderboardEntry'
+          - type: 'null'
+        context_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Context Name
+      type: object
+      required:
+      - success
+      - entries
+      - total_count
+      title: LeaderboardResponse
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

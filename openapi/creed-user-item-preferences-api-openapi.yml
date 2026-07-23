@@ -1,0 +1,165 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements user-item-preferences API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: user-item-preferences
+paths:
+  /api/user-item-preferences:
+    get:
+      tags:
+      - user-item-preferences
+      summary: Get User Item Preferences
+      description: 'Fetch the current user''s cosmetic/display preferences from the
+
+        user_item_preferences table. Returns a record with null fields if no row exists.'
+      operationId: get_user_item_preferences_api_user_item_preferences_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Get User Item Preferences Api User Item Preferences Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - user-item-preferences
+      summary: Update User Item Preferences
+      description: 'Update user cosmetic/display preferences in the user_item_preferences table.
+
+        Upserts on user_id so a row is created on first write.'
+      operationId: update_user_item_preferences_api_user_item_preferences_patch
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserItemPreferencesRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Update User Item Preferences Api User Item Preferences Patch
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    UpdateUserItemPreferencesRequest:
+      properties:
+        preferred_background:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Preferred Background
+        preferred_hat:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Preferred Hat
+        preferred_bible_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Preferred Bible Id
+        preferred_symbol:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Preferred Symbol
+        preferred_wing:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Preferred Wing
+        preferred_color:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Preferred Color
+        preferred_shirt:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Preferred Shirt
+        preferred_face:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Preferred Face
+      type: object
+      title: UpdateUserItemPreferencesRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

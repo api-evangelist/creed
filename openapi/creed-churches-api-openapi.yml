@@ -1,0 +1,968 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements churches API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: churches
+paths:
+  /api/churches/suggestions:
+    get:
+      tags:
+      - churches
+      summary: Get Church Suggestions
+      description: 'Get top 10 church suggestions matching the search query.
+
+        Splits query into words and matches each word against search_text.
+
+        Returns empty list if query is empty.'
+      operationId: get_church_suggestions_api_churches_suggestions_get
+      parameters:
+      - name: q
+        in: query
+        required: false
+        schema:
+          type: string
+          description: Search query string
+          default: ''
+          title: Q
+        description: Search query string
+      - name: city
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: City to prioritize results from
+          title: City
+        description: City to prioritize results from
+      - name: state
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: State ISO code to prioritize results from
+          title: State
+        description: State ISO code to prioritize results from
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChurchSuggestionsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/churches/in-bounds:
+    get:
+      tags:
+      - churches
+      summary: Get Churches In Bounds
+      operationId: get_churches_in_bounds_api_churches_in_bounds_get
+      parameters:
+      - name: north
+        in: query
+        required: true
+        schema:
+          type: number
+          maximum: 90
+          minimum: -90
+          title: North
+      - name: south
+        in: query
+        required: true
+        schema:
+          type: number
+          maximum: 90
+          minimum: -90
+          title: South
+      - name: east
+        in: query
+        required: true
+        schema:
+          type: number
+          maximum: 180
+          minimum: -180
+          title: East
+      - name: west
+        in: query
+        required: true
+        schema:
+          type: number
+          maximum: 180
+          minimum: -180
+          title: West
+      - name: zoom
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: number
+            maximum: 22
+            minimum: 0
+          - type: 'null'
+          title: Zoom
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 500
+          minimum: 1
+          default: 500
+          title: Limit
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChurchesInBoundsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/churches/{church_id}:
+    get:
+      tags:
+      - churches
+      summary: Get Church By Id
+      operationId: get_church_by_id_api_churches__church_id__get
+      parameters:
+      - name: church_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Church Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChurchDetailResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/churches/google/autocomplete:
+    post:
+      tags:
+      - churches
+      summary: Google Autocomplete
+      operationId: google_autocomplete_api_churches_google_autocomplete_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoogleAutocompleteRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleAutocompleteResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/churches/google/preview:
+    post:
+      tags:
+      - churches
+      summary: Google Preview
+      operationId: google_preview_api_churches_google_preview_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GooglePreviewRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GooglePreviewResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/churches/google/select:
+    post:
+      tags:
+      - churches
+      summary: Google Select
+      operationId: google_select_api_churches_google_select_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoogleSelectRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleSelectResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/churches/validate-and-submit:
+    post:
+      tags:
+      - churches
+      summary: Validate And Submit Church
+      operationId: validate_and_submit_church_api_churches_validate_and_submit_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChurchValidationRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChurchValidationResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/churches/send-rsvp-reminders-cron:
+    post:
+      tags:
+      - churches
+      summary: Send Church Rsvp Reminders Cron
+      description: 'Cron endpoint to send weekend Mass commitment reminders.
+
+        Runs every hour on Friday and Saturday (UTC).
+
+        Per-user local time filtering (>= 5 PM) is handled inside the task.'
+      operationId: send_church_rsvp_reminders_cron_api_churches_send_rsvp_reminders_cron_post
+      parameters:
+      - name: x-api-key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/churches/just-validate:
+    post:
+      tags:
+      - churches
+      summary: Just Validate Church
+      operationId: just_validate_church_api_churches_just_validate_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChurchValidationRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChurchValidationResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    GoogleSelectResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        duplicate:
+          type: boolean
+          title: Duplicate
+        church:
+          $ref: '#/components/schemas/ChurchResult'
+      type: object
+      required:
+      - success
+      - duplicate
+      - church
+      title: GoogleSelectResponse
+    ChurchDetailResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        church:
+          $ref: '#/components/schemas/ChurchResult'
+      type: object
+      required:
+      - success
+      - church
+      title: ChurchDetailResponse
+    GoogleSelectRequest:
+      properties:
+        place_id:
+          type: string
+          title: Place Id
+        session_token:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Session Token
+      type: object
+      required:
+      - place_id
+      title: GoogleSelectRequest
+    ChurchResult:
+      properties:
+        id:
+          type: integer
+          title: Id
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        address:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Address
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+        zip:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Zip
+        state_iso:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State Iso
+        state_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State Name
+        country_iso:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country Iso
+        country_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country Name
+        latitude:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Latitude
+        longitude:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Longitude
+        website:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Website
+        rating:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Rating
+        google_user_ratings_total:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Google User Ratings Total
+        google_formatted_address:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Google Formatted Address
+        cached_photo_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cached Photo Url
+        user_count:
+          type: integer
+          title: User Count
+          default: 0
+        mass_times:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ChurchMassTime'
+            type: array
+          - type: 'null'
+          title: Mass Times
+        upcoming_events:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ChurchUpcomingEvent'
+            type: array
+          - type: 'null'
+          title: Upcoming Events
+        donation_links:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ChurchDonationLink'
+            type: array
+          - type: 'null'
+          title: Donation Links
+        denomination:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Denomination
+        site_announcements:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ChurchAnnouncement'
+            type: array
+          - type: 'null'
+          title: Site Announcements
+      type: object
+      required:
+      - id
+      title: ChurchResult
+    GooglePreviewRequest:
+      properties:
+        place_id:
+          type: string
+          title: Place Id
+        session_token:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Session Token
+      type: object
+      required:
+      - place_id
+      title: GooglePreviewRequest
+    ChurchDonationLink:
+      properties:
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        donation_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Donation Url
+      type: object
+      title: ChurchDonationLink
+    GoogleAutocompleteRequest:
+      properties:
+        input:
+          type: string
+          title: Input
+        session_token:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Session Token
+        latitude:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Latitude
+        longitude:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Longitude
+      type: object
+      required:
+      - input
+      title: GoogleAutocompleteRequest
+    GooglePreviewResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        place_id:
+          type: string
+          title: Place Id
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        formatted_address:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Formatted Address
+        latitude:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Latitude
+        longitude:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Longitude
+      type: object
+      required:
+      - success
+      - place_id
+      title: GooglePreviewResponse
+    ChurchMapPointResult:
+      properties:
+        id:
+          type: integer
+          title: Id
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        latitude:
+          type: number
+          title: Latitude
+        longitude:
+          type: number
+          title: Longitude
+        user_count:
+          type: integer
+          title: User Count
+          default: 0
+      type: object
+      required:
+      - id
+      - latitude
+      - longitude
+      title: ChurchMapPointResult
+    ChurchValidationRequest:
+      properties:
+        name:
+          type: string
+          title: Name
+        city:
+          type: string
+          title: City
+        state:
+          type: string
+          title: State
+        website:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Website
+      type: object
+      required:
+      - name
+      - city
+      - state
+      title: ChurchValidationRequest
+    ChurchMassTime:
+      properties:
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        day_of_week:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Day Of Week
+        start_time:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End Time
+        timezone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Timezone
+        mass_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Mass Url
+      type: object
+      title: ChurchMassTime
+    ChurchAnnouncement:
+      properties:
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        summary:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Summary
+        date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Date
+        url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Url
+        first_seen_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: First Seen At
+      type: object
+      title: ChurchAnnouncement
+    ChurchSuggestionsResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        churches:
+          items:
+            $ref: '#/components/schemas/ChurchResult'
+          type: array
+          title: Churches
+        count:
+          type: integer
+          title: Count
+      type: object
+      required:
+      - success
+      - churches
+      - count
+      title: ChurchSuggestionsResponse
+    ChurchesInBoundsResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        churches:
+          items:
+            $ref: '#/components/schemas/ChurchMapPointResult'
+          type: array
+          title: Churches
+        count:
+          type: integer
+          title: Count
+        limit:
+          type: integer
+          title: Limit
+        truncated:
+          type: boolean
+          title: Truncated
+      type: object
+      required:
+      - success
+      - churches
+      - count
+      - limit
+      - truncated
+      title: ChurchesInBoundsResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ChurchValidationResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        valid:
+          type: boolean
+          title: Valid
+        duplicate:
+          type: boolean
+          title: Duplicate
+        message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Message
+        church_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Church Id
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        address:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Address
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+        zip:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Zip
+        state_iso:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State Iso
+        state_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State Name
+        country_iso:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country Iso
+        country_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country Name
+        step_timings:
+          anyOf:
+          - additionalProperties:
+              type: number
+            type: object
+          - type: 'null'
+          title: Step Timings
+      type: object
+      required:
+      - success
+      - valid
+      - duplicate
+      title: ChurchValidationResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ChurchUpcomingEvent:
+      properties:
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Date
+        start_time:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End Time
+        timezone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Timezone
+        location:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Location
+        event_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Event Url
+      type: object
+      title: ChurchUpcomingEvent
+    GoogleAutocompleteSuggestion:
+      properties:
+        place_id:
+          type: string
+          title: Place Id
+        primary_text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Primary Text
+        secondary_text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Secondary Text
+        full_text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Text
+        is_church:
+          type: boolean
+          title: Is Church
+          default: false
+      type: object
+      required:
+      - place_id
+      title: GoogleAutocompleteSuggestion
+    GoogleAutocompleteResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        suggestions:
+          items:
+            $ref: '#/components/schemas/GoogleAutocompleteSuggestion'
+          type: array
+          title: Suggestions
+      type: object
+      required:
+      - success
+      - suggestions
+      title: GoogleAutocompleteResponse
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

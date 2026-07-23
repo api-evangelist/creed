@@ -1,0 +1,148 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements live-activity API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: live-activity
+paths:
+  /api/live-activity/push-to-start-token:
+    post:
+      tags:
+      - live-activity
+      summary: Store Push To Start Token
+      description: 'Store a Live Activity pushToStart token for the authenticated user.
+
+        Accepts expired JWTs (signature is still verified).
+
+        Validates token format only — no APNs call is made.'
+      operationId: store_push_to_start_token_api_live_activity_push_to_start_token_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StorePushToStartTokenRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StorePushToStartTokenResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /api/live-activity/send-call-nudge-cron:
+    post:
+      tags:
+      - live-activity
+      summary: Send Call Nudge Cron
+      description: 'Cron endpoint to send call nudge Live Activity notifications.
+
+        Call nudges are Live Activity notifications for AI incoming calls.
+
+
+        Sends call nudges to eligible users who:
+
+        - Have completed onboarding
+
+        - Signed up at least 1 week ago
+
+        - Have live activity tokens
+
+        - Have not yet received a call nudge this ISO week (1 per week max)
+
+
+        Each run randomly samples ~2.9% of eligible users so nudges land on
+
+        a random day of the week, averaging 1 nudge per user per week.
+
+
+        Requires x-api-key header for authentication.'
+      operationId: send_call_nudge_cron_api_live_activity_send_call_nudge_cron_post
+      parameters:
+      - name: x-api-key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    StorePushToStartTokenResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+      type: object
+      required:
+      - success
+      title: StorePushToStartTokenResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    StorePushToStartTokenRequest:
+      properties:
+        token:
+          type: string
+          title: Token
+        source:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Source
+      type: object
+      required:
+      - token
+      title: StorePushToStartTokenRequest
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

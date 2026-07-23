@@ -1,0 +1,137 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements config API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: config
+paths:
+  /api/config:
+    get:
+      tags:
+      - config
+      summary: Get Config
+      description: Get dynamic configuration and feature flags.
+      operationId: get_config_api_config_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigResponse'
+components:
+  schemas:
+    ConfigResponse:
+      properties:
+        feature_flags:
+          $ref: '#/components/schemas/FeatureFlags'
+        onboard_hard_paywall_rate:
+          type: number
+          title: Onboard Hard Paywall Rate
+        onboarding_treatment_allocation:
+          type: number
+          title: Onboarding Treatment Allocation
+        minimum_app_version:
+          type: string
+          title: Minimum App Version
+        returning_user_absent_paywall_allocation:
+          type: number
+          title: Returning User Absent Paywall Allocation
+        trial_end_reminder_enabled:
+          type: boolean
+          title: Trial End Reminder Enabled
+        usage_limit_warning_treatment_allocation:
+          type: number
+          title: Usage Limit Warning Treatment Allocation
+        log_meta_sdk_events:
+          type: boolean
+          title: Log Meta Sdk Events
+        log_tiktok_sdk_events:
+          type: boolean
+          title: Log Tiktok Sdk Events
+        newcomer_banner_treatment_allocation:
+          type: number
+          title: Newcomer Banner Treatment Allocation
+        tts_treatment_allocation:
+          type: number
+          title: Tts Treatment Allocation
+        tts_exp_legacy_cutoff_timestamp:
+          type: integer
+          title: Tts Exp Legacy Cutoff Timestamp
+        low_usage_country_codes:
+          items:
+            type: string
+          type: array
+          title: Low Usage Country Codes
+        low_usage_currency_codes:
+          items:
+            type: string
+          type: array
+          title: Low Usage Currency Codes
+        low_usage_language_codes:
+          items:
+            type: string
+          type: array
+          title: Low Usage Language Codes
+        inapp_ads_admob_allocation:
+          type: number
+          title: Inapp Ads Admob Allocation
+        inapp_ads_house_allocation:
+          type: number
+          title: Inapp Ads House Allocation
+        paid_token_exp_legacy_cutoff_timestamp:
+          type: integer
+          title: Paid Token Exp Legacy Cutoff Timestamp
+        paid_token_exp_treatment_allocation:
+          type: number
+          title: Paid Token Exp Treatment Allocation
+        tiered_sub_exp_cutoff_timestamp:
+          type: integer
+          title: Tiered Sub Exp Cutoff Timestamp
+        tiered_sub_exp_treatment_allocation:
+          type: number
+          title: Tiered Sub Exp Treatment Allocation
+        compaction_interval:
+          type: integer
+          title: Compaction Interval
+      type: object
+      required:
+      - feature_flags
+      - onboard_hard_paywall_rate
+      - onboarding_treatment_allocation
+      - minimum_app_version
+      - returning_user_absent_paywall_allocation
+      - trial_end_reminder_enabled
+      - usage_limit_warning_treatment_allocation
+      - log_meta_sdk_events
+      - log_tiktok_sdk_events
+      - newcomer_banner_treatment_allocation
+      - tts_treatment_allocation
+      - tts_exp_legacy_cutoff_timestamp
+      - low_usage_country_codes
+      - low_usage_currency_codes
+      - low_usage_language_codes
+      - inapp_ads_admob_allocation
+      - inapp_ads_house_allocation
+      - paid_token_exp_legacy_cutoff_timestamp
+      - paid_token_exp_treatment_allocation
+      - tiered_sub_exp_cutoff_timestamp
+      - tiered_sub_exp_treatment_allocation
+      - compaction_interval
+      title: ConfigResponse
+    FeatureFlags:
+      properties:
+        cpp_paywall:
+          type: boolean
+          title: Cpp Paywall
+      type: object
+      required:
+      - cpp_paywall
+      title: FeatureFlags
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

@@ -1,0 +1,305 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements live-streams API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: live-streams
+paths:
+  /api/live-streams/active:
+    get:
+      tags:
+      - live-streams
+      summary: Get Active Stream
+      operationId: get_active_stream_api_live_streams_active_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActiveStreamResponse'
+  /api/live-streams/start:
+    post:
+      tags:
+      - live-streams
+      summary: Start Stream
+      operationId: start_stream_api_live_streams_start_post
+      parameters:
+      - name: x-api-key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Api-Key
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartStreamRequest'
+              default: {}
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Start Stream Api Live Streams Start Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/live-streams/stop:
+    post:
+      tags:
+      - live-streams
+      summary: Stop Stream
+      operationId: stop_stream_api_live_streams_stop_post
+      parameters:
+      - name: x-api-key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Stop Stream Api Live Streams Stop Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/live-streams/{stream_id}/comments:
+    post:
+      tags:
+      - live-streams
+      summary: Submit Live Stream Comment
+      description: Submit a comment on a live stream.
+      operationId: submit_live_stream_comment_api_live_streams__stream_id__comments_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: stream_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Stream Id
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmitLiveStreamCommentRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmitLiveStreamCommentResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - live-streams
+      summary: Get Live Stream Comments
+      description: Get comments for a live stream. Pass `since` for incremental fetching.
+      operationId: get_live_stream_comments_api_live_streams__stream_id__comments_get
+      parameters:
+      - name: stream_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Stream Id
+      - name: since
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ISO timestamp — return only comments after this time
+          title: Since
+        description: ISO timestamp — return only comments after this time
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LiveStreamComment'
+                title: Response Get Live Stream Comments Api Live Streams  Stream Id  Comments Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    SubmitLiveStreamCommentRequest:
+      properties:
+        comment_text:
+          type: string
+          title: Comment Text
+      type: object
+      required:
+      - comment_text
+      title: SubmitLiveStreamCommentRequest
+    SubmitLiveStreamCommentResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+      type: object
+      required:
+      - success
+      title: SubmitLiveStreamCommentResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    StartStreamRequest:
+      properties:
+        streamer_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Streamer Name
+      type: object
+      title: StartStreamRequest
+    ActiveStreamResponse:
+      properties:
+        stream:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Stream
+      type: object
+      title: ActiveStreamResponse
+    LiveStreamComment:
+      properties:
+        id:
+          type: integer
+          title: Id
+        stream_id:
+          type: integer
+          title: Stream Id
+        user_id:
+          type: string
+          title: User Id
+        comment_text:
+          type: string
+          title: Comment Text
+        rejection_reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rejection Reason
+        bot_approved:
+          type: boolean
+          title: Bot Approved
+          default: true
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        user:
+          anyOf:
+          - $ref: '#/components/schemas/LiveStreamCommentUser'
+          - type: 'null'
+      type: object
+      required:
+      - id
+      - stream_id
+      - user_id
+      - comment_text
+      - created_at
+      title: LiveStreamComment
+      description: DB model for live_stream_comments table.
+    LiveStreamCommentUser:
+      properties:
+        user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Id
+        first_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: First Name
+        last_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Name
+        profile_picture:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Profile Picture
+      type: object
+      title: LiveStreamCommentUser
+      description: User info for live stream comments.
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

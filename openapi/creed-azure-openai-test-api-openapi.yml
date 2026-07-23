@@ -1,0 +1,100 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements azure-openai-test API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: azure-openai-test
+paths:
+  /api/azure-openai-test:
+    post:
+      tags:
+      - azure-openai-test
+      summary: Azure Openai Test
+      description: 'Isolated test endpoint for Azure OpenAI chat completions.
+
+        Does not touch existing services - used only for validation.'
+      operationId: azure_openai_test_api_azure_openai_test_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AzureChatRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AzureChatResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    AzureChatRequest:
+      properties:
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - message
+      title: AzureChatRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AzureChatResponse:
+      properties:
+        text:
+          type: string
+          title: Text
+        model:
+          type: string
+          title: Model
+        success:
+          type: boolean
+          title: Success
+      type: object
+      required:
+      - text
+      - model
+      - success
+      title: AzureChatResponse
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

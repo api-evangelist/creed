@@ -1,0 +1,150 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements church-announcements API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: church-announcements
+paths:
+  /api/church-announcements:
+    get:
+      tags:
+      - church-announcements
+      summary: Get Announcements
+      operationId: get_announcements_api_church_announcements_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 25
+          title: Limit
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AnnouncementResponse'
+                title: Response Get Announcements Api Church Announcements Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/church-announcements/{announcement_id}:
+    get:
+      tags:
+      - church-announcements
+      summary: Get Announcement
+      operationId: get_announcement_api_church_announcements__announcement_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: announcement_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Announcement Id
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnnouncementResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    AnnouncementResponse:
+      properties:
+        id:
+          type: integer
+          title: Id
+        title:
+          type: string
+          title: Title
+        short_description:
+          type: string
+          title: Short Description
+        long_description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Long Description
+        created_at:
+          type: string
+          title: Created At
+      type: object
+      required:
+      - id
+      - title
+      - short_description
+      - created_at
+      title: AnnouncementResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

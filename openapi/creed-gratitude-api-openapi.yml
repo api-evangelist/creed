@@ -1,0 +1,339 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements gratitude API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: gratitude
+paths:
+  /api/daily-gratitudes-journal:
+    get:
+      tags:
+      - gratitude
+      summary: Get Daily Gratitudes
+      description: Fetch all gratitude journals for the authenticated user.
+      operationId: get_daily_gratitudes_api_daily_gratitudes_journal_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GratitudeJournalResponse'
+                title: Response Get Daily Gratitudes Api Daily Gratitudes Journal Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/daily-gratitude:
+    post:
+      tags:
+      - gratitude
+      summary: Add Daily Gratitude
+      description: Add a daily gratitude journal for the authenticated user.
+      operationId: add_daily_gratitude_api_daily_gratitude_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddGratitudeRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GratitudeJournalResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/daily-gratitude/{gratitude_id}:
+    patch:
+      tags:
+      - gratitude
+      summary: Update Daily Gratitude
+      description: Update an existing gratitude journal entry for the authenticated user.
+      operationId: update_daily_gratitude_api_daily_gratitude__gratitude_id__patch
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: gratitude_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Gratitude Id
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateGratitudeRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GratitudeJournalResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - gratitude
+      summary: Delete Daily Gratitude
+      description: Delete a gratitude journal entry for the authenticated user.
+      operationId: delete_daily_gratitude_api_daily_gratitude__gratitude_id__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: gratitude_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Gratitude Id
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/daily-gratitude/recent/{user_id}:
+    get:
+      tags:
+      - gratitude
+      summary: Get User Recent Gratitude
+      description: 'Get the most recent gratitude journal entry for a user.
+
+        Verifies that the user has journal_share enabled.
+
+        Anyone can view if journal_share is enabled (no friendship required).
+
+        Returns None if:
+
+        - User has journal_share disabled
+
+        - No gratitude journal exists'
+      operationId: get_user_recent_gratitude_api_daily_gratitude_recent__user_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: User Id
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/GratitudeJournalResponse'
+                - type: 'null'
+                title: Response Get User Recent Gratitude Api Daily Gratitude Recent  User Id  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/daily-gratitude/recent/{user_id}/list:
+    get:
+      tags:
+      - gratitude
+      summary: Get User Recent Gratitudes List
+      description: 'Get the most recent gratitude journal entries for a user (up to `limit`).
+
+        Verifies that the user has journal_share enabled.
+
+        Returns empty list if journal_share is disabled or no entries exist.'
+      operationId: get_user_recent_gratitudes_list_api_daily_gratitude_recent__user_id__list_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: User Id
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 20
+          minimum: 1
+          default: 5
+          title: Limit
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GratitudeJournalResponse'
+                title: Response Get User Recent Gratitudes List Api Daily Gratitude Recent  User Id  List Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    AddGratitudeRequest:
+      properties:
+        gratitude_text:
+          type: string
+          title: Gratitude Text
+      type: object
+      required:
+      - gratitude_text
+      title: AddGratitudeRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    GratitudeJournalResponse:
+      properties:
+        id:
+          type: integer
+          title: Id
+        gratitude_text:
+          type: string
+          title: Gratitude Text
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        is_first_entry:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is First Entry
+      type: object
+      required:
+      - id
+      - gratitude_text
+      - created_at
+      title: GratitudeJournalResponse
+    UpdateGratitudeRequest:
+      properties:
+        gratitude_text:
+          type: string
+          title: Gratitude Text
+      type: object
+      required:
+      - gratitude_text
+      title: UpdateGratitudeRequest
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

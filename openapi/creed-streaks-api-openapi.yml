@@ -1,0 +1,252 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements streaks API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: streaks
+paths:
+  /api/streaks:
+    get:
+      tags:
+      - streaks
+      summary: Get Streaks
+      description: Get the current streak count for the authenticated user.
+      operationId: get_streaks_api_streaks_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreakResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/streaks/extend:
+    post:
+      tags:
+      - streaks
+      summary: Update Oneoff Event
+      description: 'Update one-off daily event completion for a user.
+
+
+        Authentication methods:
+
+        1. Regular user auth via Bearer token
+
+        2. Admin auth via X-API-Key and X-User-ID headers
+
+
+        This will update the last_oneoff_daily_event timestamp and trigger streak calculation.
+
+        Uses user''s timezone from current_user if available, otherwise queries user_info table.
+
+
+        Query parameters:
+
+        - restore: If true, restore a broken streak by incrementing the last active streak instead of starting fresh.
+
+
+        Request body (optional):
+
+        - useFreeOffer: If true, increment the free_restore_count when restoring.
+
+        - txnId: Transaction ID if the user paid for the restore.'
+      operationId: update_oneoff_event_api_streaks_extend_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: restore
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: If true, restore a broken streak by incrementing the last active streak instead of starting fresh
+          default: false
+          title: Restore
+        description: If true, restore a broken streak by incrementing the last active streak instead of starting fresh
+      - name: x-api-key
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Api-Key
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - $ref: '#/components/schemas/StreakRestoreRequest'
+              - type: 'null'
+              title: Body
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreakResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/streaks/send-reminders-cron:
+    post:
+      tags:
+      - streaks
+      summary: Send Streak Reminders Cron
+      description: 'Cron endpoint to send solo streak loss reminders via Live Activity.
+
+
+        Sends reminders to users at 10 PM local time who:
+
+        - Haven''t completed their daily quest today
+
+        - Have an active streak (streak_count > 0)
+
+        - Have live activity tokens
+
+        - Haven''t received a reminder today
+
+
+        Requires x-api-key header for authentication.'
+      operationId: send_streak_reminders_cron_api_streaks_send_reminders_cron_post
+      parameters:
+      - name: x-api-key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    StreakRestoreRequest:
+      properties:
+        useFreeOffer:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Usefreeoffer
+        txnId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Txnid
+      type: object
+      title: StreakRestoreRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    StreakResponse:
+      properties:
+        streak_count:
+          type: integer
+          title: Streak Count
+        last_completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Completed At
+        today_completed:
+          type: boolean
+          title: Today Completed
+          default: false
+        streak_year_days:
+          type: integer
+          title: Streak Year Days
+          default: 0
+        can_restore:
+          type: boolean
+          title: Can Restore
+          default: false
+        past_week_activity:
+          items:
+            type: boolean
+          type: array
+          title: Past Week Activity
+          default: []
+        free_restore_count:
+          type: integer
+          title: Free Restore Count
+          default: 0
+        broken_streak_count:
+          type: integer
+          title: Broken Streak Count
+          default: 0
+      type: object
+      required:
+      - streak_count
+      title: StreakResponse
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

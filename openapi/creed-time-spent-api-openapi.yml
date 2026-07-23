@@ -1,0 +1,181 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements time-spent API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: time-spent
+paths:
+  /api/time-spent:
+    post:
+      tags:
+      - time-spent
+      summary: Submit Time
+      description: Submit time spent to track time in the app.
+      operationId: submit_time_api_time_spent_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmitTimeSpentRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmitTimeSpentResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - time-spent
+      summary: Get Total Time Spent
+      description: 'Get total time spent by the user across all sessions.
+
+        Returns time in minutes.'
+      operationId: get_total_time_spent_api_time_spent_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TotalTimeSpentResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    TimeSpentRecord:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Record ID (UUID from frontend)
+        started_at:
+          type: string
+          format: date-time
+          title: Started At
+          description: Session start timestamp
+        ended_at:
+          type: string
+          format: date-time
+          title: Ended At
+          description: Session end timestamp
+      type: object
+      required:
+      - id
+      - started_at
+      - ended_at
+      title: TimeSpentRecord
+      description: Single time spent record.
+    TotalTimeSpentResponse:
+      properties:
+        total_minutes:
+          type: integer
+          title: Total Minutes
+          description: Total time spent in minutes
+        total_sessions:
+          type: integer
+          title: Total Sessions
+          description: Total number of sessions
+      type: object
+      required:
+      - total_minutes
+      - total_sessions
+      title: TotalTimeSpentResponse
+      description: Response model for total time spent.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    SubmitTimeSpentRequest:
+      properties:
+        records:
+          items:
+            $ref: '#/components/schemas/TimeSpentRecord'
+          type: array
+          title: Records
+          description: Array of time spent records
+      type: object
+      required:
+      - records
+      title: SubmitTimeSpentRequest
+      description: Request model for submitting time spent records.
+    SubmitTimeSpentResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - success
+      - message
+      title: SubmitTimeSpentResponse
+      description: Response model for submitting time spent.
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

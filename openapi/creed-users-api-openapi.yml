@@ -1,0 +1,120 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements users API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: users
+paths:
+  /api/users/update:
+    patch:
+      tags:
+      - users
+      summary: Update User Info
+      description: "Update user information in the user_info table.\nAccepts any key-value pairs to update flexible user data.\n\nArgs:\n    update_payload: Dictionary with any fields to update\n    current_user: Current authenticated user from dependency\n\nReturns:\n    Dict with success status, message, and updated data"
+      operationId: update_user_info_api_users_update_patch
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+              title: Update Payload
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Update User Info Api Users Update Patch
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/users/delete-account:
+    delete:
+      tags:
+      - users
+      summary: Delete User Account
+      description: "Delete user account.\nCurrently this only clears push notification tokens.\nIn the future, this can be extended to handle full account deletion.\n\nReturns:\n    Dict with success status and message"
+      operationId: delete_user_account_api_users_delete_account_delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Delete User Account Api Users Delete Account Delete
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

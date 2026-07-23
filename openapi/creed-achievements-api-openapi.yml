@@ -1,0 +1,235 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: achievements
+paths:
+  /api/achievements/all:
+    get:
+      tags:
+      - achievements
+      summary: Get All Achievements
+      description: Fetch all active achievements available in the system.
+      operationId: get_all_achievements_api_achievements_all_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AchievementResponse'
+                title: Response Get All Achievements Api Achievements All Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/achievements:
+    get:
+      tags:
+      - achievements
+      summary: Get User Achievements
+      description: 'Fetch all achievements unlocked by the authenticated user.
+
+
+        Returns achievements with their details in chronological order (most recent first).'
+      operationId: get_user_achievements_api_achievements_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserAchievementResponse'
+                title: Response Get User Achievements Api Achievements Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/achievements/unlock:
+    post:
+      tags:
+      - achievements
+      summary: Unlock Achievement
+      description: 'Manually unlock an achievement for the authenticated user.
+
+
+        - **achievement_key**: The unique key of the achievement to unlock (e.g., ''BIBLE_READ_10'')
+
+
+        Returns a success message with the unlocked achievement details.'
+      operationId: unlock_achievement_api_achievements_unlock_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UnlockAchievementRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Unlock Achievement Api Achievements Unlock Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AchievementResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        key:
+          type: string
+          title: Key
+        title:
+          type: string
+          title: Title
+        type:
+          type: string
+          title: Type
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        stackable:
+          type: boolean
+          title: Stackable
+        category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Category
+        threshold:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Threshold
+      type: object
+      required:
+      - id
+      - key
+      - title
+      - type
+      - stackable
+      title: AchievementResponse
+      description: Achievement response model (public-facing).
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    UserAchievementResponse:
+      properties:
+        id:
+          type: integer
+          title: Id
+        achievement_id:
+          type: string
+          title: Achievement Id
+        achieved_at:
+          type: string
+          format: date-time
+          title: Achieved At
+        achievement:
+          $ref: '#/components/schemas/AchievementResponse'
+      type: object
+      required:
+      - id
+      - achievement_id
+      - achieved_at
+      - achievement
+      title: UserAchievementResponse
+      description: User achievement response with embedded achievement details.
+    UnlockAchievementRequest:
+      properties:
+        achievement_key:
+          type: string
+          title: Achievement Key
+      type: object
+      required:
+      - achievement_key
+      title: UnlockAchievementRequest
+      description: Request model for unlocking an achievement.
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

@@ -1,0 +1,927 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements friends API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: friends
+paths:
+  /api/friends:
+    get:
+      tags:
+      - friends
+      summary: Get My Friends
+      description: "Get all friends for the current user with their profile information.\n\nArgs:\n    current_user: Current authenticated user from dependency\n\nReturns:\n    Dict with list of friends"
+      operationId: get_my_friends_api_friends_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Get My Friends Api Friends Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/friends/requests:
+    get:
+      tags:
+      - friends
+      summary: Get My Friend Requests
+      description: "Get all pending friend requests received by the current user.\n\nArgs:\n    current_user: Current authenticated user from dependency\n\nReturns:\n    Dict with list of pending friend requests"
+      operationId: get_my_friend_requests_api_friends_requests_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Get My Friend Requests Api Friends Requests Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/friends/requests/sent:
+    get:
+      tags:
+      - friends
+      summary: Get My Sent Friend Requests
+      description: "Get all pending friend requests sent by the current user.\n\nArgs:\n    current_user: Current authenticated user from dependency\n\nReturns:\n    Dict with list of pending sent friend requests"
+      operationId: get_my_sent_friend_requests_api_friends_requests_sent_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Get My Sent Friend Requests Api Friends Requests Sent Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/friends/search/{user_id}:
+    get:
+      tags:
+      - friends
+      summary: Search User
+      description: "Search for a user by ID and check if already friends.\n\nArgs:\n    user_id: ID of the user to search for\n    allow_self_search: If true, allow looking up the authenticated user by their own ID\n    current_user: Current authenticated user from dependency\n\nReturns:\n    Dict with user info and friendship status"
+      operationId: search_user_api_friends_search__user_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: User Id
+      - name: allow_self_search
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: When true, searching for your own user ID returns your profile instead of an error.
+          default: false
+          title: Allow Self Search
+        description: When true, searching for your own user ID returns your profile instead of an error.
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Search User Api Friends Search  User Id  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/friends/request/send/{receiver_id}:
+    post:
+      tags:
+      - friends
+      summary: Send Friend Request
+      description: "Send a friend request to another user.\n\nArgs:\n    receiver_id: ID of the user to send friend request to\n    current_user: Current authenticated user from dependency\n\nReturns:\n    Dict with the created friend request"
+      operationId: send_friend_request_api_friends_request_send__receiver_id__post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: receiver_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Receiver Id
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Send Friend Request Api Friends Request Send  Receiver Id  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/friends/nudge/{friend_id}:
+    post:
+      tags:
+      - friends
+      summary: Nudge Friend
+      description: 'Send a push notification nudge to a friend.
+
+
+        Title is the current user''s first name; body is the text from the request body.'
+      operationId: nudge_friend_api_friends_nudge__friend_id__post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: friend_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Friend Id
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NudgeFriendRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Nudge Friend Api Friends Nudge  Friend Id  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/friends/auto-add/{sender_id}:
+    post:
+      tags:
+      - friends
+      summary: Auto Add Friend
+      description: 'Directly add a user as a friend without a request/accept flow.
+
+
+        The caller is the receiver — they include the sender_id (the user who shared their ID).
+
+        The sender receives the notification.'
+      operationId: auto_add_friend_api_friends_auto_add__sender_id__post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: sender_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Sender Id
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Auto Add Friend Api Friends Auto Add  Sender Id  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/friends/remove/{friend_id}:
+    post:
+      tags:
+      - friends
+      summary: Remove Friend
+      description: 'Remove an existing friendship with another user.
+
+
+        Ends any active friend streak partnership with the friend (best effort)
+
+        before removing the bidirectional friendship rows.'
+      operationId: remove_friend_api_friends_remove__friend_id__post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: friend_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Friend Id
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Remove Friend Api Friends Remove  Friend Id  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/friends/request/accept/{request_id}:
+    post:
+      tags:
+      - friends
+      summary: Accept Friend Request
+      description: "Accept a friend request by ID.\n\nArgs:\n    request_id: ID of the friend request\n    current_user: Current authenticated user from dependency\n\nReturns:\n    Dict with success status and friendship details"
+      operationId: accept_friend_request_api_friends_request_accept__request_id__post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: request_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Request Id
+      - name: enable_grants
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+          title: Enable Grants
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Accept Friend Request Api Friends Request Accept  Request Id  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/friends/request/reject/{request_id}:
+    post:
+      tags:
+      - friends
+      summary: Reject Friend Request
+      description: "Reject a friend request by ID.\n\nArgs:\n    request_id: ID of the friend request\n    current_user: Current authenticated user from dependency\n\nReturns:\n    Dict with success status"
+      operationId: reject_friend_request_api_friends_request_reject__request_id__post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: request_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Request Id
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Reject Friend Request Api Friends Request Reject  Request Id  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/friends/request/cancel/{request_id}:
+    post:
+      tags:
+      - friends
+      summary: Cancel Friend Request
+      description: "Cancel a friend request by ID (sender can cancel their own sent request).\n\nArgs:\n    request_id: ID of the friend request\n    current_user: Current authenticated user from dependency\n\nReturns:\n    Dict with success status"
+      operationId: cancel_friend_request_api_friends_request_cancel__request_id__post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: request_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Request Id
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Cancel Friend Request Api Friends Request Cancel  Request Id  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/friends/streaks/auto-start/{sender_id}:
+    post:
+      tags:
+      - friends
+      summary: Auto Start Streak
+      description: 'Directly add a user as a friend and immediately start an active streak.
+
+
+        The caller is the receiver — they include the sender_id (the user who shared their ID).
+
+        The sender receives the notifications.'
+      operationId: auto_start_streak_api_friends_streaks_auto_start__sender_id__post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: sender_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Sender Id
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Auto Start Streak Api Friends Streaks Auto Start  Sender Id  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/friends/streaks:
+    get:
+      tags:
+      - friends
+      summary: List Friend Streaks
+      description: List active friend streak partnerships for the current user.
+      operationId: list_friend_streaks_api_friends_streaks_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response List Friend Streaks Api Friends Streaks Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/friends/streaks/requests:
+    get:
+      tags:
+      - friends
+      summary: Get Friend Streak Requests Incoming
+      description: Pending friend streak requests received by the current user.
+      operationId: get_friend_streak_requests_incoming_api_friends_streaks_requests_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Get Friend Streak Requests Incoming Api Friends Streaks Requests Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/friends/streaks/requests/sent:
+    get:
+      tags:
+      - friends
+      summary: Get Friend Streak Requests Sent
+      description: Pending friend streak requests sent by the current user.
+      operationId: get_friend_streak_requests_sent_api_friends_streaks_requests_sent_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Get Friend Streak Requests Sent Api Friends Streaks Requests Sent Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/friends/streaks/{friend_id}:
+    get:
+      tags:
+      - friends
+      summary: Get Friend Streak With Friend
+      description: Get active friend streak row + partner profile for one friend.
+      operationId: get_friend_streak_with_friend_api_friends_streaks__friend_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: friend_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Friend Id
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Get Friend Streak With Friend Api Friends Streaks  Friend Id  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/friends/streaks/request/send/{receiver_id}:
+    post:
+      tags:
+      - friends
+      summary: Send Friend Streak Request
+      description: Send a friend streak request (must already be friends).
+      operationId: send_friend_streak_request_api_friends_streaks_request_send__receiver_id__post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: receiver_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Receiver Id
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Send Friend Streak Request Api Friends Streaks Request Send  Receiver Id  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/friends/streaks/request/accept/{request_id}:
+    post:
+      tags:
+      - friends
+      summary: Accept Friend Streak Request
+      description: Accept a pending friend streak request.
+      operationId: accept_friend_streak_request_api_friends_streaks_request_accept__request_id__post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: request_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Request Id
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Accept Friend Streak Request Api Friends Streaks Request Accept  Request Id  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/friends/streaks/request/reject/{request_id}:
+    post:
+      tags:
+      - friends
+      summary: Reject Friend Streak Request
+      description: Reject a pending friend streak request.
+      operationId: reject_friend_streak_request_api_friends_streaks_request_reject__request_id__post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: request_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Request Id
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Reject Friend Streak Request Api Friends Streaks Request Reject  Request Id  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/friends/streaks/request/cancel/{request_id}:
+    post:
+      tags:
+      - friends
+      summary: Cancel Friend Streak Request
+      description: Cancel a pending friend streak request (sender only).
+      operationId: cancel_friend_streak_request_api_friends_streaks_request_cancel__request_id__post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: request_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Request Id
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Cancel Friend Streak Request Api Friends Streaks Request Cancel  Request Id  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/friends/streaks/end/{friend_id}:
+    post:
+      tags:
+      - friends
+      summary: End Friend Streak
+      description: End an active friend streak partnership with the given friend.
+      operationId: end_friend_streak_api_friends_streaks_end__friend_id__post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: friend_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Friend Id
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response End Friend Streak Api Friends Streaks End  Friend Id  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/friends/streaks/send-reminders-cron:
+    post:
+      tags:
+      - friends
+      summary: Send Friend Streak Reminders Cron
+      description: 'Cron endpoint to send friend streak loss reminders via Expo push.
+
+
+        POST /api/friends/streaks/send-reminders-cron
+
+
+        For each active streak pair (streak_count >= 2) at risk of expiring,
+
+        notifies the partner who has completed today to nudge their friend.
+
+        When neither has completed, user_a (canonical first partner) is notified.
+
+        Users with multiple at-risk pairs receive one grouped notification.
+
+
+        Runs at 10 PM–11:45 PM local time (cron every 30 minutes).
+
+        Requires x-api-key header for authentication.'
+      operationId: send_friend_streak_reminders_cron_api_friends_streaks_send_reminders_cron_post
+      parameters:
+      - name: x-api-key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    NudgeFriendRequest:
+      properties:
+        text:
+          type: string
+          maxLength: 2000
+          minLength: 1
+          title: Text
+        is_custom:
+          type: boolean
+          title: Is Custom
+          default: false
+      type: object
+      required:
+      - text
+      title: NudgeFriendRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

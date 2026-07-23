@@ -1,0 +1,131 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements livekit API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: livekit
+paths:
+  /api/livekit/create:
+    post:
+      tags:
+      - livekit
+      summary: Create Room With Metadata
+      description: 'Create a new LiveKit room with the provided room_id and generate an access token.
+
+
+        This endpoint:
+
+        1. Creates a new LiveKit room using the provided room_id as the room name
+
+        2. Generates an access token for the participant
+
+        3. Returns room details and the access token'
+      operationId: create_room_with_metadata_api_livekit_create_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRoomRequest'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoomResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    RoomResponse:
+      properties:
+        room:
+          additionalProperties: true
+          type: object
+          title: Room
+        access_token:
+          type: string
+          title: Access Token
+        url:
+          type: string
+          title: Url
+      type: object
+      required:
+      - room
+      - access_token
+      - url
+      title: RoomResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    CreateRoomRequest:
+      properties:
+        room_id:
+          type: string
+          title: Room Id
+          description: Room ID to create the LiveKit room
+        opening_message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Opening Message
+          description: Optional text the voice agent should speak verbatim as its first utterance.
+        supports_voice_idle_check:
+          type: boolean
+          title: Supports Voice Idle Check
+          description: True when the client supports the voice_control idle-check flow (receives 'idle_check' and replies 'idle_active'). Older builds omit it.
+          default: false
+      type: object
+      required:
+      - room_id
+      title: CreateRoomRequest
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

@@ -1,0 +1,190 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements prayer-journal API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: prayer-journal
+paths:
+  /api/prayer-journals:
+    get:
+      tags:
+      - prayer-journal
+      summary: Get Prayer Journals
+      description: Fetch all prayer journals for the authenticated user.
+      operationId: get_prayer_journals_api_prayer_journals_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PrayerJournalResponse'
+                title: Response Get Prayer Journals Api Prayer Journals Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/prayer-journal:
+    post:
+      tags:
+      - prayer-journal
+      summary: Add Prayer Journal
+      description: Add a new prayer journal entry for the authenticated user.
+      operationId: add_prayer_journal_api_prayer_journal_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddPrayerJournalRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrayerJournalResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/prayer-journal/{prayer_journal_id}:
+    delete:
+      tags:
+      - prayer-journal
+      summary: Delete Prayer Journal
+      description: Delete a prayer journal entry for the authenticated user.
+      operationId: delete_prayer_journal_api_prayer_journal__prayer_journal_id__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: prayer_journal_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Prayer Journal Id
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    PrayerJournalResponse:
+      properties:
+        id:
+          type: integer
+          title: Id
+        prayer_text:
+          type: string
+          title: Prayer Text
+        topic:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Topic
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      required:
+      - id
+      - prayer_text
+      - created_at
+      title: PrayerJournalResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AddPrayerJournalRequest:
+      properties:
+        prayer_text:
+          type: string
+          title: Prayer Text
+        topic:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Topic
+      type: object
+      required:
+      - prayer_text
+      title: AddPrayerJournalRequest
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

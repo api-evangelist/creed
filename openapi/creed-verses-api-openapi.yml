@@ -1,0 +1,255 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements verses API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: verses
+paths:
+  /api/verses/save:
+    post:
+      tags:
+      - verses
+      summary: Save Verse
+      description: 'Save a Bible verse to the user''s profile.
+
+        Prevents duplicate verses from being saved.'
+      operationId: save_verse_api_verses_save_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveVerseRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SaveVerseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/verses:
+    get:
+      tags:
+      - verses
+      summary: Get Saved Verses
+      description: Get all saved verses for the current user.
+      operationId: get_saved_verses_api_verses_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSavedVersesResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - verses
+      summary: Delete Saved Verse
+      description: Delete a saved verse from the user's profile.
+      operationId: delete_saved_verse_api_verses_delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveVerseRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SaveVerseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    SavedVerse:
+      properties:
+        version:
+          type: string
+          title: Version
+          description: Bible version (e.g., 'KJV', 'NIV', 'ESV')
+        book:
+          type: string
+          title: Book
+          description: Book name (e.g., 'Genesis', 'John')
+        chapter:
+          type: integer
+          minimum: 1.0
+          title: Chapter
+          description: Chapter number
+        verse:
+          type: integer
+          minimum: 1.0
+          title: Verse
+          description: Verse number
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: ISO 8601 timestamp the verse was saved. May be null for verses saved before this field was introduced.
+      type: object
+      required:
+      - version
+      - book
+      - chapter
+      - verse
+      title: SavedVerse
+      description: Model for a saved Bible verse
+      example:
+        book: John
+        chapter: 3
+        created_at: '2024-05-11T19:42:00+00:00'
+        verse: 16
+        version: KJV
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    SaveVerseRequest:
+      properties:
+        version:
+          type: string
+          title: Version
+        book:
+          type: string
+          title: Book
+        chapter:
+          type: integer
+          minimum: 1.0
+          title: Chapter
+        verse:
+          type: integer
+          minimum: 1.0
+          title: Verse
+      type: object
+      required:
+      - version
+      - book
+      - chapter
+      - verse
+      title: SaveVerseRequest
+      description: Request model for saving a verse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    SaveVerseResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        message:
+          type: string
+          title: Message
+        verse:
+          anyOf:
+          - $ref: '#/components/schemas/SavedVerse'
+          - type: 'null'
+      type: object
+      required:
+      - success
+      - message
+      title: SaveVerseResponse
+      description: Response model for saving a verse
+    GetSavedVersesResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        verses:
+          items:
+            $ref: '#/components/schemas/SavedVerse'
+          type: array
+          title: Verses
+        count:
+          type: integer
+          title: Count
+      type: object
+      required:
+      - success
+      - verses
+      - count
+      title: GetSavedVersesResponse
+      description: Response model for getting saved verses
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

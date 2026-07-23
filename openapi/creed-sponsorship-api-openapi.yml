@@ -1,0 +1,355 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements sponsorship API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: sponsorship
+paths:
+  /api/sponsorship/guardian/preferences:
+    post:
+      tags:
+      - sponsorship
+      summary: Upsert Sponsor Profile
+      description: Create or update the current user's sponsor profile.
+      operationId: upsert_sponsor_profile_api_sponsorship_guardian_preferences_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SponsorProfileRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Upsert Sponsor Profile Api Sponsorship Guardian Preferences Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - sponsorship
+      summary: Get Sponsor Profile
+      description: Fetch the current user's sponsor profile.
+      operationId: get_sponsor_profile_api_sponsorship_guardian_preferences_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Get Sponsor Profile Api Sponsorship Guardian Preferences Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/sponsorship/pool/join:
+    post:
+      tags:
+      - sponsorship
+      summary: Join Sponsorship Pool
+      description: Add the current user to the sponsorship waiting pool.
+      operationId: join_sponsorship_pool_api_sponsorship_pool_join_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Join Sponsorship Pool Api Sponsorship Pool Join Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/sponsorship/pool/leave:
+    post:
+      tags:
+      - sponsorship
+      summary: Leave Sponsorship Pool
+      description: Remove the current user from the sponsorship waiting pool.
+      operationId: leave_sponsorship_pool_api_sponsorship_pool_leave_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Leave Sponsorship Pool Api Sponsorship Pool Leave Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/sponsorship/pool/status:
+    get:
+      tags:
+      - sponsorship
+      summary: Get Pool Status
+      description: 'Get the current user''s sponsorship pool status.
+
+        Returns the pool record with a ''status'' field, or {''status'': null} if
+
+        the user has never joined.'
+      operationId: get_pool_status_api_sponsorship_pool_status_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Get Pool Status Api Sponsorship Pool Status Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/sponsorship/pool/assign:
+    post:
+      tags:
+      - sponsorship
+      summary: Assign Sponsorships
+      description: 'Admin endpoint: assign unassigned sponsorship slots to waiting pool users
+
+        and send push notifications to newly sponsored recipients.'
+      operationId: assign_sponsorships_api_sponsorship_pool_assign_post
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 500
+          minimum: 1
+          default: 250
+          title: Limit
+      - name: x-api-key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Assign Sponsorships Api Sponsorship Pool Assign Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/sponsorship/kindness-wall:
+    get:
+      tags:
+      - sponsorship
+      summary: Get Kindness Wall
+      description: Fetch recent sponsorships shared on the kindness wall.
+      operationId: get_kindness_wall_api_sponsorship_kindness_wall_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+                title: Response Get Kindness Wall Api Sponsorship Kindness Wall Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/sponsorship/ramp/status:
+    get:
+      tags:
+      - sponsorship
+      summary: Get Ramp Status
+      description: 'Get the current user''s ramp sponsorship status.
+
+
+        Returns null if the user has never been ramp-sponsored.
+
+        Returns the record with active=true if currently within the sponsorship window,
+
+        or active=false if the sponsorship has expired.'
+      operationId: get_ramp_status_api_sponsorship_ramp_status_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - type: object
+                  additionalProperties: true
+                - type: 'null'
+                title: Response Get Ramp Status Api Sponsorship Ramp Status Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    SponsorProfileRequest:
+      properties:
+        message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Message
+        discord_username:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Discord Username
+        share_on_kindness_wall:
+          type: boolean
+          title: Share On Kindness Wall
+          default: true
+      type: object
+      title: SponsorProfileRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

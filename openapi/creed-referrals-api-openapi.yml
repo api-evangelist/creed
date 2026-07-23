@@ -1,0 +1,383 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements referrals API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: referrals
+paths:
+  /api/referrals/code:
+    get:
+      tags:
+      - referrals
+      summary: Get Or Create Referral Code
+      description: "Get the authenticated user's referral code, creating one if it doesn't exist.\nIf the user has an active code, it will be returned.\nIf not, a new code will be created and returned.\n\nReturns:\n    ReferralCodeResponse with code details"
+      operationId: get_or_create_referral_code_api_referrals_code_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReferralCodeResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/referrals/redeem:
+    post:
+      tags:
+      - referrals
+      summary: Redeem Referral Code
+      description: "Redeem a referral code to get premium access.\n\nRestrictions:\n- Users cannot redeem their own codes\n- Users can only redeem one code (cannot redeem if already redeemed)\n- Code must be active and not expired\n\nArgs:\n    request: RedeemCodeRequest with the token (the actual code)\n\nReturns:\n    RedeemCodeResponse with success status and access expiry"
+      operationId: redeem_referral_code_api_referrals_redeem_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RedeemCodeRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RedeemCodeResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/referrals/claim-reward:
+    post:
+      tags:
+      - referrals
+      summary: Claim Referrer Reward
+      description: "Claim the referrer reward for a specific redemption.\n\nThis endpoint allows referrers to claim their 1 month premium reward\nwhen someone uses their referral code. The reward is stacked on top\nof any existing subscription.\n\nArgs:\n    request: ClaimRewardRequest with the redemption_id\n\nReturns:\n    ClaimRewardResponse with success status and message"
+      operationId: claim_referrer_reward_api_referrals_claim_reward_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClaimRewardRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClaimRewardResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/referrals/redemptions:
+    get:
+      tags:
+      - referrals
+      summary: Get User Redemptions
+      description: "Get all redemptions for the authenticated user's referral code.\n\nThis endpoint returns a list of all users who have redeemed the current user's\nreferral code, including the claim status of each redemption.\n\nReturns:\n    RedemptionsResponse with list of redemptions and counts"
+      operationId: get_user_redemptions_api_referrals_redemptions_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RedemptionsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/referrals/redeem-promo:
+    post:
+      tags:
+      - referrals
+      summary: Redeem Promo Code
+      description: "Redeem a system-generated referral code.\n\nValidates the code against the referral_codes table (case-insensitive), then grants\nRevenueCat premium for the duration configured on the code (week / month / year),\nstacking on top of any existing subscription. The grant is recorded in referral_grants.\n\nRestrictions:\n- Code must exist in referral_codes and have status = 'active'\n- User cannot redeem the same code more than once (no limit on redeeming different codes)\n\nArgs:\n    request: RedeemSystemCodeRequest with the code\n\nReturns:\n    RedeemSystemCodeResponse with success status and message"
+      operationId: redeem_promo_code_api_referrals_redeem_promo_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RedeemPromoCodeRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RedeemPromoCodeResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    RedemptionsResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        redemptions:
+          items:
+            $ref: '#/components/schemas/RedemptionRecord'
+          type: array
+          title: Redemptions
+        total_count:
+          type: integer
+          title: Total Count
+        unclaimed_count:
+          type: integer
+          title: Unclaimed Count
+      type: object
+      required:
+      - success
+      - redemptions
+      - total_count
+      - unclaimed_count
+      title: RedemptionsResponse
+      description: Response model for getting user's redemptions
+    RedeemCodeResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          description: Whether the redemption was successful
+        message:
+          type: string
+          title: Message
+          description: Success or error message
+      type: object
+      required:
+      - success
+      - message
+      title: RedeemCodeResponse
+      description: Response model for redeeming a referral code
+    ReferralCodeResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        redemptions:
+          type: integer
+          title: Redemptions
+      type: object
+      required:
+      - success
+      - code
+      - message
+      - redemptions
+      title: ReferralCodeResponse
+      description: Response model for creating a referral code
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    RedeemCodeRequest:
+      properties:
+        token:
+          type: string
+          minLength: 1
+          title: Token
+          description: The referral code to redeem
+      type: object
+      required:
+      - token
+      title: RedeemCodeRequest
+      description: Request model for redeeming a referral code
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    RedeemPromoCodeResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          description: Whether the redemption was successful
+        message:
+          type: string
+          title: Message
+          description: Success or error message
+      type: object
+      required:
+      - success
+      - message
+      title: RedeemPromoCodeResponse
+      description: Response model for redeeming a promo code
+    ClaimRewardResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          description: Whether the claim was successful
+        message:
+          type: string
+          title: Message
+          description: Success or error message
+      type: object
+      required:
+      - success
+      - message
+      title: ClaimRewardResponse
+      description: Response model for claiming referrer reward
+    ClaimRewardRequest:
+      properties:
+        redemption_id:
+          type: integer
+          exclusiveMinimum: 0.0
+          title: Redemption Id
+          description: The ID of the redemption record
+      type: object
+      required:
+      - redemption_id
+      title: ClaimRewardRequest
+      description: Request model for claiming referrer reward
+    RedeemPromoCodeRequest:
+      properties:
+        code:
+          type: string
+          minLength: 1
+          title: Code
+          description: The promo code to redeem
+      type: object
+      required:
+      - code
+      title: RedeemPromoCodeRequest
+      description: Request model for redeeming a promo code
+    RedemptionRecord:
+      properties:
+        id:
+          type: integer
+          title: Id
+        code:
+          type: string
+          title: Code
+        referrer_id:
+          type: string
+          title: Referrer Id
+        referee_id:
+          type: string
+          title: Referee Id
+        redeemed_at:
+          type: string
+          title: Redeemed At
+        referrer_reward_claimed:
+          type: boolean
+          title: Referrer Reward Claimed
+        referee_reward_claimed:
+          type: boolean
+          title: Referee Reward Claimed
+      type: object
+      required:
+      - id
+      - code
+      - referrer_id
+      - referee_id
+      - redeemed_at
+      - referrer_reward_claimed
+      - referee_reward_claimed
+      title: RedemptionRecord
+      description: Model for a single redemption record
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

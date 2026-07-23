@@ -1,0 +1,160 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements b2b API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: b2b
+paths:
+  /api/b2b/chatbot:
+    post:
+      tags:
+      - b2b
+      summary: Chat
+      operationId: chat_api_b2b_chatbot_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/B2BChatRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/B2BChatResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    Source:
+      properties:
+        title:
+          type: string
+          title: Title
+        url:
+          type: string
+          title: Url
+        snippet:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Snippet
+        favicon:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Favicon
+        domain:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Domain
+      type: object
+      required:
+      - title
+      - url
+      title: Source
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    B2BChatResponse:
+      properties:
+        reply:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reply
+        conversation_id:
+          type: string
+          title: Conversation Id
+        bible_verses:
+          items:
+            type: string
+          type: array
+          title: Bible Verses
+          default: []
+        sources:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Source'
+            type: array
+          - type: 'null'
+          title: Sources
+        thoughts:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Thoughts
+      type: object
+      required:
+      - conversation_id
+      title: B2BChatResponse
+    B2BChatRequest:
+      properties:
+        message:
+          type: string
+          title: Message
+        conversation_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Conversation Id
+        church_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Church Name
+        church_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Church Url
+        bible_version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Bible Version
+      type: object
+      required:
+      - message
+      title: B2BChatRequest
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

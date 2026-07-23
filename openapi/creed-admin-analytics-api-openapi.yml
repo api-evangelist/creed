@@ -1,0 +1,116 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements Admin Analytics API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: Admin Analytics
+paths:
+  /admin/analytics:
+    get:
+      tags:
+      - Admin Analytics
+      summary: Get Analytics
+      description: 'Start analytics generation in background and send results to Slack.
+
+        Returns immediately to avoid timeout issues.
+
+
+        Process:
+
+        1. Returns success response immediately
+
+        2. Runs analytics in background (identifies top users, analyzes messages)
+
+        3. Sends formatted report to Slack webhook
+
+
+        The Slack report will include:
+
+        - Key insights and patterns
+
+        - Top users list with message counts
+
+        - Urgent concerns and recommendations
+
+        - Spiritual themes and engagement insights'
+      operationId: get_analytics_admin_analytics_get
+      parameters:
+      - name: days_back
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 30
+          minimum: 1
+          description: Number of days to look back
+          default: 7
+          title: Days Back
+        description: Number of days to look back
+      - name: user_limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 50
+          minimum: 1
+          description: Number of top users to analyze
+          default: 20
+          title: User Limit
+        description: Number of top users to analyze
+      - name: x-api-key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

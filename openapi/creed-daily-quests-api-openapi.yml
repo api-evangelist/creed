@@ -1,0 +1,713 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements daily-quests API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: daily-quests
+paths:
+  /api/daily-quests:
+    get:
+      tags:
+      - daily-quests
+      summary: Get Daily Quests
+      description: Get daily_prayer_completed for the authenticated user.
+      operationId: get_daily_quests_api_daily_quests_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DailyQuestResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/daily-quests/discord-joined:
+    post:
+      tags:
+      - daily-quests
+      summary: Mark Discord Joined
+      description: Mark discord as joined for the authenticated user.
+      operationId: mark_discord_joined_api_daily_quests_discord_joined_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/daily-quests/verse-interacted:
+    post:
+      tags:
+      - daily-quests
+      summary: Mark Verse Interacted
+      description: 'Mark daily verse as interacted for the authenticated user.
+
+        This is a daily quest that resets each day.'
+      operationId: mark_verse_interacted_api_daily_quests_verse_interacted_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/daily-quests/prompt-completed:
+    post:
+      tags:
+      - daily-quests
+      summary: Mark Prompt Completed
+      description: 'Mark daily prompt as completed for the authenticated user.
+
+        This is a daily quest that resets each day.'
+      operationId: mark_prompt_completed_api_daily_quests_prompt_completed_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/daily-quests/devotional-interacted:
+    post:
+      tags:
+      - daily-quests
+      summary: Mark Devotional Interacted
+      description: 'Mark daily devotional as interacted for the authenticated user.
+
+        This is a daily quest that resets each day.'
+      operationId: mark_devotional_interacted_api_daily_quests_devotional_interacted_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/daily-quests/prayer-wall-opened:
+    post:
+      tags:
+      - daily-quests
+      summary: Mark Prayer Wall Opened
+      description: 'Mark prayer wall as opened for the authenticated user.
+
+        This is a one-off quest that only rewards on first completion.'
+      operationId: mark_prayer_wall_opened_api_daily_quests_prayer_wall_opened_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/daily-quests/widget-tutorial-completed:
+    post:
+      tags:
+      - daily-quests
+      summary: Mark Widget Tutorial Completed
+      description: Mark widget tutorial as completed for the authenticated user.
+      operationId: mark_widget_tutorial_completed_api_daily_quests_widget_tutorial_completed_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/daily-quests/prayer-reminder-completed:
+    post:
+      tags:
+      - daily-quests
+      summary: Mark Prayer Reminder Completed
+      description: Mark prayer reminder as completed for the authenticated user.
+      operationId: mark_prayer_reminder_completed_api_daily_quests_prayer_reminder_completed_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/daily-quests/customize-completed:
+    post:
+      tags:
+      - daily-quests
+      summary: Mark Customize Completed
+      description: Mark customize as completed for the authenticated user.
+      operationId: mark_customize_completed_api_daily_quests_customize_completed_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/daily-quests/share-creed-completed:
+    post:
+      tags:
+      - daily-quests
+      summary: Mark Share Creed Completed
+      description: Mark share creed as completed for the authenticated user.
+      operationId: mark_share_creed_completed_api_daily_quests_share_creed_completed_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/daily-quests/sponsor-completed:
+    post:
+      tags:
+      - daily-quests
+      summary: Mark Sponsor Completed
+      description: Mark sponsor as completed for the authenticated user.
+      operationId: mark_sponsor_completed_api_daily_quests_sponsor_completed_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/daily-quests/add-church-completed:
+    post:
+      tags:
+      - daily-quests
+      summary: Mark Add Church Completed
+      description: Mark add-church special quest as completed for the authenticated user.
+      operationId: mark_add_church_completed_api_daily_quests_add_church_completed_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/daily-quests/start-friend-streak-completed:
+    post:
+      tags:
+      - daily-quests
+      summary: Mark Start Friend Streak Completed
+      description: Mark start-friend-streak special quest as completed for the authenticated user.
+      operationId: mark_start_friend_streak_completed_api_daily_quests_start_friend_streak_completed_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/daily-quests/faith-lock-completed:
+    post:
+      tags:
+      - daily-quests
+      summary: Mark Faith Lock Completed
+      description: Mark faith-lock special quest as completed for the authenticated user.
+      operationId: mark_faith_lock_completed_api_daily_quests_faith_lock_completed_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/daily-quests/artist-of-the-week-completed:
+    post:
+      tags:
+      - daily-quests
+      summary: Mark Artist Of The Week Completed
+      description: Mark artist-of-the-week special quest as completed for the authenticated user.
+      operationId: mark_artist_of_the_week_completed_api_daily_quests_artist_of_the_week_completed_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/daily-quests/commit-to-mass-completed:
+    post:
+      tags:
+      - daily-quests
+      summary: Mark Commit To Mass Completed
+      description: 'Mark commit-to-mass as completed for the authenticated user.
+
+        This is a weekly quest that resets each Monday.'
+      operationId: mark_commit_to_mass_completed_api_daily_quests_commit_to_mass_completed_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/daily-quests/{quest_key}/claim:
+    post:
+      tags:
+      - daily-quests
+      summary: Claim Quest Reward
+      description: 'Mark a completed quest''s reward as claimed for the authenticated user.
+
+        The actual token grant is performed by the client (preserving the existing
+
+        earnReward animation + analytics flow); this endpoint only records that
+
+        the reward has been claimed for the current period.'
+      operationId: claim_quest_reward_api_daily_quests__quest_key__claim_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: quest_key
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Quest Key
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/daily-quests/prompts:
+    get:
+      tags:
+      - daily-quests
+      summary: Get Daily Prompts
+      description: Return 3 prompts for today. Selection is stable per user per day.
+      operationId: get_daily_prompts_api_daily_quests_prompts_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: lang
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Optional locale override (en, es, pt). When set, prompts are returned in this language without requiring an updated profile. Falls back to preferred_language when omitted or invalid.
+          title: Lang
+        description: Optional locale override (en, es, pt). When set, prompts are returned in this language without requiring an updated profile. Falls back to preferred_language when omitted or invalid.
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    DailyQuestResponse:
+      properties:
+        daily_prayer_completed:
+          type: boolean
+          title: Daily Prayer Completed
+        daily_gratitude_completed:
+          type: boolean
+          title: Daily Gratitude Completed
+        daily_verse_interacted:
+          type: boolean
+          title: Daily Verse Interacted
+        daily_devotional_completed:
+          type: boolean
+          title: Daily Devotional Completed
+        daily_prayer_wall_completed:
+          type: boolean
+          title: Daily Prayer Wall Completed
+        daily_prompt_completed:
+          type: boolean
+          title: Daily Prompt Completed
+        discord_joined:
+          type: boolean
+          title: Discord Joined
+        scene_generator_completed:
+          type: boolean
+          title: Scene Generator Completed
+        widget_tutorial_completed:
+          type: boolean
+          title: Widget Tutorial Completed
+        prayer_reminder_completed:
+          type: boolean
+          title: Prayer Reminder Completed
+        share_creed_completed:
+          type: boolean
+          title: Share Creed Completed
+        customize_completed:
+          type: boolean
+          title: Customize Completed
+        sponsor_completed:
+          type: boolean
+          title: Sponsor Completed
+        add_church_completed:
+          type: boolean
+          title: Add Church Completed
+          default: false
+        start_friend_streak_completed:
+          type: boolean
+          title: Start Friend Streak Completed
+          default: false
+        faith_lock_completed:
+          type: boolean
+          title: Faith Lock Completed
+          default: false
+        artist_of_the_week_completed:
+          type: boolean
+          title: Artist Of The Week Completed
+          default: false
+        commit_to_mass_completed:
+          type: boolean
+          title: Commit To Mass Completed
+          default: false
+        learning_plan_started_completed:
+          type: boolean
+          title: Learning Plan Started Completed
+          default: false
+        learning_plan_completed:
+          type: boolean
+          title: Learning Plan Completed
+          default: false
+        total_quests_completed:
+          type: integer
+          title: Total Quests Completed
+          default: 0
+        claimed:
+          additionalProperties:
+            type: boolean
+          type: object
+          title: Claimed
+      type: object
+      required:
+      - daily_prayer_completed
+      - daily_gratitude_completed
+      - daily_verse_interacted
+      - daily_devotional_completed
+      - daily_prayer_wall_completed
+      - daily_prompt_completed
+      - discord_joined
+      - scene_generator_completed
+      - widget_tutorial_completed
+      - prayer_reminder_completed
+      - share_creed_completed
+      - customize_completed
+      - sponsor_completed
+      title: DailyQuestResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

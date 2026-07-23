@@ -1,0 +1,485 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements scheduled-notifications API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: scheduled-notifications
+paths:
+  /api/scheduled-notifications/admin/schedule-daily:
+    post:
+      tags:
+      - scheduled-notifications
+      summary: Schedule Daily Notifications
+      description: 'Daily cron job endpoint to schedule notifications for all users.
+
+        This should be called once per day (e.g., at midnight UTC).
+
+
+        For each user with push tokens:
+
+        - Randomly selects a time slot (morning/noon/night)
+
+        - Schedules a notification with content appropriate for that time
+
+        - Respects user''s timezone for scheduling
+
+
+        Tasks are queued in Redis and processed by Celery workers.
+
+        Use days_ahead to override the default 2-day lead time.
+
+
+        Requires x-api-key header for authentication.'
+      operationId: schedule_daily_notifications_api_scheduled_notifications_admin_schedule_daily_post
+      parameters:
+      - name: days_ahead
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            minimum: 0
+          - type: 'null'
+          description: 'Days ahead to schedule for (default: 2)'
+          title: Days Ahead
+        description: 'Days ahead to schedule for (default: 2)'
+      - name: x-api-key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scheduled-notifications/admin/send-due:
+    post:
+      tags:
+      - scheduled-notifications
+      summary: Send Due Notifications
+      description: '5-minute cron job endpoint to send all due notifications.
+
+        This should be called every 5 minutes.
+
+
+        Checks for all pending notifications scheduled for current time or earlier and sends them.
+
+        Updates notification status to ''sent'' or ''failed'' accordingly.
+
+
+        Tasks are queued in Redis and processed by Celery workers.
+
+
+        Requires x-api-key header for authentication.'
+      operationId: send_due_notifications_api_scheduled_notifications_admin_send_due_post
+      parameters:
+      - name: x-api-key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scheduled-notifications/admin/generate-content:
+    post:
+      tags:
+      - scheduled-notifications
+      summary: Generate Content
+      description: 'Hourly cron job endpoint to pre-generate notification content.
+
+        By default processes a 1-hour time slice 47-48 hours ahead.
+
+        Use start_hours_ahead and end_hours_ahead query params to override.
+
+
+        For each notification in the slice:
+
+        - Determines type (personalized vs template) via probability
+
+        - Template: inserts content directly into DB
+
+        - Personalized: submits Gemini batch (results collected via retry)
+
+
+        Requires x-api-key header for authentication.'
+      operationId: generate_content_api_scheduled_notifications_admin_generate_content_post
+      parameters:
+      - name: start_hours_ahead
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            minimum: 0
+          - type: 'null'
+          description: 'Hours ahead of now for window start (default: 47)'
+          title: Start Hours Ahead
+        description: 'Hours ahead of now for window start (default: 47)'
+      - name: end_hours_ahead
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            minimum: 0
+          - type: 'null'
+          description: 'Hours ahead of now for window end (default: 48)'
+          title: End Hours Ahead
+        description: 'Hours ahead of now for window end (default: 48)'
+      - name: x-api-key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scheduled-notifications/admin/test:
+    post:
+      tags:
+      - scheduled-notifications
+      summary: Test Notification
+      description: 'Generate a test notification for a user.
+
+        Shows exactly what would be generated by the production batch system.
+
+
+        Args:
+
+        - x-user-id (header): The user ID to generate notification for
+
+        - sendToDevice (body): If true, actually sends the notification to the user''s device. Default: false
+
+        - deliveryMethod (body): "push" for regular push notification, "live_activity" for iOS Live Activity. Default: "push"
+
+        - notificationType (body): "personalized", "prayer", or "journaling". Default: "personalized"
+
+        - timeOfDay (body): "morning", "noon", "evening", "night", or "generic". Default: "generic"
+
+
+        Returns:
+
+        - notification_type: Type of notification generated
+
+        - notification: The generated title and body
+
+        - memories_count: How many memories were used (only for personalized)
+
+        - sent_to_device: Whether notification was sent to device
+
+        - delivery_method: How the notification was delivered
+
+
+        Requires x-api-key header for authentication.'
+      operationId: test_notification_api_scheduled_notifications_admin_test_post
+      parameters:
+      - name: x-user-id
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-User-Id
+      - name: x-api-key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Api-Key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestNotificationRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scheduled-notifications/admin/test-live-activity:
+    post:
+      tags:
+      - scheduled-notifications
+      summary: Test Live Activity
+      description: "Trigger a Live Activity on a user's device for testing.\n\nPick a variant from the Swagger \"Examples\" dropdown (prayer / church /\ndevotional / custom reminder, streak, or standard) and send. Reminders carry\nthe per-subtype artwork (via the deep link's reminderType), the weekly streak\nbubbles, and the interactive snooze.\n\n- x-user-id (header): user to send the Live Activity to (must have a stored\n  live_activity_tokens pushToStart token)\n- Requires x-api-key header for authentication."
+      operationId: test_live_activity_api_scheduled_notifications_admin_test_live_activity_post
+      parameters:
+      - name: x-user-id
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-User-Id
+      - name: x-api-key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Api-Key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestLiveActivityRequest'
+            examples:
+              prayer_reminder:
+                summary: Reminder · Prayer
+                value:
+                  notificationType: reminder
+                  reminderType: prayer
+                  title: Prayer time
+                  body: Begin your prayer time now
+                  streakDays:
+                  - true
+                  - true
+                  - false
+                  - true
+                  - false
+                  - false
+                  - false
+                  includeSnooze: true
+              church_reminder:
+                summary: Reminder · Church
+                value:
+                  notificationType: reminder
+                  reminderType: church
+                  title: Church time, friend
+                  body: Your church family misses you
+                  streakDays:
+                  - true
+                  - false
+                  - true
+                  - true
+                  - false
+                  - true
+                  - false
+                  includeSnooze: true
+              devotional_reminder:
+                summary: Reminder · Devotional
+                value:
+                  notificationType: reminder
+                  reminderType: devotional
+                  title: Today's Devotional
+                  body: Open now to read and reflect.
+                  streakDays:
+                  - false
+                  - true
+                  - true
+                  - true
+                  - true
+                  - false
+                  - false
+                  includeSnooze: true
+              custom_reminder:
+                summary: Reminder · Custom
+                value:
+                  notificationType: reminder
+                  reminderType: custom
+                  title: Reminder
+                  body: Take a moment with God today.
+                  streakDays:
+                  - true
+                  - true
+                  - true
+                  - false
+                  - false
+                  - false
+                  - false
+                  includeSnooze: true
+              streak:
+                summary: Streak
+                value:
+                  notificationType: streak
+                  title: Streak Reminder
+                  body: Keep your streak with God
+                  streakCount: 42
+              standard:
+                summary: Standard
+                value:
+                  notificationType: standard
+                  title: A moment with Lenny
+                  body: Tap to continue your journey
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    LiveActivityType:
+      type: string
+      enum:
+      - standard
+      - reminder
+      - streak
+      - call
+      title: LiveActivityType
+      description: Enum for Live Activity notification types
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    TestLiveActivityRequest:
+      properties:
+        notificationType:
+          $ref: '#/components/schemas/LiveActivityType'
+          description: standard | reminder | streak
+          default: reminder
+        reminderType:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Remindertype
+          description: prayer | church | devotional | custom (reminder only)
+        title:
+          type: string
+          title: Title
+          description: Main title text (ignored for streak type)
+        body:
+          type: string
+          title: Body
+          description: Subtitle / body text
+          default: ''
+        deepLinkUrl:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Deeplinkurl
+          description: Override the deep link. Defaults per type/subtype when omitted.
+        streakCount:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Streakcount
+          description: Streak count (streak type)
+        streakDays:
+          anyOf:
+          - items:
+              type: boolean
+            type: array
+          - type: 'null'
+          title: Streakdays
+          description: 7 booleans Sun→Sat for the reminder weekly bubbles
+        includeSnooze:
+          type: boolean
+          title: Includesnooze
+          description: Wire snooze fields so the 'remind me later' UI works (reminder only)
+          default: true
+        snoozeTaskId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Snoozetaskid
+          description: Reminder task id used by the snooze flow. Use a real reminder id to actually re-send on snooze; defaults to a placeholder otherwise.
+      type: object
+      required:
+      - title
+      title: TestLiveActivityRequest
+    TestNotificationRequest:
+      properties:
+        sendToDevice:
+          type: boolean
+          title: Sendtodevice
+          default: false
+        deliveryMethod:
+          type: string
+          title: Deliverymethod
+          default: push
+        notificationType:
+          type: string
+          title: Notificationtype
+          default: personalized
+        timeOfDay:
+          type: string
+          title: Timeofday
+          default: generic
+        imageUrl:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Imageurl
+        senderName:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sendername
+      type: object
+      title: TestNotificationRequest
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

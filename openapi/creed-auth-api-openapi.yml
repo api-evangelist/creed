@@ -1,0 +1,87 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements Auth API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: Auth
+paths:
+  /api/auth/link:
+    post:
+      summary: Link Oauth
+      operationId: link_oauth_api_auth_link_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LinkOAuthRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Auth
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    LinkOAuthRequest:
+      properties:
+        identityToken:
+          type: string
+          title: Identitytoken
+        userId:
+          type: string
+          title: Userid
+        provider:
+          type: string
+          title: Provider
+          default: apple
+      type: object
+      required:
+      - identityToken
+      - userId
+      title: LinkOAuthRequest
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

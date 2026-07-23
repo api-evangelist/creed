@@ -1,0 +1,680 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements church-admin API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: church-admin
+paths:
+  /api/church-admin/login:
+    post:
+      tags:
+      - church-admin
+      summary: Login
+      operationId: login_api_church_admin_login_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/church-admin/profile:
+    get:
+      tags:
+      - church-admin
+      summary: Get Profile
+      operationId: get_profile_api_church_admin_profile_get
+      parameters:
+      - name: ca_session
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ca Session
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/church-admin/logout:
+    post:
+      tags:
+      - church-admin
+      summary: Logout
+      operationId: logout_api_church_admin_logout_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /api/church-admin/church:
+    get:
+      tags:
+      - church-admin
+      summary: Get Church Preview
+      description: 'What the church''s profile currently shows in the app: service times,
+
+        upcoming events (website-crawled + admin-submitted), and basic info.'
+      operationId: get_church_preview_api_church_admin_church_get
+      parameters:
+      - name: ca_session
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ca Session
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChurchPreviewResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/church-admin/events:
+    post:
+      tags:
+      - church-admin
+      summary: Create Event
+      operationId: create_event_api_church_admin_events_post
+      parameters:
+      - name: ca_session
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ca Session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEventRequest'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChurchAdminEventResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - church-admin
+      summary: List Events
+      operationId: list_events_api_church_admin_events_get
+      parameters:
+      - name: ca_session
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ca Session
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ChurchAdminEventResponse'
+                title: Response List Events Api Church Admin Events Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/church-admin/events/{event_id}:
+    delete:
+      tags:
+      - church-admin
+      summary: Delete Event
+      operationId: delete_event_api_church_admin_events__event_id__delete
+      parameters:
+      - name: event_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Event Id
+      - name: ca_session
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ca Session
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/church-admin/announcements:
+    post:
+      tags:
+      - church-admin
+      summary: Create Announcement
+      operationId: create_announcement_api_church_admin_announcements_post
+      parameters:
+      - name: ca_session
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ca Session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAnnouncementRequest'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnnouncementResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - church-admin
+      summary: List Announcements
+      operationId: list_announcements_api_church_admin_announcements_get
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 25
+          title: Limit
+      - name: ca_session
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ca Session
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AnnouncementResponse'
+                title: Response List Announcements Api Church Admin Announcements Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/church-admin/announcements/{announcement_id}:
+    get:
+      tags:
+      - church-admin
+      summary: Get Announcement
+      operationId: get_announcement_api_church_admin_announcements__announcement_id__get
+      parameters:
+      - name: announcement_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Announcement Id
+      - name: ca_session
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ca Session
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnnouncementResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - church-admin
+      summary: Delete Announcement
+      operationId: delete_announcement_api_church_admin_announcements__announcement_id__delete
+      parameters:
+      - name: announcement_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Announcement Id
+      - name: ca_session
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ca Session
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    CreateEventRequest:
+      properties:
+        title:
+          type: string
+          maxLength: 120
+          minLength: 1
+          title: Title
+        date:
+          type: string
+          title: Date
+        start_time:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End Time
+        location:
+          anyOf:
+          - type: string
+            maxLength: 200
+          - type: 'null'
+          title: Location
+        event_url:
+          anyOf:
+          - type: string
+            maxLength: 500
+          - type: 'null'
+          title: Event Url
+      type: object
+      required:
+      - title
+      - date
+      title: CreateEventRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AnnouncementResponse:
+      properties:
+        id:
+          type: integer
+          title: Id
+        title:
+          type: string
+          title: Title
+        short_description:
+          type: string
+          title: Short Description
+        long_description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Long Description
+        created_at:
+          type: string
+          title: Created At
+      type: object
+      required:
+      - id
+      - title
+      - short_description
+      - created_at
+      title: AnnouncementResponse
+    ChurchPreviewMassTime:
+      properties:
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        day_of_week:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Day Of Week
+        start_time:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End Time
+        mass_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Mass Url
+      type: object
+      title: ChurchPreviewMassTime
+    LoginRequest:
+      properties:
+        username:
+          type: string
+          title: Username
+        password:
+          type: string
+          title: Password
+      type: object
+      required:
+      - username
+      - password
+      title: LoginRequest
+    CreateAnnouncementRequest:
+      properties:
+        title:
+          type: string
+          maxLength: 65
+          title: Title
+        short_description:
+          type: string
+          maxLength: 140
+          title: Short Description
+        long_description:
+          anyOf:
+          - type: string
+            maxLength: 1000
+          - type: 'null'
+          title: Long Description
+        notify_members:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Notify Members
+      type: object
+      required:
+      - title
+      - short_description
+      title: CreateAnnouncementRequest
+    ChurchPreviewEvent:
+      properties:
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Date
+        start_time:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End Time
+        location:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Location
+        event_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Event Url
+        source:
+          type: string
+          title: Source
+          default: website
+        admin_event_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Admin Event Id
+      type: object
+      title: ChurchPreviewEvent
+    ChurchAdminEventResponse:
+      properties:
+        id:
+          type: integer
+          title: Id
+        title:
+          type: string
+          title: Title
+        date:
+          type: string
+          title: Date
+        start_time:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End Time
+        location:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Location
+        event_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Event Url
+        created_at:
+          type: string
+          title: Created At
+      type: object
+      required:
+      - id
+      - title
+      - date
+      - created_at
+      title: ChurchAdminEventResponse
+    ProfileResponse:
+      properties:
+        admin_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Admin Name
+        church_name:
+          type: string
+          title: Church Name
+        church_id:
+          type: integer
+          title: Church Id
+      type: object
+      required:
+      - church_name
+      - church_id
+      title: ProfileResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ChurchPreviewResponse:
+      properties:
+        id:
+          type: integer
+          title: Id
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        address:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Address
+        google_formatted_address:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Google Formatted Address
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+        website:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Website
+        denomination:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Denomination
+        cached_photo_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cached Photo Url
+        mass_times:
+          items:
+            $ref: '#/components/schemas/ChurchPreviewMassTime'
+          type: array
+          title: Mass Times
+          default: []
+        upcoming_events:
+          items:
+            $ref: '#/components/schemas/ChurchPreviewEvent'
+          type: array
+          title: Upcoming Events
+          default: []
+        donation_links:
+          items:
+            $ref: '#/components/schemas/ChurchPreviewDonationLink'
+          type: array
+          title: Donation Links
+          default: []
+      type: object
+      required:
+      - id
+      title: ChurchPreviewResponse
+    ChurchPreviewDonationLink:
+      properties:
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        donation_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Donation Url
+      type: object
+      title: ChurchPreviewDonationLink
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

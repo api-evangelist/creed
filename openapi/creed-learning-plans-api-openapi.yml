@@ -1,0 +1,372 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements learning-plans API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: learning-plans
+paths:
+  /api/learning-plans/catalog:
+    get:
+      tags:
+      - learning-plans
+      summary: List Catalog
+      operationId: list_catalog_api_learning_plans_catalog_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: lang
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Lang
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Plan'
+                title: Response List Catalog Api Learning Plans Catalog Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/learning-plans/instances:
+    get:
+      tags:
+      - learning-plans
+      summary: List Instances
+      operationId: list_instances_api_learning_plans_instances_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LearningPlanInstance'
+                title: Response List Instances Api Learning Plans Instances Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - learning-plans
+      summary: Create Instance
+      operationId: create_instance_api_learning_plans_instances_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartInstanceRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LearningPlanInstance'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/learning-plans/instances/{instance_id}/segments:
+    post:
+      tags:
+      - learning-plans
+      summary: Mark Segment Complete
+      operationId: mark_segment_complete_api_learning_plans_instances__instance_id__segments_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: instance_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Instance Id
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MarkSegmentRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LearningPlanInstance'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ScriptureSegment:
+      properties:
+        type:
+          type: string
+          const: scripture
+          title: Type
+        reference:
+          $ref: '#/components/schemas/ScriptureReference'
+      type: object
+      required:
+      - type
+      - reference
+      title: ScriptureSegment
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Plan:
+      properties:
+        id:
+          type: string
+          title: Id
+        key:
+          type: string
+          title: Key
+        title:
+          type: string
+          title: Title
+        author:
+          type: string
+          title: Author
+        duration_days:
+          type: integer
+          title: Duration Days
+        topic:
+          type: string
+          title: Topic
+        description:
+          type: string
+          title: Description
+        days:
+          items:
+            $ref: '#/components/schemas/PlanDay'
+          type: array
+          title: Days
+      type: object
+      required:
+      - id
+      - key
+      - title
+      - author
+      - duration_days
+      - topic
+      - description
+      - days
+      title: Plan
+    MarkSegmentRequest:
+      properties:
+        day_index:
+          type: integer
+          title: Day Index
+        segment_type:
+          type: string
+          enum:
+          - devotional
+          - scripture
+          title: Segment Type
+      type: object
+      required:
+      - day_index
+      - segment_type
+      title: MarkSegmentRequest
+    ScriptureReference:
+      properties:
+        book:
+          type: string
+          title: Book
+        chapter:
+          type: integer
+          title: Chapter
+        verses:
+          type: string
+          title: Verses
+      type: object
+      required:
+      - book
+      - chapter
+      - verses
+      title: ScriptureReference
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    StartInstanceRequest:
+      properties:
+        plan_key:
+          type: string
+          title: Plan Key
+      type: object
+      required:
+      - plan_key
+      title: StartInstanceRequest
+    ScriptureOpener:
+      properties:
+        reference:
+          type: string
+          title: Reference
+        translation:
+          type: string
+          title: Translation
+        text:
+          type: string
+          title: Text
+      type: object
+      required:
+      - reference
+      - translation
+      - text
+      title: ScriptureOpener
+    DevotionalSegment:
+      properties:
+        type:
+          type: string
+          const: devotional
+          title: Type
+        title:
+          type: string
+          title: Title
+        scripture_opener:
+          $ref: '#/components/schemas/ScriptureOpener'
+        body:
+          type: string
+          title: Body
+      type: object
+      required:
+      - type
+      - title
+      - scripture_opener
+      - body
+      title: DevotionalSegment
+    PlanDay:
+      properties:
+        day_index:
+          type: integer
+          title: Day Index
+        segments:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/DevotionalSegment'
+            - $ref: '#/components/schemas/ScriptureSegment'
+          type: array
+          title: Segments
+      type: object
+      required:
+      - day_index
+      - segments
+      title: PlanDay
+    LearningPlanInstance:
+      properties:
+        instance_id:
+          type: string
+          title: Instance Id
+        user_id:
+          type: string
+          title: User Id
+        plan_key:
+          type: string
+          title: Plan Key
+        started_at:
+          type: string
+          title: Started At
+        completed_segments:
+          items:
+            type: string
+          type: array
+          title: Completed Segments
+      type: object
+      required:
+      - instance_id
+      - user_id
+      - plan_key
+      - started_at
+      title: LearningPlanInstance
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

@@ -1,0 +1,369 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements reminders API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: reminders
+paths:
+  /api/reminders:
+    post:
+      tags:
+      - reminders
+      summary: Create Reminder
+      description: 'Create a new reminder.
+
+
+        Subtypes:
+
+        - prayer: Daily prayer reminder (uses fixed templates)
+
+        - church: Church reminder (uses fixed templates)
+
+        - devotional: Daily devotional reminder (uses fixed templates)
+
+        - custom: Custom reminder (requires custom_text)
+
+
+        Schedule types:
+
+        - daily: Runs every day at schedule_time
+
+        - weekly: Runs every week on schedule_day at schedule_time'
+      operationId: create_reminder_api_reminders_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReminderRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - reminders
+      summary: List Reminders
+      description: List all reminders for the current user.
+      operationId: list_reminders_api_reminders_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/reminders/snooze:
+    post:
+      tags:
+      - reminders
+      summary: Snooze Reminder
+      description: 'Snooze a reminder: schedule a follow-up reminder Live Activity in `minutes`.
+
+
+        Public/unauthenticated: the native "remind me later" App Intent has no user
+
+        session, so it posts the user_id + task_id embedded in the Live Activity and
+
+        we trust them. The action is benign (re-sends a reminder the user already has)
+
+        and task_id is an unguessable UUID.'
+      operationId: snooze_reminder_api_reminders_snooze_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SnoozeReminderRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/reminders/{reminder_id}:
+    get:
+      tags:
+      - reminders
+      summary: Get Reminder
+      description: Get a single reminder by ID.
+      operationId: get_reminder_api_reminders__reminder_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: reminder_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Reminder Id
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    put:
+      tags:
+      - reminders
+      summary: Update Reminder
+      description: Update an existing reminder.
+      operationId: update_reminder_api_reminders__reminder_id__put
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: reminder_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Reminder Id
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateReminderRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - reminders
+      summary: Delete Reminder
+      description: Delete a reminder.
+      operationId: delete_reminder_api_reminders__reminder_id__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: reminder_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Reminder Id
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    CreateReminderRequest:
+      properties:
+        subtype:
+          type: string
+          title: Subtype
+          description: 'Reminder subtype: prayer, church, devotional, or custom'
+        schedule_type:
+          type: string
+          title: Schedule Type
+          description: 'Schedule type: daily or weekly'
+        schedule_time:
+          type: string
+          title: Schedule Time
+          description: Time of day in HH:MM format (e.g., '09:00')
+        schedule_day:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Schedule Day
+          description: Day of week for weekly (0=Sunday, 6=Saturday)
+        custom_text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Custom Text
+          description: Custom reminder text (required for custom subtype)
+      type: object
+      required:
+      - subtype
+      - schedule_type
+      - schedule_time
+      title: CreateReminderRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    SnoozeReminderRequest:
+      properties:
+        user_id:
+          type: string
+          title: User Id
+          description: User who owns the reminder (from the Live Activity)
+        task_id:
+          type: string
+          title: Task Id
+          description: cron_tasks id of the reminder to snooze (from the Live Activity)
+        minutes:
+          type: integer
+          maximum: 1440.0
+          minimum: 1.0
+          title: Minutes
+          description: Minutes to wait before re-sending the reminder
+      type: object
+      required:
+      - user_id
+      - task_id
+      - minutes
+      title: SnoozeReminderRequest
+    UpdateReminderRequest:
+      properties:
+        subtype:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Subtype
+          description: 'Reminder subtype: prayer, church, devotional, or custom'
+        schedule_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Schedule Type
+          description: 'Schedule type: daily or weekly'
+        schedule_time:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Schedule Time
+          description: Time of day in HH:MM format (e.g., '09:00')
+        schedule_day:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Schedule Day
+          description: Day of week for weekly (0=Sunday, 6=Saturday)
+        custom_text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Custom Text
+          description: Custom reminder text (for custom subtype)
+        is_active:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Active
+          description: Whether the reminder is active
+      type: object
+      title: UpdateReminderRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

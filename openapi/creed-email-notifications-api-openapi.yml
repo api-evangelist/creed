@@ -1,0 +1,435 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements Email Notifications API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: Email Notifications
+paths:
+  /api/scheduled-notifications/admin/send-prayer-wall-daily:
+    post:
+      tags:
+      - Email Notifications
+      summary: Send Prayer Wall Daily
+      description: 'Daily cron job endpoint to send the prayer wall email to the Resend signup segment.
+
+        Call once per day (e.g. at a fixed time).
+
+
+        Fetches last N approved prayers, picks best for engagement via LLM, then sends
+
+        a broadcast using the Resend dashboard template and RESEND_SEGMENT_ID.
+
+        Broadcast is scheduled for 11:00 AM EST.
+
+
+        Requires x-api-key header for authentication.'
+      operationId: send_prayer_wall_daily_api_scheduled_notifications_admin_send_prayer_wall_daily_post
+      parameters:
+      - name: x-api-key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scheduled-notifications/admin/send-daily-devotional-daily:
+    post:
+      tags:
+      - Email Notifications
+      summary: Send Daily Devotional Daily
+      description: 'Daily cron job endpoint to send the daily devotional email to the Resend signup segment.
+
+        Call once per day (e.g. at a fixed time).
+
+
+        Fetches today''s devotional for the configured language, then sends a broadcast
+
+        using the Resend daily devotional template and RESEND_SEGMENT_ID.
+
+        Broadcast is scheduled for 7:00 AM EST.
+
+
+        Requires x-api-key header for authentication.'
+      operationId: send_daily_devotional_daily_api_scheduled_notifications_admin_send_daily_devotional_daily_post
+      parameters:
+      - name: x-api-key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scheduled-notifications/admin/sync-signup-audience:
+    post:
+      tags:
+      - Email Notifications
+      summary: Sync Signup Audience
+      description: 'Cron job endpoint to sync recent signups to the Resend signup audience.
+
+        Trigger every 6 hours (e.g. 00:00, 06:00, 12:00, 18:00 UTC) for contiguous 6-hour windows with no overlap.
+
+        Each run processes users created in the preceding 6-hour window.
+
+
+        Requires x-api-key header for authentication.'
+      operationId: sync_signup_audience_api_scheduled_notifications_admin_sync_signup_audience_post
+      parameters:
+      - name: x-api-key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scheduled-notifications/admin/prayer-wall-daily/debug/selected-prayer:
+    get:
+      tags:
+      - Email Notifications
+      summary: Debug Selected Prayer
+      description: 'Debug: get last N approved prayers and pick best for engagement (LLM or fallback).
+
+        Returns the chosen prayer only. No side effects besides optional LLM call.
+
+        Requires x-api-key header for authentication.'
+      operationId: debug_selected_prayer_api_scheduled_notifications_admin_prayer_wall_daily_debug_selected_prayer_get
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            maximum: 100
+            minimum: 1
+          - type: 'null'
+          description: Number of recent prayers to consider; defaults to 20
+          title: Limit
+        description: Number of recent prayers to consider; defaults to 20
+      - name: x-api-key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scheduled-notifications/admin/resend/debug/create-contact:
+    post:
+      tags:
+      - Email Notifications
+      summary: Debug Resend Create Contact
+      description: 'Debug: create a contact in Resend (for testing). Returns the Resend API response
+
+        (object + id). Optionally add the contact to RESEND_SEGMENT_ID via add_to_segment.
+
+        Requires x-api-key header for authentication.'
+      operationId: debug_resend_create_contact_api_scheduled_notifications_admin_resend_debug_create_contact_post
+      parameters:
+      - name: x-api-key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Api-Key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResendCreateContactRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scheduled-notifications/admin/prayer-wall-daily/debug/preview-broadcast:
+    post:
+      tags:
+      - Email Notifications
+      summary: Debug Preview Broadcast
+      description: 'Debug: fetch Resend template, substitute name/prayer/prayer_request, return subject and HTML.
+
+        Does not create or send a broadcast. Requires x-api-key header for authentication.'
+      operationId: debug_preview_broadcast_api_scheduled_notifications_admin_prayer_wall_daily_debug_preview_broadcast_post
+      parameters:
+      - name: x-api-key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Api-Key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrayerWallBroadcastVarsRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scheduled-notifications/admin/prayer-wall-daily/debug/send-broadcast:
+    post:
+      tags:
+      - Email Notifications
+      summary: Debug Send Broadcast
+      description: 'Debug: send prayer wall broadcast with given variables. Uses RESEND_SEGMENT_ID;
+
+        set it to your test segment when testing. Requires x-api-key header.'
+      operationId: debug_send_broadcast_api_scheduled_notifications_admin_prayer_wall_daily_debug_send_broadcast_post
+      parameters:
+      - name: x-api-key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Api-Key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrayerWallBroadcastVarsRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scheduled-notifications/admin/daily-devotional-daily/debug/preview-broadcast:
+    post:
+      tags:
+      - Email Notifications
+      summary: Debug Preview Daily Devotional Broadcast
+      description: 'Debug: fetch Resend daily devotional template, substitute variables, return subject and HTML.
+
+        Does not create or send a broadcast. Requires x-api-key header for authentication.'
+      operationId: debug_preview_daily_devotional_broadcast_api_scheduled_notifications_admin_daily_devotional_daily_debug_preview_broadcast_post
+      parameters:
+      - name: x-api-key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Api-Key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DailyDevotionalBroadcastVarsRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scheduled-notifications/admin/daily-devotional-daily/debug/send-broadcast:
+    post:
+      tags:
+      - Email Notifications
+      summary: Debug Send Daily Devotional Broadcast
+      description: 'Debug: send daily devotional broadcast with given variables. Uses RESEND_SEGMENT_ID.
+
+        Requires x-api-key header for authentication.'
+      operationId: debug_send_daily_devotional_broadcast_api_scheduled_notifications_admin_daily_devotional_daily_debug_send_broadcast_post
+      parameters:
+      - name: x-api-key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Api-Key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DailyDevotionalBroadcastVarsRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    PrayerWallBroadcastVarsRequest:
+      properties:
+        name:
+          type: string
+          title: Name
+          default: ''
+        prayer:
+          type: string
+          title: Prayer
+          default: ''
+        prayer_request:
+          type: string
+          title: Prayer Request
+          default: ''
+        title:
+          type: string
+          title: Title
+          default: ''
+      type: object
+      title: PrayerWallBroadcastVarsRequest
+      description: Body for preview-broadcast and send-broadcast debug endpoints.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    DailyDevotionalBroadcastVarsRequest:
+      properties:
+        verse_string:
+          type: string
+          title: Verse String
+          default: ''
+        verse_text:
+          type: string
+          title: Verse Text
+          default: ''
+        reflection:
+          type: string
+          title: Reflection
+          default: ''
+        prayer:
+          type: string
+          title: Prayer
+          default: ''
+      type: object
+      title: DailyDevotionalBroadcastVarsRequest
+      description: Body for daily devotional preview-broadcast and send-broadcast debug endpoints.
+    ResendCreateContactRequest:
+      properties:
+        email:
+          type: string
+          title: Email
+        first_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: First Name
+        last_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Name
+        add_to_segment:
+          type: boolean
+          title: Add To Segment
+          default: false
+      type: object
+      required:
+      - email
+      title: ResendCreateContactRequest
+      description: Body for Resend create-contact debug endpoint.
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

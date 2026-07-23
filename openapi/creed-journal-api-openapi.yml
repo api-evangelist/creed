@@ -1,0 +1,201 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements journal API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: journal
+paths:
+  /api/journal:
+    get:
+      tags:
+      - journal
+      summary: Get Journal
+      description: 'Fetch the combined Journal screen payload for the authenticated user
+
+        (gratitudes, prayer journals and saved Bible verses) in a single call.
+
+
+        Backed by the `get_journal_bundle(p_user_id uuid)` Postgres function which
+
+        returns everything plus `latest_change` in a single round-trip. Freshness is
+
+        managed client-side via per-source stale signals; the server holds no cache.'
+      operationId: get_journal_api_journal_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JournalBundleResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    SavedVerse:
+      properties:
+        version:
+          type: string
+          title: Version
+          description: Bible version (e.g., 'KJV', 'NIV', 'ESV')
+        book:
+          type: string
+          title: Book
+          description: Book name (e.g., 'Genesis', 'John')
+        chapter:
+          type: integer
+          minimum: 1.0
+          title: Chapter
+          description: Chapter number
+        verse:
+          type: integer
+          minimum: 1.0
+          title: Verse
+          description: Verse number
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: ISO 8601 timestamp the verse was saved. May be null for verses saved before this field was introduced.
+      type: object
+      required:
+      - version
+      - book
+      - chapter
+      - verse
+      title: SavedVerse
+      description: Model for a saved Bible verse
+      example:
+        book: John
+        chapter: 3
+        created_at: '2024-05-11T19:42:00+00:00'
+        verse: 16
+        version: KJV
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    GratitudeJournalResponse:
+      properties:
+        id:
+          type: integer
+          title: Id
+        gratitude_text:
+          type: string
+          title: Gratitude Text
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        is_first_entry:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is First Entry
+      type: object
+      required:
+      - id
+      - gratitude_text
+      - created_at
+      title: GratitudeJournalResponse
+    PrayerJournalResponse:
+      properties:
+        id:
+          type: integer
+          title: Id
+        prayer_text:
+          type: string
+          title: Prayer Text
+        topic:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Topic
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      required:
+      - id
+      - prayer_text
+      - created_at
+      title: PrayerJournalResponse
+    JournalBundleResponse:
+      properties:
+        gratitudes:
+          items:
+            $ref: '#/components/schemas/GratitudeJournalResponse'
+          type: array
+          title: Gratitudes
+        prayers:
+          items:
+            $ref: '#/components/schemas/PrayerJournalResponse'
+          type: array
+          title: Prayers
+        verses:
+          items:
+            $ref: '#/components/schemas/SavedVerse'
+          type: array
+          title: Verses
+        latest_change:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Latest Change
+      type: object
+      required:
+      - gratitudes
+      - prayers
+      - verses
+      title: JournalBundleResponse
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

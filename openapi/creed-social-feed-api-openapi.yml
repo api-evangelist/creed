@@ -1,0 +1,235 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements social-feed API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: social-feed
+paths:
+  /api/social-feed/friends:
+    get:
+      tags:
+      - social-feed
+      summary: Get Friends Social Feed
+      description: 'Return social feed events from the authenticated user''s friends,
+
+        ordered by most recent first.'
+      operationId: get_friends_social_feed_api_social_feed_friends_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 25
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SocialFeedEventResponse'
+                title: Response Get Friends Social Feed Api Social Feed Friends Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/social-feed/church:
+    get:
+      tags:
+      - social-feed
+      summary: Get Church Social Feed
+      description: 'Return social feed events from all members of a church, ordered by most recent
+
+        first. If `church_id` is provided, return events for that church; otherwise fall
+
+        back to the authenticated user''s home church.'
+      operationId: get_church_social_feed_api_social_feed_church_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 10
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: church_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            minimum: 1
+          - type: 'null'
+          title: Church Id
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SocialFeedEventResponse'
+                title: Response Get Church Social Feed Api Social Feed Church Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    SocialFeedUser:
+      properties:
+        id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Id
+        first_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: First Name
+        last_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Name
+        profile_picture:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Profile Picture
+      type: object
+      title: SocialFeedUser
+      description: Embedded user info returned in social feed responses.
+    SocialFeedEventType:
+      type: string
+      enum:
+      - streak
+      - journal
+      - prayer
+      - prayer_wall
+      - achievement
+      title: SocialFeedEventType
+      description: 'Event types for the user social feed.
+
+
+        NOTE: The `social_feed_event_type` enum in the database also needs to be
+
+        updated whenever values are added or removed here.'
+    SocialFeedEventResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        church_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Church Id
+        event:
+          $ref: '#/components/schemas/SocialFeedEventType'
+        metadata:
+          additionalProperties: true
+          type: object
+          title: Metadata
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        user:
+          anyOf:
+          - $ref: '#/components/schemas/SocialFeedUser'
+          - type: 'null'
+      type: object
+      required:
+      - id
+      - event
+      - metadata
+      - created_at
+      title: SocialFeedEventResponse
+      description: Response model for a social feed event — includes nested user, excludes user_id.
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

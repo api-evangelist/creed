@@ -1,0 +1,128 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements seo API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: seo
+paths:
+  /api/seo/biblical-chat:
+    post:
+      tags:
+      - seo
+      summary: Seo Biblical Chat Endpoint
+      operationId: seo_biblical_chat_endpoint_api_seo_biblical_chat_post
+      parameters:
+      - name: x-api-key
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Api-Key
+      - name: authorization
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Authorization
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SeoBiblicalChatRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeoBiblicalChatResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    SeoBiblicalChatRequest:
+      properties:
+        question:
+          type: string
+          title: Question
+        topic_question:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Topic Question
+        memory:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Memory
+          default: false
+        system_prompt:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: System Prompt
+      type: object
+      required:
+      - question
+      title: SeoBiblicalChatRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    SeoBiblicalChatResponse:
+      properties:
+        answer:
+          type: string
+          title: Answer
+        bible_verses:
+          items:
+            type: string
+          type: array
+          title: Bible Verses
+          default: []
+      type: object
+      required:
+      - answer
+      title: SeoBiblicalChatResponse
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

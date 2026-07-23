@@ -1,0 +1,816 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements gamification API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: gamification
+paths:
+  /api/gamification/rewards:
+    get:
+      tags:
+      - gamification
+      summary: Get Rewards
+      description: 'Get all active token rewards.
+
+
+        Returns a list of all active rewards with their token amounts.'
+      operationId: get_rewards_api_gamification_rewards_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RewardResponse'
+                title: Response Get Rewards Api Gamification Rewards Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/gamification/rewards/earn:
+    post:
+      tags:
+      - gamification
+      summary: Earn Reward
+      description: 'Award tokens to the user for completing a reward source.
+
+
+        - **reward_key**: The reward key identifier (e.g., ''quest_daily_reading'', ''achievement_bible_read_10'')
+
+
+        This endpoint is called when a user completes a quest, achievement, daily login, etc.
+
+        The token amount is determined by the reward configuration in the database.'
+      operationId: earn_reward_api_gamification_rewards_earn_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EarnRewardRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EarnTokensResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/gamification/tokens/earn:
+    post:
+      tags:
+      - gamification
+      summary: Earn Tokens
+      description: 'Award a custom amount of tokens to the user directly.
+
+
+        - **amount**: Number of tokens to award
+
+        - **source**: Label describing the source of the award
+
+
+        This endpoint bypasses reward configuration and awards tokens directly.'
+      operationId: earn_tokens_api_gamification_tokens_earn_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EarnTokensRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EarnTokensResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/gamification/tokens/transactions:
+    get:
+      tags:
+      - gamification
+      summary: Get Transactions
+      description: 'Get transaction history for the authenticated user.
+
+
+        Returns a list of token transactions (both earned and spent) with details.'
+      operationId: get_transactions_api_gamification_tokens_transactions_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          description: Number of transactions to return
+          default: 50
+          title: Limit
+        description: Number of transactions to return
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          description: Number of transactions to skip
+          default: 0
+          title: Offset
+        description: Number of transactions to skip
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TokenTransactionResponse'
+                title: Response Get Transactions Api Gamification Tokens Transactions Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/gamification/tokens/products:
+    get:
+      tags:
+      - gamification
+      summary: Get Token Products
+      description: 'Get the active token product catalog available for purchase.
+
+
+        Returns purchasable token packs keyed by a stable default id, along with
+
+        the underlying App Store / Play Store product ids for each platform.'
+      operationId: get_token_products_api_gamification_tokens_products_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenProductsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/gamification/items:
+    get:
+      tags:
+      - gamification
+      summary: Get Shop Items
+      description: 'Get all currently available shop items.
+
+
+        Returns items that are currently available (within their availability window).
+
+        Use /items/unlocked endpoint to determine which items the user owns.'
+      operationId: get_shop_items_api_gamification_items_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: pricing_variant
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/PricingVariant'
+          description: Which price to return as token_price -- 'paid_tokens' for the paid_token_exp treatment cohort
+          default: default
+        description: Which price to return as token_price -- 'paid_tokens' for the paid_token_exp treatment cohort
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ItemResponse'
+                title: Response Get Shop Items Api Gamification Items Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/gamification/items/unlocked:
+    get:
+      tags:
+      - gamification
+      summary: Get Unlocked Items
+      description: 'Get all items unlocked by the authenticated user with full item details.
+
+
+        Returns a list of unlocked items with full marketplace details plus unlock timestamps.'
+      operationId: get_unlocked_items_api_gamification_items_unlocked_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: pricing_variant
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/PricingVariant'
+          description: Which price to return as token_price -- 'paid_tokens' for the paid_token_exp treatment cohort
+          default: default
+        description: Which price to return as token_price -- 'paid_tokens' for the paid_token_exp treatment cohort
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UnlockedItemResponse'
+                title: Response Get Unlocked Items Api Gamification Items Unlocked Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/gamification/items/purchase:
+    post:
+      tags:
+      - gamification
+      summary: Purchase Item
+      description: 'Purchase an item with tokens.
+
+
+        - **item_key**: The unique key of the item to purchase (e.g., ''theme_ocean'', ''frame_gold'')
+
+
+        This endpoint validates the user''s token balance, deducts the tokens,
+
+        and grants the item to the user. Returns the new balance and item details.'
+      operationId: purchase_item_api_gamification_items_purchase_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: pricing_variant
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/PricingVariant'
+          description: Which price to charge -- 'paid_tokens' for the paid_token_exp treatment cohort
+          default: default
+        description: Which price to charge -- 'paid_tokens' for the paid_token_exp treatment cohort
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemActionRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemActionResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/gamification/items/unlock:
+    post:
+      tags:
+      - gamification
+      summary: Unlock Item
+      description: 'Unlock an item for the user without spending tokens.
+
+
+        - **item_key**: The unique key of the item to unlock (e.g., ''theme_premium_dark'', ''icon_special_event'')
+
+
+        This endpoint is for unlocking premium items, special event items, or other
+
+        items that don''t require token payment. No transaction is created.'
+      operationId: unlock_item_api_gamification_items_unlock_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemActionRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemActionResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    TokenTransactionResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        user_id:
+          type: string
+          title: User Id
+        type:
+          $ref: '#/components/schemas/TransactionType'
+        amount:
+          type: integer
+          title: Amount
+        reward_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reward Id
+        item_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Item Id
+        product_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Product Id
+        store_txn_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Store Txn Id
+        source:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Source
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      required:
+      - id
+      - user_id
+      - type
+      - amount
+      - created_at
+      title: TokenTransactionResponse
+      description: Token transaction response model.
+    UnlockedItemResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        key:
+          type: string
+          title: Key
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        item_type:
+          type: string
+          title: Item Type
+        unlock_type:
+          $ref: '#/components/schemas/UnlockType'
+        token_price:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Token Price
+        available_from:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Available From
+        available_until:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Available Until
+        sort_order:
+          type: integer
+          title: Sort Order
+          default: 0
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        user_id:
+          type: string
+          title: User Id
+        item_id:
+          type: string
+          title: Item Id
+        unlocked_at:
+          type: string
+          format: date-time
+          title: Unlocked At
+      type: object
+      required:
+      - id
+      - key
+      - name
+      - item_type
+      - unlock_type
+      - created_at
+      - user_id
+      - item_id
+      - unlocked_at
+      title: UnlockedItemResponse
+      description: Enhanced unlocked item response with full item details
+    EarnTokensRequest:
+      properties:
+        amount:
+          type: integer
+          exclusiveMinimum: 0.0
+          title: Amount
+          description: The number of tokens to award
+        source:
+          type: string
+          title: Source
+          description: The source label for this token award
+      type: object
+      required:
+      - amount
+      - source
+      title: EarnTokensRequest
+      description: Request to earn a custom amount of tokens directly.
+    ItemActionResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        message:
+          type: string
+          title: Message
+        item:
+          anyOf:
+          - $ref: '#/components/schemas/ItemResponse'
+          - type: 'null'
+      type: object
+      required:
+      - success
+      - message
+      title: ItemActionResponse
+      description: Item action response (purchase/unlock).
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    EarnTokensResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - success
+      - message
+      title: EarnTokensResponse
+      description: Response for earning tokens.
+    EarnRewardRequest:
+      properties:
+        reward_key:
+          type: string
+          title: Reward Key
+          description: The reward key to earn tokens from (e.g., 'quest_daily_reading')
+      type: object
+      required:
+      - reward_key
+      title: EarnRewardRequest
+      description: Request to earn tokens from a reward.
+    TokenProductResponse:
+      properties:
+        product_id:
+          $ref: '#/components/schemas/TokenProductIdentifiers'
+        token_amount:
+          type: integer
+          title: Token Amount
+        is_default:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Default
+      type: object
+      required:
+      - product_id
+      - token_amount
+      title: TokenProductResponse
+      description: Token product response model for the purchasable token catalog.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    UnlockType:
+      type: string
+      enum:
+      - free
+      - purchasable
+      - premium
+      - special
+      title: UnlockType
+      description: Item unlock types.
+    TokenProductIdentifiers:
+      properties:
+        default:
+          type: string
+          title: Default
+        ios:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ios
+        android:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Android
+      type: object
+      required:
+      - default
+      title: TokenProductIdentifiers
+      description: Cross-platform identifiers for a token product.
+    PricingVariant:
+      type: string
+      enum:
+      - default
+      - paid_tokens
+      title: PricingVariant
+      description: 'Which shop pricing to apply. Cohort bucketing for the paid_token_exp
+
+        experiment happens client-side (see paid_token_exp_treatment_allocation /
+
+        paid_token_exp_legacy_cutoff_timestamp in /api/config), so the client
+
+        tells the backend which price column applies for a given request.'
+    ItemActionRequest:
+      properties:
+        item_key:
+          type: string
+          title: Item Key
+          description: The unique key of the item
+      type: object
+      required:
+      - item_key
+      title: ItemActionRequest
+      description: Request for item actions (purchase/unlock).
+    TransactionType:
+      type: string
+      enum:
+      - earned
+      - spent
+      - purchased
+      - deducted
+      title: TransactionType
+      description: Transaction types.
+    TokenProductsResponse:
+      properties:
+        products:
+          items:
+            $ref: '#/components/schemas/TokenProductResponse'
+          type: array
+          title: Products
+      type: object
+      required:
+      - products
+      title: TokenProductsResponse
+      description: Response wrapper for the token product catalog.
+    RewardResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        key:
+          type: string
+          title: Key
+        category:
+          type: string
+          title: Category
+        amount:
+          type: integer
+          title: Amount
+        is_active:
+          type: boolean
+          title: Is Active
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      required:
+      - id
+      - key
+      - category
+      - amount
+      - is_active
+      - created_at
+      title: RewardResponse
+      description: Token reward response model.
+    ItemResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        key:
+          type: string
+          title: Key
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        item_type:
+          type: string
+          title: Item Type
+        unlock_type:
+          $ref: '#/components/schemas/UnlockType'
+        token_price:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Token Price
+        available_from:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Available From
+        available_until:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Available Until
+        sort_order:
+          type: integer
+          title: Sort Order
+          default: 0
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      required:
+      - id
+      - key
+      - name
+      - item_type
+      - unlock_type
+      - created_at
+      title: ItemResponse
+      description: Item response model for shop display.
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

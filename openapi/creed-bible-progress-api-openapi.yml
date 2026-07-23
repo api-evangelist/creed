@@ -1,0 +1,214 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements bible-progress API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: bible-progress
+paths:
+  /api/bible-progress/append:
+    post:
+      tags:
+      - bible-progress
+      summary: Append Bible Progress
+      description: 'Append a chapter to user''s Bible reading progress.
+
+        Called when a user completes reading a chapter.
+
+
+        This endpoint is idempotent - duplicate chapters will not be added.
+
+        Creates a new progress record if none exists, or updates the existing one.'
+      operationId: append_bible_progress_api_bible_progress_append_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppendProgressRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/bible-progress:
+    get:
+      tags:
+      - bible-progress
+      summary: Get Bible Progress
+      description: 'Get user''s complete Bible reading progress.
+
+
+        Returns the user''s reading progress including:
+
+        - Progress map (book_id -> completed chapters)
+
+        - Last read position metadata
+
+        - Timestamps'
+      operationId: get_bible_progress_api_bible_progress_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BibleProgressResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    AppendProgressRequest:
+      properties:
+        book_id:
+          type: string
+          title: Book Id
+          description: Book ID (e.g., '1' for Genesis, '40' for Matthew)
+        book_code:
+          type: string
+          title: Book Code
+          description: Book code (e.g., 'GEN', 'MAT', 'JOH')
+        chapter:
+          type: integer
+          exclusiveMinimum: 0.0
+          title: Chapter
+          description: Chapter number to append
+        version:
+          type: string
+          title: Version
+          description: Bible version (e.g., 'KJV', 'NIV', 'ESV')
+      type: object
+      required:
+      - book_id
+      - book_code
+      - chapter
+      - version
+      title: AppendProgressRequest
+      description: Request model for appending Bible reading progress.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    BibleProgressResponse:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+        user_id:
+          type: string
+          title: User Id
+        progress:
+          additionalProperties:
+            items:
+              type: integer
+            type: array
+          type: object
+          title: Progress
+          description: Map of book_id to list of completed chapters
+        last_read_from:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Last Read From
+          description: Last read position metadata
+        chapters_read:
+          type: integer
+          title: Chapters Read
+          description: Total number of chapters read
+          default: 0
+        books_read:
+          type: integer
+          title: Books Read
+          description: Total number of books fully completed (all chapters read)
+          default: 0
+        bible_read_percentage:
+          type: number
+          title: Bible Read Percentage
+          description: Percentage of Bible completed (0-100)
+          default: 0.0
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+      type: object
+      required:
+      - user_id
+      - progress
+      title: BibleProgressResponse
+      description: Response model for Bible reading progress.
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

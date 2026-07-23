@@ -1,0 +1,254 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements group-chat API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: group-chat
+paths:
+  /api/group-chat/provision:
+    post:
+      tags:
+      - group-chat
+      summary: Provision Group Chat
+      description: "Idempotently provisions:\n  1. A Mattermost team for the user's church (if missing)\n  2. A Mattermost user for the caller (if missing)\n  3. Membership in the team\n  4. A fresh PAT for the user\n\nReturns the credentials the RN client needs to connect via WebSocket."
+      operationId: provision_group_chat_api_group_chat_provision_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProvisionResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/group-chat/me:
+    get:
+      tags:
+      - group-chat
+      summary: Get My Identity
+      description: Returns existing mappings without creating anything. Useful for debugging.
+      operationId: get_my_identity_api_group_chat_me_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentityResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/group-chat/members:
+    post:
+      tags:
+      - group-chat
+      summary: Get Group Chat Members
+      description: 'Resolve a batch of Mattermost user ids to app-side profile fields
+
+        (first_name, last_name, profile_picture). Used by the client to render
+
+        avatars/names without leaking other PII.'
+      operationId: get_group_chat_members_api_group_chat_members_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MembersRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MembersResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ProvisionResponse:
+      properties:
+        mattermost_url:
+          type: string
+          title: Mattermost Url
+        team_id:
+          type: string
+          title: Team Id
+        channel_id:
+          type: string
+          title: Channel Id
+        user_id:
+          type: string
+          title: User Id
+        access_token:
+          type: string
+          title: Access Token
+      type: object
+      required:
+      - mattermost_url
+      - team_id
+      - channel_id
+      - user_id
+      - access_token
+      title: ProvisionResponse
+    MemberProfile:
+      properties:
+        mm_user_id:
+          type: string
+          title: Mm User Id
+        first_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: First Name
+        last_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Name
+        profile_picture:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Profile Picture
+      type: object
+      required:
+      - mm_user_id
+      - first_name
+      - last_name
+      - profile_picture
+      title: MemberProfile
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    MembersRequest:
+      properties:
+        mm_user_ids:
+          items:
+            type: string
+          type: array
+          title: Mm User Ids
+      type: object
+      required:
+      - mm_user_ids
+      title: MembersRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    IdentityResponse:
+      properties:
+        mattermost_url:
+          type: string
+          title: Mattermost Url
+        team_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team Id
+        channel_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Channel Id
+        user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Id
+        has_identity:
+          type: boolean
+          title: Has Identity
+      type: object
+      required:
+      - mattermost_url
+      - team_id
+      - channel_id
+      - user_id
+      - has_identity
+      title: IdentityResponse
+    MembersResponse:
+      properties:
+        members:
+          items:
+            $ref: '#/components/schemas/MemberProfile'
+          type: array
+          title: Members
+      type: object
+      required:
+      - members
+      title: MembersResponse
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

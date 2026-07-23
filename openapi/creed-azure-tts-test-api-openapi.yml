@@ -1,0 +1,86 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements azure-tts-test API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: azure-tts-test
+paths:
+  /api/azure-tts-test:
+    post:
+      tags:
+      - azure-tts-test
+      summary: Azure Tts Test
+      description: 'Isolated test endpoint for Azure OpenAI TTS.
+
+        Returns audio bytes directly for testing.'
+      operationId: azure_tts_test_api_azure_tts_test_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AzureTTSRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AzureTTSRequest:
+      properties:
+        text:
+          type: string
+          title: Text
+        voice:
+          type: string
+          title: Voice
+          default: echo
+      type: object
+      required:
+      - text
+      title: AzureTTSRequest
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

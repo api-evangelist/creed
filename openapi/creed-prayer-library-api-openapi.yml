@@ -1,0 +1,128 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements prayer-library API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: prayer-library
+paths:
+  /api/prayer-library/{topic}:
+    get:
+      tags:
+      - prayer-library
+      summary: Get Library Prayer
+      description: "Fetch a pre-generated prayer from the library for a given topic.\n\nThe language and voice are resolved from the user's profile preferences.\nDefaults to English (\"en\") and \"v1-openai-alloy\" if not set.\n\nArgs:\n    topic: One of the 12 supported prayer topics (case-sensitive).\n    current_user: Authenticated user (provides preferred_language and preferred_voice).\n\nReturns:\n    PrayerLibraryResponse with prayer text and audio URL."
+      operationId: get_library_prayer_api_prayer_library__topic__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: topic
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Topic
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrayerLibraryResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    PrayerLibraryResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        prayer:
+          $ref: '#/components/schemas/PrayerLibraryItem'
+      type: object
+      required:
+      - success
+      - prayer
+      title: PrayerLibraryResponse
+    PrayerLibraryItem:
+      properties:
+        id:
+          type: string
+          title: Id
+        topic:
+          type: string
+          title: Topic
+        language:
+          type: string
+          title: Language
+        voice:
+          type: string
+          title: Voice
+        prayer_text:
+          type: string
+          title: Prayer Text
+        audio_url:
+          type: string
+          title: Audio Url
+        created_at:
+          type: string
+          title: Created At
+      type: object
+      required:
+      - id
+      - topic
+      - language
+      - voice
+      - prayer_text
+      - audio_url
+      - created_at
+      title: PrayerLibraryItem
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

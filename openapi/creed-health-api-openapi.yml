@@ -1,0 +1,122 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements health API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: health
+paths:
+  /:
+    get:
+      tags:
+      - health
+      summary: Hello World
+      operationId: hello_world__get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /health:
+    get:
+      tags:
+      - health
+      summary: Health Check
+      description: Health check endpoint for monitoring and load balancers
+      operationId: health_check_health_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /health/chat-model:
+    get:
+      tags:
+      - health
+      summary: Check Chat Model Health
+      description: 'Health check for a specific chat model.
+
+
+        Runs the full chat pipeline (fetch user details, memories, chat history,
+
+        build system instruction, call LLM) but skips all database writes.
+
+        Returns model status, latency breakdown, and a response preview.'
+      operationId: check_chat_model_health_health_chat_model_get
+      parameters:
+      - name: model
+        in: query
+        required: true
+        schema:
+          type: string
+          description: Model name, e.g. 'gemini-2.5-flash', 'openai:gpt-4o', 'azure:gpt-4o-mini'
+          title: Model
+        description: Model name, e.g. 'gemini-2.5-flash', 'openai:gpt-4o', 'azure:gpt-4o-mini'
+      - name: user_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: User ID for fetching real user context (reads only, no writes)
+          title: User Id
+        description: User ID for fetching real user context (reads only, no writes)
+      - name: x-api-key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token

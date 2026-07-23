@@ -1,0 +1,750 @@
+openapi: 3.1.0
+info:
+  title: Creed achievements prayer-wall API
+  description: Creed API - Christian AI Chatbot
+  version: 1.0.0
+tags:
+- name: prayer-wall
+paths:
+  /api/prayer-wall:
+    post:
+      tags:
+      - prayer-wall
+      summary: Submit Prayer
+      description: Submit a prayer to the prayer wall. AI validates and generates expanded prayer. Returns the prayer for user approval (not scheduled yet).
+      operationId: submit_prayer_api_prayer_wall_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmitPrayerRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrayerWall'
+        '400':
+          description: Prayer rejected or cooldown active
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Failed to submit prayer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - prayer-wall
+      summary: Get Current Prayers
+      description: Get scheduled prayers (start_time >= now and not expired). Pass `lang` (en/es/pt/de/fr) to receive translated title/prayer text.
+      operationId: get_current_prayers_api_prayer_wall_get
+      parameters:
+      - name: include_is_bot
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Include Is Bot
+      - name: lang
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Lang
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PrayerWall'
+                title: Response Get Current Prayers Api Prayer Wall Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/prayer-wall/{prayer_id}/approve:
+    post:
+      tags:
+      - prayer-wall
+      summary: Approve Prayer
+      description: Approve a prayer to be scheduled on the prayer wall. Returns updated list of scheduled prayers.
+      operationId: approve_prayer_api_prayer_wall__prayer_id__approve_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: prayer_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Prayer Id
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PrayerWall'
+                title: Response Approve Prayer Api Prayer Wall  Prayer Id  Approve Post
+        '400':
+          description: Already approved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Prayer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/prayer-wall/{prayer_id}/reject:
+    post:
+      tags:
+      - prayer-wall
+      summary: Reject Prayer
+      description: Reject a prayer (removes it from the system).
+      operationId: reject_prayer_api_prayer_wall__prayer_id__reject_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: prayer_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Prayer Id
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApproveRejectResponse'
+        '400':
+          description: Cannot reject approved prayer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Prayer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/prayer-wall/expire-cron:
+    post:
+      tags:
+      - prayer-wall
+      summary: Expire Prayers Cron
+      description: Cron endpoint to expire old prayers. Run every 10-20 minutes. Runs in background.
+      operationId: expire_prayers_cron_api_prayer_wall_expire_cron_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /api/prayer-wall/generate-bot-cron:
+    post:
+      tags:
+      - prayer-wall
+      summary: Generate Bot Prayers Cron
+      description: Cron endpoint to generate bot prayers if queue is low. Runs in background.
+      operationId: generate_bot_prayers_cron_api_prayer_wall_generate_bot_cron_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /api/prayer-wall-paginated:
+    get:
+      tags:
+      - prayer-wall
+      summary: Get Prayers Paginated
+      description: Get all prayers with pagination. Pass `lang` (en/es/pt/de/fr) to receive translated title/prayer text.
+      operationId: get_prayers_paginated_api_prayer_wall_paginated_get
+      parameters:
+      - name: include_is_bot
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Include Is Bot
+      - name: include_count
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Include Count
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 20
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: lang
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Lang
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrayerWallPaginatedResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/prayer-wall/me:
+    get:
+      tags:
+      - prayer-wall
+      summary: Get My Prayers
+      description: Get all prayers submitted by the authenticated user, ordered by most recent first.
+      operationId: get_my_prayers_api_prayer_wall_me_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PrayerWall'
+                title: Response Get My Prayers Api Prayer Wall Me Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/prayer-wall/upcoming-count:
+    get:
+      tags:
+      - prayer-wall
+      summary: Get Upcoming Count
+      description: Count of approved, non-expired prayers currently scheduled on the wall.
+      operationId: get_upcoming_count_api_prayer_wall_upcoming_count_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrayingCountResponse'
+  /api/prayer-wall/praying-count:
+    get:
+      tags:
+      - prayer-wall
+      summary: Get Praying Count
+      description: Get the number of people currently praying. Updates every 15 minutes.
+      operationId: get_praying_count_api_prayer_wall_praying_count_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrayingCountResponse'
+  /api/prayer-wall/{prayer_id}:
+    get:
+      tags:
+      - prayer-wall
+      summary: Get Prayer By Id
+      description: Fetch a single approved prayer by id. Pass `lang` (en/es/pt/de/fr) to receive translated title/prayer text.
+      operationId: get_prayer_by_id_api_prayer_wall__prayer_id__get
+      parameters:
+      - name: prayer_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Prayer Id
+      - name: lang
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Lang
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrayerWall'
+        '404':
+          description: Prayer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/prayer-wall/{prayer_id}/comments:
+    post:
+      tags:
+      - prayer-wall
+      summary: Submit Comment
+      description: Submit a comment on a prayer. AI validates comment. Returns success if valid.
+      operationId: submit_comment_api_prayer_wall__prayer_id__comments_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: prayer_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Prayer Id
+      - name: x-user-id
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-User-Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmitCommentRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmitCommentResponse'
+        '400':
+          description: Comment rejected
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Failed to submit comment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - prayer-wall
+      summary: Get Prayer Comments
+      description: Get bot-approved comments for a prayer.
+      operationId: get_prayer_comments_api_prayer_wall__prayer_id__comments_get
+      parameters:
+      - name: prayer_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Prayer Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PrayerWallComment'
+                title: Response Get Prayer Comments Api Prayer Wall  Prayer Id  Comments Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    PrayerWallPaginatedResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/PrayerWall'
+          type: array
+          title: Data
+        total_count:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Total Count
+      type: object
+      required:
+      - data
+      title: PrayerWallPaginatedResponse
+    PrayerWallComment:
+      properties:
+        id:
+          type: integer
+          title: Id
+        prayer_id:
+          type: integer
+          title: Prayer Id
+        user_id:
+          type: string
+          title: User Id
+        comment_text:
+          type: string
+          title: Comment Text
+        rejection_reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rejection Reason
+        bot_approved:
+          type: boolean
+          title: Bot Approved
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        user:
+          anyOf:
+          - $ref: '#/components/schemas/PrayerWallCommentUser'
+          - type: 'null'
+      type: object
+      required:
+      - id
+      - prayer_id
+      - user_id
+      - comment_text
+      - bot_approved
+      - created_at
+      title: PrayerWallComment
+      description: DB model for prayer_wall_comments table.
+    SubmitCommentRequest:
+      properties:
+        comment_text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment Text
+        quick_reply_text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Quick Reply Text
+      type: object
+      title: SubmitCommentRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ApproveRejectResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        prayer_id:
+          type: integer
+          title: Prayer Id
+      type: object
+      required:
+      - success
+      - prayer_id
+      title: ApproveRejectResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ErrorResponse:
+      properties:
+        detail:
+          type: string
+          title: Detail
+      type: object
+      required:
+      - detail
+      title: ErrorResponse
+    SubmitCommentResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+      type: object
+      required:
+      - success
+      title: SubmitCommentResponse
+    SubmitPrayerRequest:
+      properties:
+        prayer_text:
+          type: string
+          title: Prayer Text
+        source_lang:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Source Lang
+      type: object
+      required:
+      - prayer_text
+      title: SubmitPrayerRequest
+    PrayingCountResponse:
+      properties:
+        count:
+          type: integer
+          title: Count
+      type: object
+      required:
+      - count
+      title: PrayingCountResponse
+    PrayerWallCommentUser:
+      properties:
+        user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Id
+        first_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: First Name
+        last_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Name
+        profile_picture:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Profile Picture
+      type: object
+      title: PrayerWallCommentUser
+      description: User info for prayer wall comments.
+    PrayerWall:
+      properties:
+        id:
+          type: integer
+          title: Id
+        user_input:
+          type: string
+          title: User Input
+        generated_title:
+          type: string
+          title: Generated Title
+        generated_prayer:
+          type: string
+          title: Generated Prayer
+        rejection_reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rejection Reason
+        is_bot:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Bot
+        is_expired:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Expired
+        user_approved:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: User Approved
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        user:
+          anyOf:
+          - $ref: '#/components/schemas/PrayerWallUser'
+          - type: 'null'
+      type: object
+      required:
+      - id
+      - user_input
+      - generated_title
+      - generated_prayer
+      - created_at
+      title: PrayerWall
+      description: DB model for prayer_wall table.
+    PrayerWallUser:
+      properties:
+        user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Id
+        first_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: First Name
+        last_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Name
+        profile_picture:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Profile Picture
+      type: object
+      title: PrayerWallUser
+      description: User info for prayer wall.
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT token
