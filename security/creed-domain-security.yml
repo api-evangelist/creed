@@ -1,0 +1,22 @@
+generated: '2026-07-18'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: usecreed.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 28 05:27:06 2026 GMT
+  hsts: false
+- host: api.usecreed.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 19 15:03:23 2026 GMT
+  hsts: null
+domains:
+- domain: usecreed.com
+  dnssec: true
+  caa:
+  - creed-lander-neldq.ondigitalocean.app.
+  spf: true
+  dmarc: true
+  dmarc_policy: quarantine

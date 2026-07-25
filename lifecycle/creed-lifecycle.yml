@@ -1,0 +1,22 @@
+generated: '2026-07-18'
+method: searched
+source: openapi/creed-openapi-original.json + probes of usecreed.com / api.usecreed.com
+versioning:
+  scheme: none-declared
+  current: '1.0.0'
+  note: OpenAPI info.version is 1.0.0; no versioned path segment or version header.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No public deprecation or Sunset/Deprecation (RFC 8594) policy found.
+sla:
+  url: null
+  uptime_target: null
+status_page: null
+status_page_note: >-
+  No public status page found (status.usecreed.com not resolving; no /status page). A health probe is
+  available at https://api.usecreed.com/health.
+deprecated_operations: []
+notes: >-
+  Creed's API is the app's public backend rather than a formally versioned developer platform; no
+  versioning policy, deprecation policy, SLA, or status page is published as of this pass.

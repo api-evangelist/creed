@@ -1,0 +1,63 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/creed-openapi-original.json
+summary: >-
+  Cross-cutting request/response semantics for the Creed API, derived from the OpenAPI 3.1 document.
+  The API is a FastAPI service; it uses Supabase JWT bearer authentication, offset/limit pagination,
+  a request_id correlation parameter, and the standard FastAPI error envelope. No idempotency-key
+  contract is documented.
+authentication:
+  style: bearer-token
+  header: Authorization
+  format: JWT (Supabase-issued)
+  secondary:
+    - name: x-api-key
+      in: header
+      note: Present on ~30 internal/service/cron and b2b operations alongside or instead of the JWT.
+    - name: x-user-id
+      in: header
+      note: User-scoping header present on ~145 operations.
+  ref: authentication/creed-authentication.yml
+pagination:
+  style: offset
+  params:
+    - name: limit
+      in: query
+      note: Present on ~17 collection operations.
+    - name: offset
+      in: query
+      note: Present on ~7 collection operations.
+  cursor: false
+request_tracing:
+  param: request_id
+  in: query
+  note: Optional correlation identifier present on several chatbot/generation operations.
+versioning:
+  scheme: none-declared
+  spec_version: '1.0.0'
+  path_prefix: /api
+  note: >-
+    No versioned path segment (e.g. /v1) or version header is declared; the OpenAPI info.version is
+    1.0.0. A parallel /sanctum/api/* prefix mirrors several chatbot endpoints.
+idempotency:
+  supported: false
+  note: No Idempotency-Key header or idempotent-retry contract is documented in the spec.
+error_envelope:
+  content_type: application/json
+  shape: '{"detail": string | [{loc, msg, type}]}'
+  problem_json: false
+  note: >-
+    FastAPI default. 422 responses return HTTPValidationError ({"detail": [ValidationError,...]});
+    other errors return ErrorResponse ({"detail": string}). Not RFC 9457 problem+json.
+  ref: errors/creed-problem-types.yml
+rate_limiting:
+  signaling: none-declared
+  note: No rate-limit headers or plan documentation are published.
+localization:
+  param: lang
+  note: A lang query parameter is present on several content endpoints (e.g. prayer library, tts).
+cross_reference:
+  errors: errors/creed-problem-types.yml
+  lifecycle: lifecycle/creed-lifecycle.yml
+  authentication: authentication/creed-authentication.yml
+  data_model: data-model/creed-data-model.yml

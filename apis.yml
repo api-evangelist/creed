@@ -1,8 +1,28 @@
 aid: creed
 name: Creed
-description: Creed is a company surfaced as a portfolio company of bullpen-capital and added to the API
-  Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Creed (Creed Labs, operated by Lemon Tree Labs Inc.) is a Brooklyn-based faith-tech company building
+  an AI-powered Bible study, prayer, and Christian community app used by more than two million people.
+  The consumer product pairs a voice-enabled AI companion (Lenny) with daily prayers, devotionals,
+  scripture retrieval, a moderated prayer wall, learning plans, gratitude and prayer journaling,
+  friend streaks, church discovery, leaderboards, and gamification. Creed also ships tools for churches
+  and creators to grow and engage their congregations. Its public backend is a FastAPI service at
+  api.usecreed.com exposing 191 operations across chatbot, prayer, church-admin, social, and
+  gamification domains, secured with Supabase-issued JWT bearer tokens.
 url: https://raw.githubusercontent.com/api-evangelist/creed/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://usecreed.com/images/creed_logo_lg.png
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
@@ -11,15 +31,1325 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
 tags:
 - Company
-apis: []
+- Faith
+- Religion
+- Christianity
+- Bible
+- Prayer
+- Artificial Intelligence
+- Chatbot
+- Consumer
+- Community
+apis:
+- aid: creed:creed-achievements-api
+  name: Creed achievements API
+  description: The achievements API from Creed — 3 operation(s) for achievements.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - achievements
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-achievements-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-admin-analytics-api
+  name: Creed Admin Analytics API
+  description: The Admin Analytics API from Creed — 1 operation(s) for admin analytics.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - Admin Analytics
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-admin-analytics-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-auth-api
+  name: Creed Auth API
+  description: The Auth API from Creed — 1 operation(s) for auth.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - Auth
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-auth-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-azure-openai-test-api
+  name: Creed azure-openai-test API
+  description: The azure-openai-test API from Creed — 1 operation(s) for azure-openai-test.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - azure-openai-test
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-azure-openai-test-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-azure-tts-test-api
+  name: Creed azure-tts-test API
+  description: The azure-tts-test API from Creed — 1 operation(s) for azure-tts-test.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - azure-tts-test
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-azure-tts-test-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-b2b-api
+  name: Creed b2b API
+  description: The b2b API from Creed — 1 operation(s) for b2b.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - b2b
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-b2b-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-bible-progress-api
+  name: Creed bible-progress API
+  description: The bible-progress API from Creed — 2 operation(s) for bible-progress.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - bible-progress
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-bible-progress-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-chatbot-api
+  name: Creed chatbot API
+  description: The chatbot API from Creed — 7 operation(s) for chatbot.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - chatbot
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-chatbot-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-church-admin-api
+  name: Creed church-admin API
+  description: The church-admin API from Creed — 8 operation(s) for church-admin.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - church-admin
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-church-admin-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-church-announcements-api
+  name: Creed church-announcements API
+  description: The church-announcements API from Creed — 2 operation(s) for church-announcements.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - church-announcements
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-church-announcements-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-churches-api
+  name: Creed churches API
+  description: The churches API from Creed — 9 operation(s) for churches.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - churches
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-churches-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-config-api
+  name: Creed config API
+  description: The config API from Creed — 1 operation(s) for config.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - config
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-config-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-cron-tasks-api
+  name: Creed cron-tasks API
+  description: The cron-tasks API from Creed — 3 operation(s) for cron-tasks.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - cron-tasks
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-cron-tasks-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-daily-devotional-api
+  name: Creed daily-devotional API
+  description: The daily-devotional API from Creed — 1 operation(s) for daily-devotional.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - daily-devotional
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-daily-devotional-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-daily-quests-api
+  name: Creed daily-quests API
+  description: The daily-quests API from Creed — 18 operation(s) for daily-quests.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - daily-quests
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-daily-quests-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-dream-goal-api
+  name: Creed dream-goal API
+  description: The dream-goal API from Creed — 4 operation(s) for dream-goal.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - dream-goal
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-dream-goal-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-email-notifications-api
+  name: Creed Email Notifications API
+  description: The Email Notifications API from Creed — 9 operation(s) for email notifications.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - Email Notifications
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-email-notifications-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-friends-api
+  name: Creed friends API
+  description: The friends API from Creed — 22 operation(s) for friends.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - friends
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-friends-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-gamification-api
+  name: Creed gamification API
+  description: The gamification API from Creed — 9 operation(s) for gamification.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - gamification
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-gamification-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-gifts-api
+  name: Creed gifts API
+  description: The gifts API from Creed — 3 operation(s) for gifts.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - gifts
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-gifts-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-gratitude-api
+  name: Creed gratitude API
+  description: The gratitude API from Creed — 5 operation(s) for gratitude.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - gratitude
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-gratitude-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-group-chat-api
+  name: Creed group-chat API
+  description: The group-chat API from Creed — 3 operation(s) for group-chat.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - group-chat
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-group-chat-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-health-api
+  name: Creed health API
+  description: The health API from Creed — 3 operation(s) for health.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - health
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-health-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-image-generation-api
+  name: Creed image-generation API
+  description: The image-generation API from Creed — 1 operation(s) for image-generation.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - image-generation
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-image-generation-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-journal-api
+  name: Creed journal API
+  description: The journal API from Creed — 1 operation(s) for journal.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - journal
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-journal-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-leaderboard-api
+  name: Creed leaderboard API
+  description: The leaderboard API from Creed — 4 operation(s) for leaderboard.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - leaderboard
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-leaderboard-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-learning-plans-api
+  name: Creed learning-plans API
+  description: The learning-plans API from Creed — 3 operation(s) for learning-plans.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - learning-plans
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-learning-plans-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-live-activity-api
+  name: Creed live-activity API
+  description: The live-activity API from Creed — 2 operation(s) for live-activity.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - live-activity
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-live-activity-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-live-streams-api
+  name: Creed live-streams API
+  description: The live-streams API from Creed — 4 operation(s) for live-streams.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - live-streams
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-live-streams-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-livekit-api
+  name: Creed livekit API
+  description: The livekit API from Creed — 1 operation(s) for livekit.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - livekit
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-livekit-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-prayer-journal-api
+  name: Creed prayer-journal API
+  description: The prayer-journal API from Creed — 3 operation(s) for prayer-journal.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - prayer-journal
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-prayer-journal-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-prayer-library-api
+  name: Creed prayer-library API
+  description: The prayer-library API from Creed — 1 operation(s) for prayer-library.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - prayer-library
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-prayer-library-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-prayer-wall-api
+  name: Creed prayer-wall API
+  description: The prayer-wall API from Creed — 11 operation(s) for prayer-wall.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - prayer-wall
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-prayer-wall-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-prayers-api
+  name: Creed prayers API
+  description: The prayers API from Creed — 2 operation(s) for prayers.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - prayers
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-prayers-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-referrals-api
+  name: Creed referrals API
+  description: The referrals API from Creed — 5 operation(s) for referrals.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - referrals
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-referrals-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-reminders-api
+  name: Creed reminders API
+  description: The reminders API from Creed — 3 operation(s) for reminders.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - reminders
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-reminders-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-sanctum-chatbot-api
+  name: Creed sanctum-chatbot API
+  description: The sanctum-chatbot API from Creed — 5 operation(s) for sanctum-chatbot.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - sanctum-chatbot
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-sanctum-chatbot-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-scheduled-notifications-api
+  name: Creed scheduled-notifications API
+  description: The scheduled-notifications API from Creed — 5 operation(s) for scheduled-notifications.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - scheduled-notifications
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-scheduled-notifications-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-seo-api
+  name: Creed seo API
+  description: The seo API from Creed — 1 operation(s) for seo.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - seo
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-seo-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-social-feed-api
+  name: Creed social-feed API
+  description: The social-feed API from Creed — 2 operation(s) for social-feed.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - social-feed
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-social-feed-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-sponsorship-api
+  name: Creed sponsorship API
+  description: The sponsorship API from Creed — 7 operation(s) for sponsorship.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - sponsorship
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-sponsorship-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-spotlight-api
+  name: Creed spotlight API
+  description: The spotlight API from Creed — 1 operation(s) for spotlight.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - spotlight
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-spotlight-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-streaks-api
+  name: Creed streaks API
+  description: The streaks API from Creed — 3 operation(s) for streaks.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - streaks
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-streaks-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-time-spent-api
+  name: Creed time-spent API
+  description: The time-spent API from Creed — 1 operation(s) for time-spent.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - time-spent
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-time-spent-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-tts-api
+  name: Creed tts API
+  description: The tts API from Creed — 2 operation(s) for tts.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - tts
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-tts-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-user-item-preferences-api
+  name: Creed user-item-preferences API
+  description: The user-item-preferences API from Creed — 1 operation(s) for user-item-preferences.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - user-item-preferences
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-user-item-preferences-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-users-api
+  name: Creed users API
+  description: The users API from Creed — 2 operation(s) for users.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - users
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-users-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-verses-api
+  name: Creed verses API
+  description: The verses API from Creed — 2 operation(s) for verses.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - verses
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-verses-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-webhooks-api
+  name: Creed webhooks API
+  description: The webhooks API from Creed — 1 operation(s) for webhooks.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-webhooks-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: AgenticAccess
+  url: agentic-access/creed-agentic-access.yml
+- type: Authentication
+  url: authentication/creed-authentication.yml
+- type: DomainSecurity
+  url: security/creed-domain-security.yml
+- type: LLMsTxt
+  url: llms/creed-llms.txt
+- type: WellKnown
+  url: well-known/creed-well-known.yml
+- type: AgentSkill
+  url: skills/_index.yml
 - type: Website
   url: https://usecreed.com
+- type: Blog
+  url: https://usecreed.com/learn/
+- type: PrivacyPolicy
+  url: https://usecreed.com/privacy/
+- type: TermsOfService
+  url: https://usecreed.com/terms/
+- type: Support
+  url: https://usecreed.com/contact/
+- type: HelpCenter
+  url: https://usecreed.com/faq/
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

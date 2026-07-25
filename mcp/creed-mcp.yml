@@ -1,0 +1,75 @@
+generated: '2026-07-18'
+method: derived
+status: candidate
+source: openapi/creed-openapi-original.json
+note: >-
+  No official hosted/remote Creed MCP server was found. This is a DERIVED candidate tool list: a
+  curated subset of the 191 OpenAPI operations across Creed's marquee domains (chatbot, prayer,
+  church, social, gamification). Every source_operation is a verbatim operationId from the spec.
+  Not authoritative; a starting point for an agent-facing surface. Auth: Supabase JWT bearer.
+server:
+  name: creed
+  transport: http
+  url: null
+  auth: bearer-jwt
+tools:
+- name: chat_with_lenny
+  description: Send a message to the Creed AI Christian chatbot and get a response.
+  source_operation: openapi/creed-openapi-original.json#chatbot_endpoint_api_chatbot_post
+- name: list_chats
+  description: List the authenticated user's chat conversations.
+  source_operation: openapi/creed-openapi-original.json#get_user_chats_api_chats_get
+- name: get_chat_messages
+  description: Get the messages in a chat conversation.
+  source_operation: openapi/creed-openapi-original.json#get_chat_messages_api_chats__chat_id__messages_get
+- name: get_chat_suggestions
+  description: Get suggested chat prompts.
+  source_operation: openapi/creed-openapi-original.json#get_chat_suggestions_api_chat_suggestions_get
+- name: generate_daily_prayer
+  description: Generate a personalized daily prayer.
+  source_operation: openapi/creed-openapi-original.json#generate_daily_prayer_api_daily_prayer_post
+- name: get_library_prayer
+  description: Retrieve a prayer from the prayer library by topic.
+  source_operation: openapi/creed-openapi-original.json#get_library_prayer_api_prayer_library__topic__get
+- name: get_daily_devotional
+  description: Get the daily devotional content.
+  source_operation: openapi/creed-openapi-original.json#get_daily_devotionals_api_daily_devotional_get
+- name: text_to_speech
+  description: Convert text to speech audio.
+  source_operation: openapi/creed-openapi-original.json#text_to_speech_api_tts_post
+- name: submit_prayer
+  description: Submit a prayer request to the moderated prayer wall.
+  source_operation: openapi/creed-openapi-original.json#submit_prayer_api_prayer_wall_post
+- name: get_prayer_wall
+  description: Get the current prayer wall prayers.
+  source_operation: openapi/creed-openapi-original.json#get_current_prayers_api_prayer_wall_get
+- name: save_verse
+  description: Save a Bible verse to the user's collection.
+  source_operation: openapi/creed-openapi-original.json#save_verse_api_verses_save_post
+- name: get_saved_verses
+  description: List the user's saved verses.
+  source_operation: openapi/creed-openapi-original.json#get_saved_verses_api_verses_get
+- name: add_gratitude
+  description: Add an entry to the daily gratitude journal.
+  source_operation: openapi/creed-openapi-original.json#add_daily_gratitude_api_daily_gratitude_post
+- name: add_prayer_journal
+  description: Add an entry to the prayer journal.
+  source_operation: openapi/creed-openapi-original.json#add_prayer_journal_api_prayer_journal_post
+- name: list_learning_plans
+  description: List the learning-plan catalog.
+  source_operation: openapi/creed-openapi-original.json#list_catalog_api_learning_plans_catalog_get
+- name: create_reminder
+  description: Create a prayer/reminder.
+  source_operation: openapi/creed-openapi-original.json#create_reminder_api_reminders_post
+- name: get_church_suggestions
+  description: Get suggested churches for the user.
+  source_operation: openapi/creed-openapi-original.json#get_church_suggestions_api_churches_suggestions_get
+- name: get_streaks
+  description: Get the user's activity streaks.
+  source_operation: openapi/creed-openapi-original.json#get_streaks_api_streaks_get
+- name: get_global_leaderboard
+  description: Get the global leaderboard.
+  source_operation: openapi/creed-openapi-original.json#get_global_leaderboard_api_leaderboard_global_get
+- name: get_daily_quests
+  description: Get the user's daily quests.
+  source_operation: openapi/creed-openapi-original.json#get_daily_quests_api_daily_quests_get

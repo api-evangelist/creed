@@ -1,0 +1,32 @@
+# Creed
+
+> Creed (Creed Labs, operated by Lemon Tree Labs Inc.) is a Brooklyn-based faith-tech company building an AI-powered Bible study, prayer, and Christian community app used by 2M+ people. Its public backend is a FastAPI service at api.usecreed.com exposing 191 operations, secured with Supabase-issued JWT bearer tokens.
+
+## APIs
+
+- [Creed API (Swagger UI)](https://api.usecreed.com/docs): AI Christian chatbot, daily prayers and devotionals, text-to-speech, moderated prayer wall, learning plans, journaling, church discovery/admin, friends/social, leaderboards, streaks, and gamification.
+
+## Specs
+
+- [OpenAPI 3.1 document](https://api.usecreed.com/openapi.json): The live FastAPI-generated spec (191 operations, 164 schemas). Captured in-repo at openapi/creed-openapi-original.json.
+
+## Artifacts
+
+- [Authentication](authentication/creed-authentication.yml): HTTP bearer (Supabase JWT); secondary x-api-key / x-user-id headers.
+- [Conventions](conventions/creed-conventions.yml): offset/limit pagination, request_id tracing, FastAPI error envelope, no idempotency contract.
+- [Error catalog](errors/creed-problem-types.yml): FastAPI {"detail": ...} envelope; 400/403/404/422/500.
+- [Data model](data-model/creed-data-model.yml): entity-relationship graph derived from the spec.
+- [Conformance](conformance/creed-conformance.yml): OpenAPI 3.1 + JWT bearer; not OAuth2/OIDC/RFC 9457.
+- [Lifecycle](lifecycle/creed-lifecycle.yml): version 1.0.0; no published deprecation policy/SLA/status page.
+- [Agentic access](agentic-access/creed-agentic-access.yml): recommended x-agentic-access contracts per operation.
+- [MCP (candidate)](mcp/creed-mcp.yml): derived candidate tool list.
+- [Agent skills](skills/_index.yml): packaged operating instructions for marquee flows.
+
+## Docs
+
+- [Website](https://usecreed.com)
+- [Blog / Journal](https://usecreed.com/learn/)
+- [FAQ](https://usecreed.com/faq/)
+- [Privacy policy](https://usecreed.com/privacy/)
+- [Terms and conditions](https://usecreed.com/terms/)
+- [Contact](https://usecreed.com/contact/)

@@ -1,0 +1,109 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/creed-openapi-original.json
+note: >-
+  Entity-relationship graph derived from OpenAPI path ids and request/response schemas (164 schemas).
+  Relationships inferred from path parameters (user_id, chat_id, prayer_id, church_id, friend_id, etc.)
+  and schema id-reference fields. Ids are not prefixed in the spec; domains are grouped by tag.
+entities:
+- name: User
+  domain: users
+  id: user_id
+  operations: [update_user_info, delete_user_account, get_user_item_preferences]
+- name: Chat
+  domain: chatbot
+  id: chat_id
+  operations: [get_user_chats, get_chat_messages, chatbot_endpoint, compact_conversation]
+- name: Message
+  domain: chatbot
+  operations: [get_chat_messages]
+- name: Prayer
+  domain: prayer-wall
+  id: prayer_id
+  operations: [submit_prayer, get_prayer_by_id, approve_prayer, reject_prayer, get_prayer_comments]
+- name: PrayerComment
+  domain: prayer-wall
+  operations: [submit_comment, get_prayer_comments]
+- name: PrayerJournal
+  domain: prayer-journal
+  id: prayer_journal_id
+  operations: [get_prayer_journals, add_prayer_journal, delete_prayer_journal]
+- name: Gratitude
+  domain: gratitude
+  id: gratitude_id
+  operations: [add_daily_gratitude, update_daily_gratitude, delete_daily_gratitude, get_daily_gratitudes]
+- name: Verse
+  domain: verses
+  operations: [save_verse, get_saved_verses, delete_saved_verse]
+- name: LearningPlan
+  domain: learning-plans
+  id: instance_id
+  operations: [list_catalog, list_instances, create_instance, mark_segment_complete]
+- name: Devotional
+  domain: daily-devotional
+  operations: [get_daily_devotionals]
+- name: DailyQuest
+  domain: daily-quests
+  id: quest_key
+  operations: [get_daily_quests, claim_quest_reward]
+- name: Reminder
+  domain: reminders
+  id: reminder_id
+  operations: [create_reminder, list_reminders, get_reminder, update_reminder, delete_reminder, snooze_reminder]
+- name: Church
+  domain: churches
+  id: church_id
+  operations: [get_church_by_id, get_church_suggestions, get_churches_in_bounds, validate_and_submit_church]
+- name: ChurchEvent
+  domain: church-admin
+  id: event_id
+  operations: [create_event, list_events, delete_event]
+  belongs_to: {entity: Church, via: church_id}
+- name: ChurchAnnouncement
+  domain: church-announcements
+  id: announcement_id
+  operations: [get_announcements, get_announcement, create_announcement, delete_announcement]
+  belongs_to: {entity: Church, via: church_id}
+- name: Friend
+  domain: friends
+  id: friend_id
+  operations: [get_my_friends, send_friend_request, accept_friend_request, remove_friend, nudge_friend]
+- name: FriendStreak
+  domain: friends
+  operations: [list_friend_streaks, get_friend_streak_with_friend, send_friend_streak_request, end_friend_streak]
+  belongs_to: {entity: Friend, via: friend_id}
+- name: LiveStream
+  domain: live-streams
+  id: stream_id
+  operations: [start_stream, stop_stream, get_active_stream, submit_live_stream_comment, get_live_stream_comments]
+- name: Gift
+  domain: gifts
+  operations: [create_gift_code, get_my_gift_codes, redeem_gift_code]
+- name: Referral
+  domain: referrals
+  operations: [get_or_create_referral_code, redeem_referral_code, claim_referrer_reward]
+- name: Sponsorship
+  domain: sponsorship
+  operations: [join_sponsorship_pool, leave_sponsorship_pool, get_pool_status, assign_sponsorships]
+- name: Achievement
+  domain: achievements
+  operations: [get_all_achievements, get_user_achievements, unlock_achievement]
+- name: GamificationItem
+  domain: gamification
+  operations: [get_shop_items, purchase_item, unlock_item, get_unlocked_items]
+- name: Streak
+  domain: streaks
+  operations: [get_streaks, update_oneoff_event]
+relationships:
+- {from: Chat, to: User, kind: belongs_to, via: user_id}
+- {from: Message, to: Chat, kind: belongs_to, via: chat_id}
+- {from: Prayer, to: User, kind: belongs_to, via: user_id}
+- {from: PrayerComment, to: Prayer, kind: belongs_to, via: prayer_id}
+- {from: PrayerJournal, to: User, kind: belongs_to, via: user_id}
+- {from: Gratitude, to: User, kind: belongs_to, via: user_id}
+- {from: ChurchEvent, to: Church, kind: belongs_to, via: church_id}
+- {from: ChurchAnnouncement, to: Church, kind: belongs_to, via: church_id}
+- {from: Friend, to: User, kind: has_many, via: user_id}
+- {from: FriendStreak, to: Friend, kind: belongs_to, via: friend_id}
+- {from: LiveStream, to: User, kind: belongs_to, via: user_id}
+- {from: Reminder, to: User, kind: belongs_to, via: user_id}

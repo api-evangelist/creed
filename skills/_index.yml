@@ -1,0 +1,31 @@
+generated: '2026-07-18'
+method: generated
+source: openapi/creed-openapi-original.json
+note: >-
+  Packaged Agent Skills for Creed's marquee flows. Each step is grounded in a verbatim operationId
+  from the OpenAPI spec. Auth for every flow is a Supabase JWT bearer token in the Authorization
+  header. No provider-published skills/AGENTS.md were found.
+skills:
+- file: creed-chat-with-lenny.md
+  name: Chat with the Creed AI companion (Lenny)
+  api: openapi/creed-openapi-original.json
+  operations:
+  - chatbot_endpoint_api_chatbot_post
+  - get_user_chats_api_chats_get
+  - get_chat_messages_api_chats__chat_id__messages_get
+  - get_chat_suggestions_api_chat_suggestions_get
+- file: creed-daily-prayer.md
+  name: Generate and listen to a daily prayer
+  api: openapi/creed-openapi-original.json
+  operations:
+  - generate_daily_prayer_api_daily_prayer_post
+  - get_daily_prayer_audio_api_daily_prayer_audio_get
+  - get_library_prayer_api_prayer_library__topic__get
+- file: creed-prayer-wall.md
+  name: Submit and browse the prayer wall
+  api: openapi/creed-openapi-original.json
+  operations:
+  - submit_prayer_api_prayer_wall_post
+  - get_current_prayers_api_prayer_wall_get
+  - get_prayer_by_id_api_prayer_wall__prayer_id__get
+  - submit_comment_api_prayer_wall__prayer_id__comments_post

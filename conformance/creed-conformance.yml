@@ -1,0 +1,33 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/creed-openapi-original.json
+standards:
+- id: openapi-3.1
+  conforms: true
+  evidence: Document declares openapi 3.1.0 and is served at /openapi.json.
+- id: oauth2
+  conforms: false
+  evidence: No oauth2 securityScheme; authentication is HTTP bearer (JWT).
+- id: oidc
+  conforms: false
+  evidence: No openIdConnect securityScheme or discovery document.
+- id: jwt-bearer
+  conforms: true
+  evidence: securitySchemes.HTTPBearer type http scheme bearer bearerFormat JWT (Supabase).
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: 'Errors use FastAPI {"detail": ...} envelope, not application/problem+json.'
+- id: json-api
+  conforms: false
+  evidence: Responses are ad-hoc JSON schemas, not JSON:API media type.
+- id: pagination
+  conforms: true
+  evidence: Offset/limit query parameters on collection operations.
+- id: idempotency
+  conforms: false
+  evidence: No Idempotency-Key contract documented.
+- id: webhooks-outbound
+  conforms: false
+  evidence: >-
+    The only webhook endpoint (/api/webhooks/revenuecat) is an inbound receiver for RevenueCat;
+    Creed does not publish an outbound event/webhook surface for consumers.

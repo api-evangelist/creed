@@ -1,0 +1,43 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/creed-openapi-original.json
+format: fastapi-detail
+problem_json: false
+envelope:
+  content_type: application/json
+  error_string: '{"detail": "<message>"}'
+  validation: '{"detail": [{"loc": [...], "msg": "...", "type": "..."}]}'
+  note: >-
+    Errors are not RFC 9457 problem+json. String errors use the ErrorResponse schema
+    ({"detail": string}); 422 validation errors use HTTPValidationError
+    ({"detail": [ValidationError,...]}). Derived from OpenAPI response declarations.
+problems:
+- status: 400
+  title: Bad Request
+  schema: ErrorResponse
+  remediation: Correct the request payload or parameters.
+- status: 403
+  title: Forbidden
+  schema: ErrorResponse
+  remediation: Authenticate with a valid Supabase JWT bearer token (or required x-api-key) with access to the resource.
+- status: 404
+  title: Not Found
+  schema: ErrorResponse
+  remediation: Verify the resource id in the path exists and belongs to the caller.
+- status: 422
+  title: Unprocessable Entity (Validation Error)
+  schema: HTTPValidationError
+  remediation: Fix the field(s) reported in detail[].loc per detail[].msg.
+- status: 500
+  title: Internal Server Error
+  schema: ErrorResponse
+  remediation: Transient server error; retry with backoff or contact support.
+observed_status_codes:
+- '200'
+- '201'
+- '204'
+- '400'
+- '403'
+- '404'
+- '422'
+- '500'

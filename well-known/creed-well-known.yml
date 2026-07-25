@@ -1,0 +1,32 @@
+generated: '2026-07-18'
+method: searched
+source: live probes of /.well-known/ on Creed hosts
+hosts:
+- host: https://usecreed.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: https://api.usecreed.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /openapi.json
+    status: 200
+    note: FastAPI-generated OpenAPI 3.1 document (captured as openapi/creed-openapi-original.json)
+  - path: /docs
+    status: 200
+    note: Swagger UI
+notes: >-
+  No /.well-known discovery documents are published on either host. The API host serves an
+  auto-generated OpenAPI document at /openapi.json and Swagger UI at /docs. Absence of well-known
+  documents is recorded as valid data.

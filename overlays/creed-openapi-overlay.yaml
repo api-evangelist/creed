@@ -1,0 +1,26 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Creed API
+  version: 1.0.0
+extends: openapi/creed-openapi-original.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: creed
+    x-apievangelist-notes: >-
+      Public FastAPI backend for the Creed faith-tech app. Supabase JWT bearer auth; offset/limit
+      pagination; FastAPI {"detail": ...} error envelope (not RFC 9457). No servers[] declared —
+      production base is https://api.usecreed.com.
+- target: $.servers
+  update:
+  - url: https://api.usecreed.com
+    description: Production (added by API Evangelist; the source spec declares no servers).
+- target: $.info
+  update:
+    x-apievangelist-cross-references:
+      authentication: authentication/creed-authentication.yml
+      conventions: conventions/creed-conventions.yml
+      errors: errors/creed-problem-types.yml
+      data_model: data-model/creed-data-model.yml
+      conformance: conformance/creed-conformance.yml
+      lifecycle: lifecycle/creed-lifecycle.yml
