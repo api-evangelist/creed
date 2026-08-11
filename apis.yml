@@ -1324,6 +1324,10 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: MCPServer
+  url: mcp/creed-mcp.yml
+- type: Overlay
+  url: overlays/creed-openapi-overlay.yaml
 - type: AgenticAccess
   url: agentic-access/creed-agentic-access.yml
 - type: Authentication
