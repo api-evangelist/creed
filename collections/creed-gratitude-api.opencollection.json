@@ -1,0 +1,185 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements gratitude API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "gratitude",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Daily Gratitudes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/daily-gratitudes-journal",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetch all gratitude journals for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Add Daily Gratitude",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/daily-gratitude",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Add a daily gratitude journal for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Update Daily Gratitude",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/daily-gratitude/:gratitude_id",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "gratitude_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update an existing gratitude journal entry for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Delete Daily Gratitude",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/daily-gratitude/:gratitude_id",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "gratitude_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a gratitude journal entry for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Get User Recent Gratitude",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/daily-gratitude/recent/:user_id",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the most recent gratitude journal entry for a user.\nVerifies that the user has journal_share enabled.\nAnyone can view if journal_share is enabled (no friendship required).\nReturns None if:\n- User has journal_share disabled\n- No gratitude journal exists"
+        },
+        {
+          "info": {
+            "name": "Get User Recent Gratitudes List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/daily-gratitude/recent/:user_id/list",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the most recent gratitude journal entries for a user (up to `limit`).\nVerifies that the user has journal_share enabled.\nReturns empty list if journal_share is disabled or no entries exist."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,85 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements group-chat API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "group-chat",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Provision Group Chat",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/group-chat/provision",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Idempotently provisions:\n  1. A Mattermost team for the user's church (if missing)\n  2. A Mattermost user for the caller (if missing)\n  3. Membership in the team\n  4. A fresh PAT for the user\n\nReturns the credentials the RN client needs to connect via WebSocket."
+        },
+        {
+          "info": {
+            "name": "Get My Identity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/group-chat/me",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns existing mappings without creating anything. Useful for debugging."
+        },
+        {
+          "info": {
+            "name": "Get Group Chat Members",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/group-chat/members",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Resolve a batch of Mattermost user ids to app-side profile fields\n(first_name, last_name, profile_picture). Used by the client to render\navatars/names without leaking other PII."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

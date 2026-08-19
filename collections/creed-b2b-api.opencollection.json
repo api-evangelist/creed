@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements b2b API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "b2b",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Chat",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/b2b/chatbot",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Chat"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

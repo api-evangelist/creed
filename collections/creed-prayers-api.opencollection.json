@@ -1,0 +1,64 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements prayers API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "prayers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate Daily Prayer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/daily-prayer",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Generate a daily prayer (text only).\n\nThis endpoint creates a personalized prayer (approximately 1 minute long) that ends with \"Amen\".\nAudio is fetched separately via the /daily-prayer/audio endpoint to improve response time.\n\nArgs:\n    request: Prayer request (sendAudio flag is ignored)\n    current_user: Authenticated user\n    \nReturns:\n    PrayerResponse containing prayer_text only (audio_base64 will be None)"
+        },
+        {
+          "info": {
+            "name": "Get Daily Prayer Audio",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/daily-prayer/audio",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get daily prayer audio, generating it if not already cached.\n\nThis endpoint retrieves the daily prayer audio from the database if it exists,\nor generates both the prayer text and audio if not cached.\n\nArgs:\n    current_user: Authenticated user\n    \nReturns:\n    PrayerResponse containing prayer_text and audio_base64"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

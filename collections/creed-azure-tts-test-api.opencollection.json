@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements azure-tts-test API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "azure-tts-test",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Azure Tts Test",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/azure-tts-test",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Isolated test endpoint for Azure OpenAI TTS.\nReturns audio bytes directly for testing."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

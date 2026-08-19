@@ -1,0 +1,182 @@
+{
+  "item": [
+    {
+      "id": "a9aef20b-cbeb-4c34-b704-6d8bcff40026",
+      "name": "journal",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5dbaf434-a7d5-484f-88e3-36a602a711bb",
+          "name": "Get Journal",
+          "request": {
+            "name": "Get Journal",
+            "description": {
+              "content": "Fetch the combined Journal screen payload for the authenticated user\n(gratitudes, prayer journals and saved Bible verses) in a single call.\n\nBacked by the `get_journal_bundle(p_user_id uuid)` Postgres function which\nreturns everything plus `latest_change` in a single round-trip. Freshness is\nmanaged client-side via per-source stale signals; the server holds no cache.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "journal"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-user-id",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c83a20d9-197a-407e-93fe-7e608d90124e",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "journal"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-user-id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"gratitudes\": [\n    {\n      \"id\": 3548,\n      \"gratitude_text\": \"string\",\n      \"created_at\": \"1970-11-03T22:00:53.114Z\",\n      \"is_first_entry\": true\n    },\n    {\n      \"id\": 8778,\n      \"gratitude_text\": \"string\",\n      \"created_at\": \"2017-08-15T02:51:27.863Z\",\n      \"is_first_entry\": false\n    }\n  ],\n  \"prayers\": [\n    {\n      \"id\": 3503,\n      \"prayer_text\": \"string\",\n      \"created_at\": \"1991-08-16T11:00:47.572Z\",\n      \"topic\": \"string\"\n    },\n    {\n      \"id\": 7539,\n      \"prayer_text\": \"string\",\n      \"created_at\": \"1997-12-21T00:40:59.096Z\",\n      \"topic\": \"string\"\n    }\n  ],\n  \"verses\": [\n    {\n      \"book\": \"John\",\n      \"chapter\": 3,\n      \"created_at\": \"2024-05-11T19:42:00+00:00\",\n      \"verse\": 16,\n      \"version\": \"KJV\"\n    },\n    {\n      \"book\": \"John\",\n      \"chapter\": 3,\n      \"created_at\": \"2024-05-11T19:42:00+00:00\",\n      \"verse\": 16,\n      \"version\": \"KJV\"\n    }\n  ],\n  \"latest_change\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8934313e-22a9-4923-962d-8a14065d0a7a",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "journal"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-user-id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "afdfe3fe-112e-4b38-81e7-2d8b876039e5",
+    "name": "Creed achievements journal API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Creed API - Christian AI Chatbot",
+      "type": "text/plain"
+    }
+  }
+}

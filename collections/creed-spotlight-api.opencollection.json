@@ -1,0 +1,64 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements spotlight API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "spotlight",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Seen",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/spotlight/seen",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Seen"
+        },
+        {
+          "info": {
+            "name": "Mark Seen",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/spotlight/seen",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Mark Seen"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

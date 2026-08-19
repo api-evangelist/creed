@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements journal API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "journal",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Journal",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/journal",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetch the combined Journal screen payload for the authenticated user\n(gratitudes, prayer journals and saved Bible verses) in a single call.\n\nBacked by the `get_journal_bundle(p_user_id uuid)` Postgres function which\nreturns everything plus `latest_change` in a single round-trip. Freshness is\nmanaged client-side via per-source stale signals; the server holds no cache."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

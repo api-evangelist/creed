@@ -1,0 +1,135 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements referrals API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "referrals",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Or Create Referral Code",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/referrals/code",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the authenticated user's referral code, creating one if it doesn't exist.\nIf the user has an active code, it will be returned.\nIf not, a new code will be created and returned.\n\nReturns:\n    ReferralCodeResponse with code details"
+        },
+        {
+          "info": {
+            "name": "Redeem Referral Code",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/referrals/redeem",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Redeem a referral code to get premium access.\n\nRestrictions:\n- Users cannot redeem their own codes\n- Users can only redeem one code (cannot redeem if already redeemed)\n- Code must be active and not expired\n\nArgs:\n    request: RedeemCodeRequest with the token (the actual code)\n\nReturns:\n    RedeemCodeResponse with success status and access expiry"
+        },
+        {
+          "info": {
+            "name": "Claim Referrer Reward",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/referrals/claim-reward",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Claim the referrer reward for a specific redemption.\n\nThis endpoint allows referrers to claim their 1 month premium reward\nwhen someone uses their referral code. The reward is stacked on top\nof any existing subscription.\n\nArgs:\n    request: ClaimRewardRequest with the redemption_id\n\nReturns:\n    ClaimRewardResponse with success status and message"
+        },
+        {
+          "info": {
+            "name": "Get User Redemptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/referrals/redemptions",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get all redemptions for the authenticated user's referral code.\n\nThis endpoint returns a list of all users who have redeemed the current user's\nreferral code, including the claim status of each redemption.\n\nReturns:\n    RedemptionsResponse with list of redemptions and counts"
+        },
+        {
+          "info": {
+            "name": "Redeem Promo Code",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/referrals/redeem-promo",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Redeem a system-generated referral code.\n\nValidates the code against the referral_codes table (case-insensitive), then grants\nRevenueCat premium for the duration configured on the code (week / month / year),\nstacking on top of any existing subscription. The grant is recorded in referral_grants.\n\nRestrictions:\n- Code must exist in referral_codes and have status = 'active'\n- User cannot redeem the same code more than once (no limit on redeeming different codes)\n\nArgs:\n    request: RedeemSystemCode"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

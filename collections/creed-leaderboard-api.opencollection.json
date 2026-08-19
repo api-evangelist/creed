@@ -1,0 +1,139 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements leaderboard API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "leaderboard",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Country Leaderboard",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/leaderboard/country",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the country-level leaderboard based on streak count.\nReturns users from the same country as the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Get Church Leaderboard",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/leaderboard/church",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the community leaderboard based on streak count.\nReturns users from the authenticated user's church PLUS their friends\n(community view used by the main LeaderboardView).\n\nNote: This is the church + friends view. For a leaderboard restricted\nto members of a specific church only, use GET /leaderboard/by-church/{church_id}."
+        },
+        {
+          "info": {
+            "name": "Get Leaderboard By Church",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/leaderboard/by-church/:church_id",
+            "params": [
+              {
+                "name": "church_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the streak leaderboard for a specific church id.\nReturns all users in that church, ranked by streak count.\nUsed by the church map detail view, and by the church-admin dashboard\n(authenticated with the church-admin session cookie for its own church)."
+        },
+        {
+          "info": {
+            "name": "Get Global Leaderboard",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/leaderboard/global",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the global leaderboard based on streak count.\nReturns all users ranked by their streak count."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

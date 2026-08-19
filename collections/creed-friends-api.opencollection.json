@@ -1,0 +1,596 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements friends API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "friends",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get My Friends",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/friends",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get all friends for the current user with their profile information.\n\nArgs:\n    current_user: Current authenticated user from dependency\n\nReturns:\n    Dict with list of friends"
+        },
+        {
+          "info": {
+            "name": "Get My Friend Requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/friends/requests",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get all pending friend requests received by the current user.\n\nArgs:\n    current_user: Current authenticated user from dependency\n\nReturns:\n    Dict with list of pending friend requests"
+        },
+        {
+          "info": {
+            "name": "Get My Sent Friend Requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/friends/requests/sent",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get all pending friend requests sent by the current user.\n\nArgs:\n    current_user: Current authenticated user from dependency\n\nReturns:\n    Dict with list of pending sent friend requests"
+        },
+        {
+          "info": {
+            "name": "Search User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/friends/search/:user_id",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "allow_self_search",
+                "value": "",
+                "type": "query",
+                "description": "When true, searching for your own user ID returns your profile instead of an error."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search for a user by ID and check if already friends.\n\nArgs:\n    user_id: ID of the user to search for\n    allow_self_search: If true, allow looking up the authenticated user by their own ID\n    current_user: Current authenticated user from dependency\n\nReturns:\n    Dict with user info and friendship status"
+        },
+        {
+          "info": {
+            "name": "Send Friend Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/friends/request/send/:receiver_id",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "receiver_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Send a friend request to another user.\n\nArgs:\n    receiver_id: ID of the user to send friend request to\n    current_user: Current authenticated user from dependency\n\nReturns:\n    Dict with the created friend request"
+        },
+        {
+          "info": {
+            "name": "Nudge Friend",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/friends/nudge/:friend_id",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "friend_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Send a push notification nudge to a friend.\n\nTitle is the current user's first name; body is the text from the request body."
+        },
+        {
+          "info": {
+            "name": "Auto Add Friend",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/friends/auto-add/:sender_id",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sender_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Directly add a user as a friend without a request/accept flow.\n\nThe caller is the receiver — they include the sender_id (the user who shared their ID).\nThe sender receives the notification."
+        },
+        {
+          "info": {
+            "name": "Remove Friend",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/friends/remove/:friend_id",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "friend_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Remove an existing friendship with another user.\n\nEnds any active friend streak partnership with the friend (best effort)\nbefore removing the bidirectional friendship rows."
+        },
+        {
+          "info": {
+            "name": "Accept Friend Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/friends/request/accept/:request_id",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "request_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "enable_grants",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Accept a friend request by ID.\n\nArgs:\n    request_id: ID of the friend request\n    current_user: Current authenticated user from dependency\n\nReturns:\n    Dict with success status and friendship details"
+        },
+        {
+          "info": {
+            "name": "Reject Friend Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/friends/request/reject/:request_id",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "request_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Reject a friend request by ID.\n\nArgs:\n    request_id: ID of the friend request\n    current_user: Current authenticated user from dependency\n\nReturns:\n    Dict with success status"
+        },
+        {
+          "info": {
+            "name": "Cancel Friend Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/friends/request/cancel/:request_id",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "request_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Cancel a friend request by ID (sender can cancel their own sent request).\n\nArgs:\n    request_id: ID of the friend request\n    current_user: Current authenticated user from dependency\n\nReturns:\n    Dict with success status"
+        },
+        {
+          "info": {
+            "name": "Auto Start Streak",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/friends/streaks/auto-start/:sender_id",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sender_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Directly add a user as a friend and immediately start an active streak.\n\nThe caller is the receiver — they include the sender_id (the user who shared their ID).\nThe sender receives the notifications."
+        },
+        {
+          "info": {
+            "name": "List Friend Streaks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/friends/streaks",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List active friend streak partnerships for the current user."
+        },
+        {
+          "info": {
+            "name": "Get Friend Streak Requests Incoming",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/friends/streaks/requests",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Pending friend streak requests received by the current user."
+        },
+        {
+          "info": {
+            "name": "Get Friend Streak Requests Sent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/friends/streaks/requests/sent",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Pending friend streak requests sent by the current user."
+        },
+        {
+          "info": {
+            "name": "Get Friend Streak With Friend",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/friends/streaks/:friend_id",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "friend_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get active friend streak row + partner profile for one friend."
+        },
+        {
+          "info": {
+            "name": "Send Friend Streak Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/friends/streaks/request/send/:receiver_id",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "receiver_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Send a friend streak request (must already be friends)."
+        },
+        {
+          "info": {
+            "name": "Accept Friend Streak Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/friends/streaks/request/accept/:request_id",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "request_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Accept a pending friend streak request."
+        },
+        {
+          "info": {
+            "name": "Reject Friend Streak Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/friends/streaks/request/reject/:request_id",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "request_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Reject a pending friend streak request."
+        },
+        {
+          "info": {
+            "name": "Cancel Friend Streak Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/friends/streaks/request/cancel/:request_id",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "request_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Cancel a pending friend streak request (sender only)."
+        },
+        {
+          "info": {
+            "name": "End Friend Streak",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/friends/streaks/end/:friend_id",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "friend_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "End an active friend streak partnership with the given friend."
+        },
+        {
+          "info": {
+            "name": "Send Friend Streak Reminders Cron",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/friends/streaks/send-reminders-cron",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Cron endpoint to send friend streak loss reminders via Expo push.\n\nPOST /api/friends/streaks/send-reminders-cron\n\nFor each active streak pair (streak_count >= 2) at risk of expiring,\nnotifies the partner who has completed today to nudge their friend.\nWhen neither has completed, user_a (canonical first partner) is notified.\nUsers with multiple at-risk pairs receive one grouped notification.\n\nRuns at 10 PM–11:45 PM local time (cron every 30 minutes).\nRequires x-api-key header for authentication."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

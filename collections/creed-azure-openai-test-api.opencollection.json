@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements azure-openai-test API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "azure-openai-test",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Azure Openai Test",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/azure-openai-test",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Isolated test endpoint for Azure OpenAI chat completions.\nDoes not touch existing services - used only for validation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

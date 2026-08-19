@@ -1,0 +1,298 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements prayer-wall API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "prayer-wall",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Current Prayers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/prayer-wall",
+            "params": [
+              {
+                "name": "include_is_bot",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get scheduled prayers (start_time >= now and not expired). Pass `lang` (en/es/pt/de/fr) to receive translated title/prayer text."
+        },
+        {
+          "info": {
+            "name": "Submit Prayer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/prayer-wall",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Submit a prayer to the prayer wall. AI validates and generates expanded prayer. Returns the prayer for user approval (not scheduled yet)."
+        },
+        {
+          "info": {
+            "name": "Approve Prayer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/prayer-wall/:prayer_id/approve",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "prayer_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Approve a prayer to be scheduled on the prayer wall. Returns updated list of scheduled prayers."
+        },
+        {
+          "info": {
+            "name": "Reject Prayer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/prayer-wall/:prayer_id/reject",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "prayer_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Reject a prayer (removes it from the system)."
+        },
+        {
+          "info": {
+            "name": "Expire Prayers Cron",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/prayer-wall/expire-cron"
+          },
+          "docs": "Cron endpoint to expire old prayers. Run every 10-20 minutes. Runs in background."
+        },
+        {
+          "info": {
+            "name": "Generate Bot Prayers Cron",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/prayer-wall/generate-bot-cron"
+          },
+          "docs": "Cron endpoint to generate bot prayers if queue is low. Runs in background."
+        },
+        {
+          "info": {
+            "name": "Get Prayers Paginated",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/prayer-wall-paginated",
+            "params": [
+              {
+                "name": "include_is_bot",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get all prayers with pagination. Pass `lang` (en/es/pt/de/fr) to receive translated title/prayer text."
+        },
+        {
+          "info": {
+            "name": "Get My Prayers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/prayer-wall/me",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get all prayers submitted by the authenticated user, ordered by most recent first."
+        },
+        {
+          "info": {
+            "name": "Get Upcoming Count",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/prayer-wall/upcoming-count"
+          },
+          "docs": "Count of approved, non-expired prayers currently scheduled on the wall."
+        },
+        {
+          "info": {
+            "name": "Get Praying Count",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/prayer-wall/praying-count"
+          },
+          "docs": "Get the number of people currently praying. Updates every 15 minutes."
+        },
+        {
+          "info": {
+            "name": "Get Prayer By Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/prayer-wall/:prayer_id",
+            "params": [
+              {
+                "name": "prayer_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Fetch a single approved prayer by id. Pass `lang` (en/es/pt/de/fr) to receive translated title/prayer text."
+        },
+        {
+          "info": {
+            "name": "Get Prayer Comments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/prayer-wall/:prayer_id/comments",
+            "params": [
+              {
+                "name": "prayer_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get bot-approved comments for a prayer."
+        },
+        {
+          "info": {
+            "name": "Submit Comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/prayer-wall/:prayer_id/comments",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "prayer_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Submit a comment on a prayer. AI validates comment. Returns success if valid."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

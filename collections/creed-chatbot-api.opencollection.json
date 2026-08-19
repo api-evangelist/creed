@@ -1,0 +1,198 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements chatbot API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "chatbot",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Chatbot Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/chatbot",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Chatbot Endpoint"
+        },
+        {
+          "info": {
+            "name": "Get User Chats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/chats",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get all chats for the current authenticated user"
+        },
+        {
+          "info": {
+            "name": "Get Chat Messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/chats/:chat_id/messages",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "chat_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "recent",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get messages for a specific chat\n\nArgs:\n    chat_id: The chat ID\n    current_user: Authenticated user from dependency injection\n    recent: If True, returns the most recent N messages. If False (default), returns oldest N messages.\n    limit: Maximum number of messages to return (default 100)"
+        },
+        {
+          "info": {
+            "name": "Test Auth",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/auth/test",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Test endpoint to verify authentication is working"
+        },
+        {
+          "info": {
+            "name": "Test Public",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/public/test"
+          },
+          "docs": "Public test endpoint that doesn't require authentication"
+        },
+        {
+          "info": {
+            "name": "Get Chat Suggestions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/chat/suggestions",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "conversation_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get chat suggestions for the Christian companion app in user's preferred language.\n\nIf conversation_id is provided and has messages, returns contextual suggestions.\nOtherwise returns static suggestions."
+        },
+        {
+          "info": {
+            "name": "Compact Conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/chatbot/compact",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              },
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Trigger conversation compaction inline. Called after a successful chat message."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

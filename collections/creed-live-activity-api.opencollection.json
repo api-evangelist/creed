@@ -1,0 +1,54 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements live-activity API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "live-activity",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Store Push To Start Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/live-activity/push-to-start-token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Store a Live Activity pushToStart token for the authenticated user.\nAccepts expired JWTs (signature is still verified).\nValidates token format only — no APNs call is made."
+        },
+        {
+          "info": {
+            "name": "Send Call Nudge Cron",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/live-activity/send-call-nudge-cron",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Cron endpoint to send call nudge Live Activity notifications.\nCall nudges are Live Activity notifications for AI incoming calls.\n\nSends call nudges to eligible users who:\n- Have completed onboarding\n- Signed up at least 1 week ago\n- Have live activity tokens\n- Have not yet received a call nudge this ISO week (1 per week max)\n\nEach run randomly samples ~2.9% of eligible users so nudges land on\na random day of the week, averaging 1 nudge per user per week.\n\nRequires x-api-key header for authentica"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

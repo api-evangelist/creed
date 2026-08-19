@@ -1,0 +1,199 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements Email Notifications API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Email Notifications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send Prayer Wall Daily",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/scheduled-notifications/admin/send-prayer-wall-daily",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Daily cron job endpoint to send the prayer wall email to the Resend signup segment.\nCall once per day (e.g. at a fixed time).\n\nFetches last N approved prayers, picks best for engagement via LLM, then sends\na broadcast using the Resend dashboard template and RESEND_SEGMENT_ID.\nBroadcast is scheduled for 11:00 AM EST.\n\nRequires x-api-key header for authentication."
+        },
+        {
+          "info": {
+            "name": "Send Daily Devotional Daily",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/scheduled-notifications/admin/send-daily-devotional-daily",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Daily cron job endpoint to send the daily devotional email to the Resend signup segment.\nCall once per day (e.g. at a fixed time).\n\nFetches today's devotional for the configured language, then sends a broadcast\nusing the Resend daily devotional template and RESEND_SEGMENT_ID.\nBroadcast is scheduled for 7:00 AM EST.\n\nRequires x-api-key header for authentication."
+        },
+        {
+          "info": {
+            "name": "Sync Signup Audience",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/scheduled-notifications/admin/sync-signup-audience",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Cron job endpoint to sync recent signups to the Resend signup audience.\nTrigger every 6 hours (e.g. 00:00, 06:00, 12:00, 18:00 UTC) for contiguous 6-hour windows with no overlap.\nEach run processes users created in the preceding 6-hour window.\n\nRequires x-api-key header for authentication."
+        },
+        {
+          "info": {
+            "name": "Debug Selected Prayer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/scheduled-notifications/admin/prayer-wall-daily/debug/selected-prayer",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of recent prayers to consider; defaults to 20"
+              }
+            ]
+          },
+          "docs": "Debug: get last N approved prayers and pick best for engagement (LLM or fallback).\nReturns the chosen prayer only. No side effects besides optional LLM call.\nRequires x-api-key header for authentication."
+        },
+        {
+          "info": {
+            "name": "Debug Resend Create Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/scheduled-notifications/admin/resend/debug/create-contact",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Debug: create a contact in Resend (for testing). Returns the Resend API response\n(object + id). Optionally add the contact to RESEND_SEGMENT_ID via add_to_segment.\nRequires x-api-key header for authentication."
+        },
+        {
+          "info": {
+            "name": "Debug Preview Broadcast",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/scheduled-notifications/admin/prayer-wall-daily/debug/preview-broadcast",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Debug: fetch Resend template, substitute name/prayer/prayer_request, return subject and HTML.\nDoes not create or send a broadcast. Requires x-api-key header for authentication."
+        },
+        {
+          "info": {
+            "name": "Debug Send Broadcast",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/scheduled-notifications/admin/prayer-wall-daily/debug/send-broadcast",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Debug: send prayer wall broadcast with given variables. Uses RESEND_SEGMENT_ID;\nset it to your test segment when testing. Requires x-api-key header."
+        },
+        {
+          "info": {
+            "name": "Debug Preview Daily Devotional Broadcast",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/scheduled-notifications/admin/daily-devotional-daily/debug/preview-broadcast",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Debug: fetch Resend daily devotional template, substitute variables, return subject and HTML.\nDoes not create or send a broadcast. Requires x-api-key header for authentication."
+        },
+        {
+          "info": {
+            "name": "Debug Send Daily Devotional Broadcast",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/scheduled-notifications/admin/daily-devotional-daily/debug/send-broadcast",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Debug: send daily devotional broadcast with given variables. Uses RESEND_SEGMENT_ID.\nRequires x-api-key header for authentication."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

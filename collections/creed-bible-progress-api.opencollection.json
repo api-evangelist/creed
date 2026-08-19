@@ -1,0 +1,64 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements bible-progress API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "bible-progress",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Append Bible Progress",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/bible-progress/append",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Append a chapter to user's Bible reading progress.\nCalled when a user completes reading a chapter.\n\nThis endpoint is idempotent - duplicate chapters will not be added.\nCreates a new progress record if none exists, or updates the existing one."
+        },
+        {
+          "info": {
+            "name": "Get Bible Progress",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/bible-progress",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get user's complete Bible reading progress.\n\nReturns the user's reading progress including:\n- Progress map (book_id -> completed chapters)\n- Last read position metadata\n- Timestamps"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

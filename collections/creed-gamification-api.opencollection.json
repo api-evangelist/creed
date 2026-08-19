@@ -1,0 +1,261 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements gamification API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "gamification",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Rewards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/gamification/rewards",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get all active token rewards.\n\nReturns a list of all active rewards with their token amounts."
+        },
+        {
+          "info": {
+            "name": "Earn Reward",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/gamification/rewards/earn",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Award tokens to the user for completing a reward source.\n\n- **reward_key**: The reward key identifier (e.g., 'quest_daily_reading', 'achievement_bible_read_10')\n\nThis endpoint is called when a user completes a quest, achievement, daily login, etc.\nThe token amount is determined by the reward configuration in the database."
+        },
+        {
+          "info": {
+            "name": "Earn Tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/gamification/tokens/earn",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Award a custom amount of tokens to the user directly.\n\n- **amount**: Number of tokens to award\n- **source**: Label describing the source of the award\n\nThis endpoint bypasses reward configuration and awards tokens directly."
+        },
+        {
+          "info": {
+            "name": "Get Transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/gamification/tokens/transactions",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of transactions to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of transactions to skip"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get transaction history for the authenticated user.\n\nReturns a list of token transactions (both earned and spent) with details."
+        },
+        {
+          "info": {
+            "name": "Get Token Products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/gamification/tokens/products",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the active token product catalog available for purchase.\n\nReturns purchasable token packs keyed by a stable default id, along with\nthe underlying App Store / Play Store product ids for each platform."
+        },
+        {
+          "info": {
+            "name": "Get Shop Items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/gamification/items",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pricing_variant",
+                "value": "",
+                "type": "query",
+                "description": "Which price to return as token_price -- 'paid_tokens' for the paid_token_exp treatment cohort"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get all currently available shop items.\n\nReturns items that are currently available (within their availability window).\nUse /items/unlocked endpoint to determine which items the user owns."
+        },
+        {
+          "info": {
+            "name": "Get Unlocked Items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/gamification/items/unlocked",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pricing_variant",
+                "value": "",
+                "type": "query",
+                "description": "Which price to return as token_price -- 'paid_tokens' for the paid_token_exp treatment cohort"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get all items unlocked by the authenticated user with full item details.\n\nReturns a list of unlocked items with full marketplace details plus unlock timestamps."
+        },
+        {
+          "info": {
+            "name": "Purchase Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/gamification/items/purchase",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pricing_variant",
+                "value": "",
+                "type": "query",
+                "description": "Which price to charge -- 'paid_tokens' for the paid_token_exp treatment cohort"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Purchase an item with tokens.\n\n- **item_key**: The unique key of the item to purchase (e.g., 'theme_ocean', 'frame_gold')\n\nThis endpoint validates the user's token balance, deducts the tokens,\nand grants the item to the user. Returns the new balance and item details."
+        },
+        {
+          "info": {
+            "name": "Unlock Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/gamification/items/unlock",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Unlock an item for the user without spending tokens.\n\n- **item_key**: The unique key of the item to unlock (e.g., 'theme_premium_dark', 'icon_special_event')\n\nThis endpoint is for unlocking premium items, special event items, or other\nitems that don't require token payment. No transaction is created."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,64 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements users API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Update User Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/users/update",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update user information in the user_info table.\nAccepts any key-value pairs to update flexible user data.\n\nArgs:\n    update_payload: Dictionary with any fields to update\n    current_user: Current authenticated user from dependency\n\nReturns:\n    Dict with success status, message, and updated data"
+        },
+        {
+          "info": {
+            "name": "Delete User Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/users/delete-account",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete user account.\nCurrently this only clears push notification tokens.\nIn the future, this can be extended to handle full account deletion.\n\nReturns:\n    Dict with success status and message"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

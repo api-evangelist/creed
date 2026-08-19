@@ -2,11 +2,10 @@ generated: '2026-07-18'
 method: derived
 status: candidate
 source: openapi/creed-openapi-original.json
-note: >-
-  No official hosted/remote Creed MCP server was found. This is a DERIVED candidate tool list: a
-  curated subset of the 191 OpenAPI operations across Creed's marquee domains (chatbot, prayer,
-  church, social, gamification). Every source_operation is a verbatim operationId from the spec.
-  Not authoritative; a starting point for an agent-facing surface. Auth: Supabase JWT bearer.
+note: 'No official hosted/remote Creed MCP server was found. This is a DERIVED candidate tool list: a
+  curated subset of the 191 OpenAPI operations across Creed''s marquee domains (chatbot, prayer, church,
+  social, gamification). Every source_operation is a verbatim operationId from the spec. Not authoritative;
+  a starting point for an agent-facing surface. Auth: Supabase JWT bearer.'
 server:
   name: creed
   transport: http
@@ -73,3 +72,9 @@ tools:
 - name: get_daily_quests
   description: Get the user's daily quests.
   source_operation: openapi/creed-openapi-original.json#get_daily_quests_api_daily_quests_get
+deployment:
+  mode: none
+  verified: derived
+  tools: 20
+  checked: '2026-08-12'
+  source: catalog MCP census

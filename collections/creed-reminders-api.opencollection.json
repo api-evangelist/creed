@@ -1,0 +1,167 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements reminders API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "reminders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Reminders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/reminders",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all reminders for the current user."
+        },
+        {
+          "info": {
+            "name": "Create Reminder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/reminders",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new reminder.\n\nSubtypes:\n- prayer: Daily prayer reminder (uses fixed templates)\n- church: Church reminder (uses fixed templates)\n- devotional: Daily devotional reminder (uses fixed templates)\n- custom: Custom reminder (requires custom_text)\n\nSchedule types:\n- daily: Runs every day at schedule_time\n- weekly: Runs every week on schedule_day at schedule_time"
+        },
+        {
+          "info": {
+            "name": "Snooze Reminder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/reminders/snooze",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Snooze a reminder: schedule a follow-up reminder Live Activity in `minutes`.\n\nPublic/unauthenticated: the native \"remind me later\" App Intent has no user\nsession, so it posts the user_id + task_id embedded in the Live Activity and\nwe trust them. The action is benign (re-sends a reminder the user already has)\nand task_id is an unguessable UUID."
+        },
+        {
+          "info": {
+            "name": "Get Reminder",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/reminders/:reminder_id",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "reminder_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a single reminder by ID."
+        },
+        {
+          "info": {
+            "name": "Update Reminder",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/reminders/:reminder_id",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "reminder_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update an existing reminder."
+        },
+        {
+          "info": {
+            "name": "Delete Reminder",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/reminders/:reminder_id",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "reminder_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a reminder."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

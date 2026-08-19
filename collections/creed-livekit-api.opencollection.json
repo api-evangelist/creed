@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements livekit API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "livekit",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Room With Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/livekit/create",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new LiveKit room with the provided room_id and generate an access token.\n\nThis endpoint:\n1. Creates a new LiveKit room using the provided room_id as the room name\n2. Generates an access token for the participant\n3. Returns room details and the access token"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

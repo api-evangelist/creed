@@ -1,0 +1,93 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements streaks API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "streaks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Streaks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/streaks",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the current streak count for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Update Oneoff Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/streaks/extend",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              },
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "restore",
+                "value": "",
+                "type": "query",
+                "description": "If true, restore a broken streak by incrementing the last active streak instead of starting fresh"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update one-off daily event completion for a user.\n\nAuthentication methods:\n1. Regular user auth via Bearer token\n2. Admin auth via X-API-Key and X-User-ID headers\n\nThis will update the last_oneoff_daily_event timestamp and trigger streak calculation.\nUses user's timezone from current_user if available, otherwise queries user_info table.\n\nQuery parameters:\n- restore: If true, restore a broken streak by incrementing the last active streak instead of starting fresh.\n\nRequest body (optional):\n- useF"
+        },
+        {
+          "info": {
+            "name": "Send Streak Reminders Cron",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/streaks/send-reminders-cron",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Cron endpoint to send solo streak loss reminders via Live Activity.\n\nSends reminders to users at 10 PM local time who:\n- Haven't completed their daily quest today\n- Have an active streak (streak_count > 0)\n- Have live activity tokens\n- Haven't received a reminder today\n\nRequires x-api-key header for authentication."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

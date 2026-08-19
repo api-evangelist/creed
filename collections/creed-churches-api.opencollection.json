@@ -1,0 +1,252 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements churches API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "churches",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Church Suggestions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/churches/suggestions",
+            "params": [
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Search query string"
+              },
+              {
+                "name": "city",
+                "value": "",
+                "type": "query",
+                "description": "City to prioritize results from"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "State ISO code to prioritize results from"
+              }
+            ]
+          },
+          "docs": "Get top 10 church suggestions matching the search query.\nSplits query into words and matches each word against search_text.\nReturns empty list if query is empty."
+        },
+        {
+          "info": {
+            "name": "Get Churches In Bounds",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/churches/in-bounds",
+            "params": [
+              {
+                "name": "north",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "south",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "east",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "west",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "zoom",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get Churches In Bounds"
+        },
+        {
+          "info": {
+            "name": "Get Church By Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/churches/:church_id",
+            "params": [
+              {
+                "name": "church_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Church By Id"
+        },
+        {
+          "info": {
+            "name": "Google Autocomplete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/churches/google/autocomplete",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Google Autocomplete"
+        },
+        {
+          "info": {
+            "name": "Google Preview",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/churches/google/preview",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Google Preview"
+        },
+        {
+          "info": {
+            "name": "Google Select",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/churches/google/select",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Google Select"
+        },
+        {
+          "info": {
+            "name": "Validate And Submit Church",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/churches/validate-and-submit",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Validate And Submit Church"
+        },
+        {
+          "info": {
+            "name": "Send Church Rsvp Reminders Cron",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/churches/send-rsvp-reminders-cron",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Cron endpoint to send weekend Mass commitment reminders.\nRuns every hour on Friday and Saturday (UTC).\nPer-user local time filtering (>= 5 PM) is handled inside the task."
+        },
+        {
+          "info": {
+            "name": "Just Validate Church",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/churches/just-validate",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Just Validate Church"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

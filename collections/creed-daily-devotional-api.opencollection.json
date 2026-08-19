@@ -1,0 +1,46 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements daily-devotional API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "daily-devotional",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Daily Devotionals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/daily-devotional",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "locale_override",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetch today's daily devotional using the user's preferred language by default.\n\nlocale_override can be used for testing to force a specific locale."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

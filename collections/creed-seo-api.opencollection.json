@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements seo API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "seo",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Seo Biblical Chat Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/seo/biblical-chat",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              },
+              {
+                "name": "authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Seo Biblical Chat Endpoint"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,411 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements daily-quests API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "daily-quests",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Daily Quests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/daily-quests",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get daily_prayer_completed for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Mark Discord Joined",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/daily-quests/discord-joined",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Mark discord as joined for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Mark Verse Interacted",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/daily-quests/verse-interacted",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Mark daily verse as interacted for the authenticated user.\nThis is a daily quest that resets each day."
+        },
+        {
+          "info": {
+            "name": "Mark Prompt Completed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/daily-quests/prompt-completed",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Mark daily prompt as completed for the authenticated user.\nThis is a daily quest that resets each day."
+        },
+        {
+          "info": {
+            "name": "Mark Devotional Interacted",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/daily-quests/devotional-interacted",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Mark daily devotional as interacted for the authenticated user.\nThis is a daily quest that resets each day."
+        },
+        {
+          "info": {
+            "name": "Mark Prayer Wall Opened",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/daily-quests/prayer-wall-opened",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Mark prayer wall as opened for the authenticated user.\nThis is a one-off quest that only rewards on first completion."
+        },
+        {
+          "info": {
+            "name": "Mark Widget Tutorial Completed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/daily-quests/widget-tutorial-completed",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Mark widget tutorial as completed for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Mark Prayer Reminder Completed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/daily-quests/prayer-reminder-completed",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Mark prayer reminder as completed for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Mark Customize Completed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/daily-quests/customize-completed",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Mark customize as completed for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Mark Share Creed Completed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/daily-quests/share-creed-completed",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Mark share creed as completed for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Mark Sponsor Completed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/daily-quests/sponsor-completed",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Mark sponsor as completed for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Mark Add Church Completed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/daily-quests/add-church-completed",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Mark add-church special quest as completed for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Mark Start Friend Streak Completed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/daily-quests/start-friend-streak-completed",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Mark start-friend-streak special quest as completed for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Mark Faith Lock Completed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/daily-quests/faith-lock-completed",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Mark faith-lock special quest as completed for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Mark Artist Of The Week Completed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/daily-quests/artist-of-the-week-completed",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Mark artist-of-the-week special quest as completed for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Mark Commit To Mass Completed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/daily-quests/commit-to-mass-completed",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Mark commit-to-mass as completed for the authenticated user.\nThis is a weekly quest that resets each Monday."
+        },
+        {
+          "info": {
+            "name": "Claim Quest Reward",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/daily-quests/:quest_key/claim",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "quest_key",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Mark a completed quest's reward as claimed for the authenticated user.\nThe actual token grant is performed by the client (preserving the existing\nearnReward animation + analytics flow); this endpoint only records that\nthe reward has been claimed for the current period."
+        },
+        {
+          "info": {
+            "name": "Get Daily Prompts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/daily-quests/prompts",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query",
+                "description": "Optional locale override (en, es, pt). When set, prompts are returned in this language without requiring an updated profile. Falls back to preferred_language when omitted or invalid."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Return 3 prompts for today. Selection is stable per user per day."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,103 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements dream-goal API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "dream-goal",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get User Dream Goal Resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/dream-goal/resource",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the latest unread dream goal resource for the current user.\n\nReturns personalized articles and resources found through LLM web search\nbased on the user's dream goal.\n\nReturns:\n    Dictionary with:\n    - success: boolean indicating operation success\n    - message: descriptive status message\n    - resource: single resource object with title, description, and URL (or None if none found)"
+        },
+        {
+          "info": {
+            "name": "Mark Resource As Read",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/dream-goal/resource/:resource_id",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "resource_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Mark a dream goal resource as read.\n\nThis endpoint allows users to mark specific resources as read, which:\n- Updates the resource status in the database\n- Provides clear feedback on the operation result\n\nArgs:\n    resource_id: Unique identifier of the resource to mark as read\n\nReturns:\n    Dictionary with success status and descriptive message"
+        },
+        {
+          "info": {
+            "name": "Process Dream Goal",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/dream-goal/test-process",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Process the user's dream goal and find relevant resources.\n\nThis endpoint:\n1. Queues the dream goal processing as a background task\n2. Uses Gemini with Google Search to find and save relevant resources\n3. Returns immediately without waiting for completion\n\nReturns:\n    Dictionary with success status indicating processing has been started"
+        },
+        {
+          "info": {
+            "name": "Test Dream Goal",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/dream-goal/test-dream-goal",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Test endpoint to search for article for a dream goal."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

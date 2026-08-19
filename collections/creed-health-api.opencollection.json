@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements health API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "health",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Hello World",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/"
+          },
+          "docs": "Hello World"
+        },
+        {
+          "info": {
+            "name": "Health Check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/health"
+          },
+          "docs": "Health check endpoint for monitoring and load balancers"
+        },
+        {
+          "info": {
+            "name": "Check Chat Model Health",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/health/chat-model",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "Model name, e.g. 'gemini-2.5-flash', 'openai:gpt-4o', 'azure:gpt-4o-mini'"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query",
+                "description": "User ID for fetching real user context (reads only, no writes)"
+              }
+            ]
+          },
+          "docs": "Health check for a specific chat model.\n\nRuns the full chat pipeline (fetch user details, memories, chat history,\nbuild system instruction, call LLM) but skips all database writes.\nReturns model status, latency breakdown, and a response preview."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements webhooks API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Revenuecat Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/webhooks/revenuecat",
+            "headers": [
+              {
+                "name": "authorization",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Single entry point for all RevenueCat webhook events.\n\nRevenueCat sends every event for the app to this one endpoint regardless\nof product. Each domain service owns its own product-id/event-type\nfiltering and no-ops on events that aren't relevant to it, so the event\nis simply handed to every domain that consumes RevenueCat events.\n\nProcessing is awaited rather than backgrounded, and unexpected errors are\nintentionally left to propagate (see each service's handle_* method) so a\ngenuine failure su"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

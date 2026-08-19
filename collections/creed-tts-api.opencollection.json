@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements tts API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "tts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Text To Speech",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/tts",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Convert text to speech using the user's preferred TTS provider.\n\nArgs:\n    request: TTS request containing text\n    current_user: Authenticated user\n\nReturns:\n    TTSResponse containing base64 encoded audio data"
+        },
+        {
+          "info": {
+            "name": "Text To Speech Streaming",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/tts.mp3",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "text",
+                "value": "",
+                "type": "query",
+                "description": "Text to convert to speech (max 400 words)"
+              },
+              {
+                "name": "voice",
+                "value": "",
+                "type": "query",
+                "description": "Voice override (VOICE_1, VOICE_2, etc). If not provided, uses user's preferred voice"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Convert text to speech using OpenAI TTS and stream the audio as MP3.\n\nArgs:\n    text: Text to convert (query parameter)\n    voice: Optional voice override (VOICE_1, VOICE_2, etc)\n    current_user: Authenticated user\n\nReturns:\n    StreamingResponse with MP3 audio data"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

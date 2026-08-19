@@ -1,0 +1,89 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements gifts API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "gifts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Gift Code",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/gifts/code",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new gift code for the authenticated user.\n\nThis endpoint creates a gift code that can be shared with others.\nThe gift code grants 1 year of premium access when redeemed.\n\nArgs:\n    request: CreateGiftCodeRequest with RevenueCat product and purchase IDs\n\nReturns:\n    CreateGiftCodeResponse with the generated gift code"
+        },
+        {
+          "info": {
+            "name": "Get My Gift Codes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/gifts/my-codes",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get all gift codes created by the authenticated user.\n\nThis endpoint returns a list of all gift codes the user has created,\nincluding their redemption status.\n\nReturns:\n    MyGiftCodesResponse with list of gift codes and counts"
+        },
+        {
+          "info": {
+            "name": "Redeem Gift Code",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/gifts/redeem",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Redeem a gift code to receive 1 year of premium access.\n\nThe premium access is stacked on top of any existing subscription.\nUsers cannot redeem their own gift codes.\n\nArgs:\n    request: RedeemGiftCodeRequest with the gift code\n\nReturns:\n    RedeemGiftCodeResponse with success status and message"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

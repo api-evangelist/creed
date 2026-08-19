@@ -1,0 +1,740 @@
+{
+  "item": [
+    {
+      "id": "7d034fb0-00aa-4453-8512-874a4c8ef4f2",
+      "name": "leaderboard",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f4eb366f-97b1-4df5-b97e-497e7d4e4153",
+          "name": "Get Country Leaderboard",
+          "request": {
+            "name": "Get Country Leaderboard",
+            "description": {
+              "content": "Get the country-level leaderboard based on streak count.\nReturns users from the same country as the authenticated user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "leaderboard",
+                "country"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-user-id",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a1e591a0-bb8d-407b-92b7-2244ba0b5efb",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "leaderboard",
+                    "country"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-user-id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"entries\": [\n    {\n      \"rank\": 1966,\n      \"user_id\": \"string\",\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"profile_picture\": \"string\",\n      \"streak_count\": 0,\n      \"church_id\": 7794,\n      \"church_name\": \"string\"\n    },\n    {\n      \"rank\": 9331,\n      \"user_id\": \"string\",\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"profile_picture\": \"string\",\n      \"streak_count\": 0,\n      \"church_id\": 7880,\n      \"church_name\": \"string\"\n    }\n  ],\n  \"total_count\": 3093,\n  \"user_rank\": 2090,\n  \"user_entry\": {\n    \"rank\": 5110,\n    \"user_id\": \"string\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"profile_picture\": \"string\",\n    \"streak_count\": 0,\n    \"church_id\": 2913,\n    \"church_name\": \"string\"\n  },\n  \"context_name\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9f229a0e-80ec-4262-8365-50db2588298d",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "leaderboard",
+                    "country"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-user-id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0c703855-c86d-4faa-b259-07a556eaa548",
+          "name": "Get Church Leaderboard",
+          "request": {
+            "name": "Get Church Leaderboard",
+            "description": {
+              "content": "Get the community leaderboard based on streak count.\nReturns users from the authenticated user's church PLUS their friends\n(community view used by the main LeaderboardView).\n\nNote: This is the church + friends view. For a leaderboard restricted\nto members of a specific church only, use GET /leaderboard/by-church/{church_id}.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "leaderboard",
+                "church"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-user-id",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c9de1fad-7d6a-4d90-8334-6d36341251fe",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "leaderboard",
+                    "church"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-user-id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"entries\": [\n    {\n      \"rank\": 1966,\n      \"user_id\": \"string\",\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"profile_picture\": \"string\",\n      \"streak_count\": 0,\n      \"church_id\": 7794,\n      \"church_name\": \"string\"\n    },\n    {\n      \"rank\": 9331,\n      \"user_id\": \"string\",\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"profile_picture\": \"string\",\n      \"streak_count\": 0,\n      \"church_id\": 7880,\n      \"church_name\": \"string\"\n    }\n  ],\n  \"total_count\": 3093,\n  \"user_rank\": 2090,\n  \"user_entry\": {\n    \"rank\": 5110,\n    \"user_id\": \"string\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"profile_picture\": \"string\",\n    \"streak_count\": 0,\n    \"church_id\": 2913,\n    \"church_name\": \"string\"\n  },\n  \"context_name\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "354d74de-cd54-42b3-a996-7b8d7d7f5822",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "leaderboard",
+                    "church"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-user-id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ccca83f-4bce-409f-869f-d568eb6c8530",
+          "name": "Get Leaderboard By Church",
+          "request": {
+            "name": "Get Leaderboard By Church",
+            "description": {
+              "content": "Get the streak leaderboard for a specific church id.\nReturns all users in that church, ranked by streak count.\nUsed by the church map detail view, and by the church-admin dashboard\n(authenticated with the church-admin session cookie for its own church).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "leaderboard",
+                "by-church",
+                ":church_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "church_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6f0ec5cd-c986-46fe-90ea-dbe757d5b734",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "leaderboard",
+                    "by-church",
+                    ":church_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "church_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"entries\": [\n    {\n      \"rank\": 1966,\n      \"user_id\": \"string\",\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"profile_picture\": \"string\",\n      \"streak_count\": 0,\n      \"church_id\": 7794,\n      \"church_name\": \"string\"\n    },\n    {\n      \"rank\": 9331,\n      \"user_id\": \"string\",\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"profile_picture\": \"string\",\n      \"streak_count\": 0,\n      \"church_id\": 7880,\n      \"church_name\": \"string\"\n    }\n  ],\n  \"total_count\": 3093,\n  \"user_rank\": 2090,\n  \"user_entry\": {\n    \"rank\": 5110,\n    \"user_id\": \"string\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"profile_picture\": \"string\",\n    \"streak_count\": 0,\n    \"church_id\": 2913,\n    \"church_name\": \"string\"\n  },\n  \"context_name\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f8eb9ec5-9db1-424b-a914-550d83277c96",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "leaderboard",
+                    "by-church",
+                    ":church_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "church_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e33b066c-3a45-4e05-a6ca-ea063136bab8",
+          "name": "Get Global Leaderboard",
+          "request": {
+            "name": "Get Global Leaderboard",
+            "description": {
+              "content": "Get the global leaderboard based on streak count.\nReturns all users ranked by their streak count.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "leaderboard",
+                "global"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-user-id",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f70ff1f8-1211-4368-bc3a-37dc5d07a181",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "leaderboard",
+                    "global"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-user-id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"entries\": [\n    {\n      \"rank\": 1966,\n      \"user_id\": \"string\",\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"profile_picture\": \"string\",\n      \"streak_count\": 0,\n      \"church_id\": 7794,\n      \"church_name\": \"string\"\n    },\n    {\n      \"rank\": 9331,\n      \"user_id\": \"string\",\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"profile_picture\": \"string\",\n      \"streak_count\": 0,\n      \"church_id\": 7880,\n      \"church_name\": \"string\"\n    }\n  ],\n  \"total_count\": 3093,\n  \"user_rank\": 2090,\n  \"user_entry\": {\n    \"rank\": 5110,\n    \"user_id\": \"string\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"profile_picture\": \"string\",\n    \"streak_count\": 0,\n    \"church_id\": 2913,\n    \"church_name\": \"string\"\n  },\n  \"context_name\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d28558f0-7db3-4607-8c28-d46f44ed1cb3",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "leaderboard",
+                    "global"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-user-id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "3cf0d854-b662-46fa-9ea3-dee7c5dee6df",
+    "name": "Creed achievements leaderboard API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Creed API - Christian AI Chatbot",
+      "type": "text/plain"
+    }
+  }
+}

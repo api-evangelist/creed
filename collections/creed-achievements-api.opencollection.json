@@ -1,0 +1,85 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "achievements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get All Achievements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/achievements/all",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetch all active achievements available in the system."
+        },
+        {
+          "info": {
+            "name": "Get User Achievements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/achievements",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetch all achievements unlocked by the authenticated user.\n\nReturns achievements with their details in chronological order (most recent first)."
+        },
+        {
+          "info": {
+            "name": "Unlock Achievement",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/achievements/unlock",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Manually unlock an achievement for the authenticated user.\n\n- **achievement_key**: The unique key of the achievement to unlock (e.g., 'BIBLE_READ_10')\n\nReturns a success message with the unlocked achievement details."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

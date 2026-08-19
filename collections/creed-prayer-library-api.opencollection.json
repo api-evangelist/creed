@@ -1,0 +1,46 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements prayer-library API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "prayer-library",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Library Prayer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/prayer-library/:topic",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "topic",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetch a pre-generated prayer from the library for a given topic.\n\nThe language and voice are resolved from the user's profile preferences.\nDefaults to English (\"en\") and \"v1-openai-alloy\" if not set.\n\nArgs:\n    topic: One of the 12 supported prayer topics (case-sensitive).\n    current_user: Authenticated user (provides preferred_language and preferred_voice).\n\nReturns:\n    PrayerLibraryResponse with prayer text and audio URL."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1546 @@
+{
+  "item": [
+    {
+      "id": "8e608ec7-ad38-4852-a16a-2cf01dd6b1df",
+      "name": "churches",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8a3300e7-7a41-44b0-a411-9e4970f1a9a5",
+          "name": "Get Church Suggestions",
+          "request": {
+            "name": "Get Church Suggestions",
+            "description": {
+              "content": "Get top 10 church suggestions matching the search query.\nSplits query into words and matches each word against search_text.\nReturns empty list if query is empty.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "churches",
+                "suggestions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "",
+                  "description": "Search query string"
+                },
+                {
+                  "disabled": false,
+                  "key": "city",
+                  "value": "<string>",
+                  "description": "City to prioritize results from"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "State ISO code to prioritize results from"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b4a39b2d-b684-4c64-ae42-539281b3d53c",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "churches",
+                    "suggestions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": ""
+                    },
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"churches\": [\n    {\n      \"id\": 4794,\n      \"name\": \"string\",\n      \"address\": \"string\",\n      \"city\": \"string\",\n      \"zip\": \"string\",\n      \"state_iso\": \"string\",\n      \"state_name\": \"string\",\n      \"country_iso\": \"string\",\n      \"country_name\": \"string\",\n      \"latitude\": 4689.214382039049,\n      \"longitude\": 364.158882423623,\n      \"website\": \"string\",\n      \"rating\": 5269.100170975433,\n      \"google_user_ratings_total\": 2822,\n      \"google_formatted_address\": \"string\",\n      \"cached_photo_url\": \"string\",\n      \"user_count\": 0,\n      \"mass_times\": [\n        {\n          \"title\": \"string\",\n          \"day_of_week\": \"string\",\n          \"start_time\": \"string\",\n          \"end_time\": \"string\",\n          \"timezone\": \"string\",\n          \"mass_url\": \"string\"\n        },\n        {\n          \"title\": \"string\",\n          \"day_of_week\": \"string\",\n          \"start_time\": \"string\",\n          \"end_time\": \"string\",\n          \"timezone\": \"string\",\n          \"mass_url\": \"string\"\n        }\n      ],\n      \"upcoming_events\": [\n        {\n          \"title\": \"string\",\n          \"date\": \"string\",\n          \"start_time\": \"string\",\n          \"end_time\": \"string\",\n          \"timezone\": \"string\",\n          \"location\": \"string\",\n          \"event_url\": \"string\"\n        },\n        {\n          \"title\": \"string\",\n          \"date\": \"string\",\n          \"start_time\": \"string\",\n          \"end_time\": \"string\",\n          \"timezone\": \"string\",\n          \"location\": \"string\",\n          \"event_url\": \"string\"\n        }\n      ],\n      \"donation_links\": [\n        {\n          \"title\": \"string\",\n          \"donation_url\": \"string\"\n        },\n        {\n          \"title\": \"string\",\n          \"donation_url\": \"string\"\n        }\n      ],\n      \"denomination\": \"string\",\n      \"site_announcements\": [\n        {\n          \"title\": \"string\",\n          \"summary\": \"string\",\n          \"date\": \"string\",\n          \"url\": \"string\",\n          \"first_seen_at\": \"string\"\n        },\n        {\n          \"title\": \"string\",\n          \"summary\": \"string\",\n          \"date\": \"string\",\n          \"url\": \"string\",\n          \"first_seen_at\": \"string\"\n        }\n      ]\n    },\n    {\n      \"id\": 4331,\n      \"name\": \"string\",\n      \"address\": \"string\",\n      \"city\": \"string\",\n      \"zip\": \"string\",\n      \"state_iso\": \"string\",\n      \"state_name\": \"string\",\n      \"country_iso\": \"string\",\n      \"country_name\": \"string\",\n      \"latitude\": 8716.861897614293,\n      \"longitude\": 7262.603229112894,\n      \"website\": \"string\",\n      \"rating\": 8238.801070759457,\n      \"google_user_ratings_total\": 3040,\n      \"google_formatted_address\": \"string\",\n      \"cached_photo_url\": \"string\",\n      \"user_count\": 0,\n      \"mass_times\": [\n        {\n          \"title\": \"string\",\n          \"day_of_week\": \"string\",\n          \"start_time\": \"string\",\n          \"end_time\": \"string\",\n          \"timezone\": \"string\",\n          \"mass_url\": \"string\"\n        },\n        {\n          \"title\": \"string\",\n          \"day_of_week\": \"string\",\n          \"start_time\": \"string\",\n          \"end_time\": \"string\",\n          \"timezone\": \"string\",\n          \"mass_url\": \"string\"\n        }\n      ],\n      \"upcoming_events\": [\n        {\n          \"title\": \"string\",\n          \"date\": \"string\",\n          \"start_time\": \"string\",\n          \"end_time\": \"string\",\n          \"timezone\": \"string\",\n          \"location\": \"string\",\n          \"event_url\": \"string\"\n        },\n        {\n          \"title\": \"string\",\n          \"date\": \"string\",\n          \"start_time\": \"string\",\n          \"end_time\": \"string\",\n          \"timezone\": \"string\",\n          \"location\": \"string\",\n          \"event_url\": \"string\"\n        }\n      ],\n      \"donation_links\": [\n        {\n          \"title\": \"string\",\n          \"donation_url\": \"string\"\n        },\n        {\n          \"title\": \"string\",\n          \"donation_url\": \"string\"\n        }\n      ],\n      \"denomination\": \"string\",\n      \"site_announcements\": [\n        {\n          \"title\": \"string\",\n          \"summary\": \"string\",\n          \"date\": \"string\",\n          \"url\": \"string\",\n          \"first_seen_at\": \"string\"\n        },\n        {\n          \"title\": \"string\",\n          \"summary\": \"string\",\n          \"date\": \"string\",\n          \"url\": \"string\",\n          \"first_seen_at\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"count\": 5710\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "148649e1-f22c-4be2-9f25-7b158d216823",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "churches",
+                    "suggestions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": ""
+                    },
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "af663b7f-de9b-4a34-ae13-69765a852215",
+          "name": "Get Churches In Bounds",
+          "request": {
+            "name": "Get Churches In Bounds",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "churches",
+                "in-bounds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "north",
+                  "value": "<number>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "south",
+                  "value": "<number>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "east",
+                  "value": "<number>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "west",
+                  "value": "<number>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "zoom",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "500"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "aaa18489-2ea6-4251-a015-cc71c8653e80",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "churches",
+                    "in-bounds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "north",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "south",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "east",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "west",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "zoom",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "500"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"churches\": [\n    {\n      \"id\": 3055,\n      \"latitude\": 1651.4763165307288,\n      \"longitude\": 6962.258401319002,\n      \"name\": \"string\",\n      \"user_count\": 0\n    },\n    {\n      \"id\": 6662,\n      \"latitude\": 6483.79141489854,\n      \"longitude\": 5191.744882930993,\n      \"name\": \"string\",\n      \"user_count\": 0\n    }\n  ],\n  \"count\": 7320,\n  \"limit\": 7761,\n  \"truncated\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d830e113-0845-4729-9da1-c32fdaafbafe",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "churches",
+                    "in-bounds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "north",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "south",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "east",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "west",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "zoom",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "500"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "813c58e1-06d3-47f8-9bc7-f620be15b89c",
+          "name": "Get Church By Id",
+          "request": {
+            "name": "Get Church By Id",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "churches",
+                ":church_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "church_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "acdad438-c5fc-4203-8da0-5db776f8093f",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "churches",
+                    ":church_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "church_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"church\": {\n    \"id\": 7783,\n    \"name\": \"string\",\n    \"address\": \"string\",\n    \"city\": \"string\",\n    \"zip\": \"string\",\n    \"state_iso\": \"string\",\n    \"state_name\": \"string\",\n    \"country_iso\": \"string\",\n    \"country_name\": \"string\",\n    \"latitude\": 9745.602188632634,\n    \"longitude\": 4386.883163797483,\n    \"website\": \"string\",\n    \"rating\": 8417.147167525118,\n    \"google_user_ratings_total\": 2257,\n    \"google_formatted_address\": \"string\",\n    \"cached_photo_url\": \"string\",\n    \"user_count\": 0,\n    \"mass_times\": [\n      {\n        \"title\": \"string\",\n        \"day_of_week\": \"string\",\n        \"start_time\": \"string\",\n        \"end_time\": \"string\",\n        \"timezone\": \"string\",\n        \"mass_url\": \"string\"\n      },\n      {\n        \"title\": \"string\",\n        \"day_of_week\": \"string\",\n        \"start_time\": \"string\",\n        \"end_time\": \"string\",\n        \"timezone\": \"string\",\n        \"mass_url\": \"string\"\n      }\n    ],\n    \"upcoming_events\": [\n      {\n        \"title\": \"string\",\n        \"date\": \"string\",\n        \"start_time\": \"string\",\n        \"end_time\": \"string\",\n        \"timezone\": \"string\",\n        \"location\": \"string\",\n        \"event_url\": \"string\"\n      },\n      {\n        \"title\": \"string\",\n        \"date\": \"string\",\n        \"start_time\": \"string\",\n        \"end_time\": \"string\",\n        \"timezone\": \"string\",\n        \"location\": \"string\",\n        \"event_url\": \"string\"\n      }\n    ],\n    \"donation_links\": [\n      {\n        \"title\": \"string\",\n        \"donation_url\": \"string\"\n      },\n      {\n        \"title\": \"string\",\n        \"donation_url\": \"string\"\n      }\n    ],\n    \"denomination\": \"string\",\n    \"site_announcements\": [\n      {\n        \"title\": \"string\",\n        \"summary\": \"string\",\n        \"date\": \"string\",\n        \"url\": \"string\",\n        \"first_seen_at\": \"string\"\n      },\n      {\n        \"title\": \"string\",\n        \"summary\": \"string\",\n        \"date\": \"string\",\n        \"url\": \"string\",\n        \"first_seen_at\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4a529de2-3e19-4d95-9f1d-8cb9f564ed25",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "churches",
+                    ":church_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "church_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "61ce80bc-c42f-4298-9a03-76fb7735ed3e",
+          "name": "Google Autocomplete",
+          "request": {
+            "name": "Google Autocomplete",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "churches",
+                "google",
+                "autocomplete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-user-id",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"input\": \"<string>\",\n  \"session_token\": \"<string>\",\n  \"latitude\": \"<number>\",\n  \"longitude\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "501274ab-a2f1-4b66-bada-4c3b0ac525c6",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "churches",
+                    "google",
+                    "autocomplete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-user-id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": \"<string>\",\n  \"session_token\": \"<string>\",\n  \"latitude\": \"<number>\",\n  \"longitude\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"suggestions\": [\n    {\n      \"place_id\": \"string\",\n      \"primary_text\": \"string\",\n      \"secondary_text\": \"string\",\n      \"full_text\": \"string\",\n      \"is_church\": false\n    },\n    {\n      \"place_id\": \"string\",\n      \"primary_text\": \"string\",\n      \"secondary_text\": \"string\",\n      \"full_text\": \"string\",\n      \"is_church\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ce27fc4-7e95-41c9-8b3b-e17b33e44192",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "churches",
+                    "google",
+                    "autocomplete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-user-id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": \"<string>\",\n  \"session_token\": \"<string>\",\n  \"latitude\": \"<number>\",\n  \"longitude\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9cdce171-3e6b-4ef2-b08b-c71016df1bec",
+          "name": "Google Preview",
+          "request": {
+            "name": "Google Preview",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "churches",
+                "google",
+                "preview"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-user-id",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"place_id\": \"<string>\",\n  \"session_token\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e5edaa29-1bf9-4052-9ef8-9af970e348b0",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "churches",
+                    "google",
+                    "preview"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-user-id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"place_id\": \"<string>\",\n  \"session_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"place_id\": \"string\",\n  \"name\": \"string\",\n  \"formatted_address\": \"string\",\n  \"latitude\": 4584.860917932583,\n  \"longitude\": 3931.2141145275205\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "48f0d24d-1d78-4471-859a-1f97e68eb253",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "churches",
+                    "google",
+                    "preview"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-user-id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"place_id\": \"<string>\",\n  \"session_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "623b6016-0183-4f54-8f8f-a00ab1de048f",
+          "name": "Google Select",
+          "request": {
+            "name": "Google Select",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "churches",
+                "google",
+                "select"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-user-id",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"place_id\": \"<string>\",\n  \"session_token\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c5e3fc1c-52ae-4d3a-a6f8-a1d8aa8f9449",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "churches",
+                    "google",
+                    "select"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-user-id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"place_id\": \"<string>\",\n  \"session_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"duplicate\": true,\n  \"church\": {\n    \"id\": 6635,\n    \"name\": \"string\",\n    \"address\": \"string\",\n    \"city\": \"string\",\n    \"zip\": \"string\",\n    \"state_iso\": \"string\",\n    \"state_name\": \"string\",\n    \"country_iso\": \"string\",\n    \"country_name\": \"string\",\n    \"latitude\": 7864.37703670918,\n    \"longitude\": 5149.244104523066,\n    \"website\": \"string\",\n    \"rating\": 9335.34150596567,\n    \"google_user_ratings_total\": 995,\n    \"google_formatted_address\": \"string\",\n    \"cached_photo_url\": \"string\",\n    \"user_count\": 0,\n    \"mass_times\": [\n      {\n        \"title\": \"string\",\n        \"day_of_week\": \"string\",\n        \"start_time\": \"string\",\n        \"end_time\": \"string\",\n        \"timezone\": \"string\",\n        \"mass_url\": \"string\"\n      },\n      {\n        \"title\": \"string\",\n        \"day_of_week\": \"string\",\n        \"start_time\": \"string\",\n        \"end_time\": \"string\",\n        \"timezone\": \"string\",\n        \"mass_url\": \"string\"\n      }\n    ],\n    \"upcoming_events\": [\n      {\n        \"title\": \"string\",\n        \"date\": \"string\",\n        \"start_time\": \"string\",\n        \"end_time\": \"string\",\n        \"timezone\": \"string\",\n        \"location\": \"string\",\n        \"event_url\": \"string\"\n      },\n      {\n        \"title\": \"string\",\n        \"date\": \"string\",\n        \"start_time\": \"string\",\n        \"end_time\": \"string\",\n        \"timezone\": \"string\",\n        \"location\": \"string\",\n        \"event_url\": \"string\"\n      }\n    ],\n    \"donation_links\": [\n      {\n        \"title\": \"string\",\n        \"donation_url\": \"string\"\n      },\n      {\n        \"title\": \"string\",\n        \"donation_url\": \"string\"\n      }\n    ],\n    \"denomination\": \"string\",\n    \"site_announcements\": [\n      {\n        \"title\": \"string\",\n        \"summary\": \"string\",\n        \"date\": \"string\",\n        \"url\": \"string\",\n        \"first_seen_at\": \"string\"\n      },\n      {\n        \"title\": \"string\",\n        \"summary\": \"string\",\n        \"date\": \"string\",\n        \"url\": \"string\",\n        \"first_seen_at\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "416dc661-74f2-4b1f-a574-9d121145c6c7",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "churches",
+                    "google",
+                    "select"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-user-id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"place_id\": \"<string>\",\n  \"session_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "16cb5c8f-4de1-4327-93db-f1eb8c50f1f3",
+          "name": "Validate And Submit Church",
+          "request": {
+            "name": "Validate And Submit Church",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "churches",
+                "validate-and-submit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-user-id",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"city\": \"<string>\",\n  \"state\": \"<string>\",\n  \"website\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2a34c173-14d4-4634-9b75-83c0ddbf5f7a",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "churches",
+                    "validate-and-submit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-user-id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"city\": \"<string>\",\n  \"state\": \"<string>\",\n  \"website\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"valid\": false,\n  \"duplicate\": true,\n  \"message\": \"string\",\n  \"church_id\": 5172,\n  \"name\": \"string\",\n  \"address\": \"string\",\n  \"city\": \"string\",\n  \"zip\": \"string\",\n  \"state_iso\": \"string\",\n  \"state_name\": \"string\",\n  \"country_iso\": \"string\",\n  \"country_name\": \"string\",\n  \"step_timings\": {\n    \"key_0\": 2383.45876941264,\n    \"key_1\": 6905.989927754767\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "04e9c524-7084-4251-83c8-f27e9db335b5",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "churches",
+                    "validate-and-submit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-user-id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"city\": \"<string>\",\n  \"state\": \"<string>\",\n  \"website\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "03345d37-6e3f-4e48-9989-b09a1359af40",
+          "name": "Send Church Rsvp Reminders Cron",
+          "request": {
+            "name": "Send Church Rsvp Reminders Cron",
+            "description": {
+              "content": "Cron endpoint to send weekend Mass commitment reminders.\nRuns every hour on Friday and Saturday (UTC).\nPer-user local time filtering (>= 5 PM) is handled inside the task.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "churches",
+                "send-rsvp-reminders-cron"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "x-api-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eac13363-0f33-4d34-9483-a860f36d760a",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "churches",
+                    "send-rsvp-reminders-cron"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "x-api-key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f689f92a-f3c4-4576-827b-78c576fe9a5f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "churches",
+                    "send-rsvp-reminders-cron"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "x-api-key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cf918313-15c9-4f07-9a46-94fc76a33734",
+          "name": "Just Validate Church",
+          "request": {
+            "name": "Just Validate Church",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "churches",
+                "just-validate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-user-id",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"city\": \"<string>\",\n  \"state\": \"<string>\",\n  \"website\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b36743a8-4a85-4b40-b53f-bd8c820c7a51",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "churches",
+                    "just-validate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-user-id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"city\": \"<string>\",\n  \"state\": \"<string>\",\n  \"website\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"valid\": false,\n  \"duplicate\": true,\n  \"message\": \"string\",\n  \"church_id\": 5172,\n  \"name\": \"string\",\n  \"address\": \"string\",\n  \"city\": \"string\",\n  \"zip\": \"string\",\n  \"state_iso\": \"string\",\n  \"state_name\": \"string\",\n  \"country_iso\": \"string\",\n  \"country_name\": \"string\",\n  \"step_timings\": {\n    \"key_0\": 2383.45876941264,\n    \"key_1\": 6905.989927754767\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d4d6c02f-f4dd-46bc-879c-380b61075540",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "churches",
+                    "just-validate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "x-user-id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"city\": \"<string>\",\n  \"state\": \"<string>\",\n  \"website\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "675c9868-5ca0-491a-a91a-87d13df0d007",
+    "name": "Creed achievements churches API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Creed API - Christian AI Chatbot",
+      "type": "text/plain"
+    }
+  }
+}

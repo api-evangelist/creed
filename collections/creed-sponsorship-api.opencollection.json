@@ -1,0 +1,193 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements sponsorship API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "sponsorship",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Sponsor Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/sponsorship/guardian/preferences",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetch the current user's sponsor profile."
+        },
+        {
+          "info": {
+            "name": "Upsert Sponsor Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/sponsorship/guardian/preferences",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create or update the current user's sponsor profile."
+        },
+        {
+          "info": {
+            "name": "Join Sponsorship Pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/sponsorship/pool/join",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Add the current user to the sponsorship waiting pool."
+        },
+        {
+          "info": {
+            "name": "Leave Sponsorship Pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/sponsorship/pool/leave",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Remove the current user from the sponsorship waiting pool."
+        },
+        {
+          "info": {
+            "name": "Get Pool Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/sponsorship/pool/status",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the current user's sponsorship pool status.\nReturns the pool record with a 'status' field, or {'status': null} if\nthe user has never joined."
+        },
+        {
+          "info": {
+            "name": "Assign Sponsorships",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/sponsorship/pool/assign",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Admin endpoint: assign unassigned sponsorship slots to waiting pool users\nand send push notifications to newly sponsored recipients."
+        },
+        {
+          "info": {
+            "name": "Get Kindness Wall",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/sponsorship/kindness-wall",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetch recent sponsorships shared on the kindness wall."
+        },
+        {
+          "info": {
+            "name": "Get Ramp Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/sponsorship/ramp/status",
+            "headers": [
+              {
+                "name": "x-user-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the current user's ramp sponsorship status.\n\nReturns null if the user has never been ramp-sponsored.\nReturns the record with active=true if currently within the sponsorship window,\nor active=false if the sponsorship has expired."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

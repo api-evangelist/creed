@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements Admin Analytics API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Admin Analytics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Analytics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin/analytics",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "days_back",
+                "value": "",
+                "type": "query",
+                "description": "Number of days to look back"
+              },
+              {
+                "name": "user_limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of top users to analyze"
+              }
+            ]
+          },
+          "docs": "Start analytics generation in background and send results to Slack.\nReturns immediately to avoid timeout issues.\n\nProcess:\n1. Returns success response immediately\n2. Runs analytics in background (identifies top users, analyzes messages)\n3. Sends formatted report to Slack webhook\n\nThe Slack report will include:\n- Key insights and patterns\n- Top users list with message counts\n- Urgent concerns and recommendations\n- Spiritual themes and engagement insights"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

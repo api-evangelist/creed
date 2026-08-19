@@ -1,0 +1,69 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Creed achievements cron-tasks API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "cron-tasks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Schedule Daily Cron Tasks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/cron-tasks/admin/schedule-daily",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Daily cron job endpoint to schedule next_run_at for all daily tasks.\nShould be called once per day (e.g., at midnight UTC).\n\nQueues a Celery task to:\n- Fetch all active daily tasks\n- Calculate next_run_at based on user timezone + schedule_time\n- Update next_run_at in database\n\nRequires x-api-key header for authentication."
+        },
+        {
+          "info": {
+            "name": "Schedule Weekly Cron Tasks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/cron-tasks/admin/schedule-weekly",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Weekly cron job endpoint to schedule next_run_at for all weekly tasks.\nShould be called once per week (e.g., Sunday midnight UTC).\n\nQueues a Celery task to:\n- Fetch all active weekly tasks\n- Calculate next_run_at based on user timezone + schedule_day + schedule_time\n- Update next_run_at in database\n\nRequires x-api-key header for authentication."
+        },
+        {
+          "info": {
+            "name": "Process Cron Tasks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/cron-tasks/admin/process",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "5-minute cron job endpoint to process all due cron tasks.\nShould be called every 5 minutes.\n\nQueues a Celery task to:\n- Fetch all active tasks where next_run_at is within the 5-minute window\n- Process each task based on type (e.g., send live activity for reminders)\n\nRequires x-api-key header for authentication."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
