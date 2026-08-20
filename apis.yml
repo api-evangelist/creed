@@ -40,6 +40,17 @@ tags:
 - Bible
 - Prayer
 - Artificial Intelligence
+- Chatbots
+- Consumer
+- Community
+tags_raw:
+- Company
+- Faith
+- Religion
+- Christianity
+- Bible
+- Prayer
+- Artificial Intelligence
 - Chatbot
 - Consumer
 - Community
@@ -50,6 +61,8 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
+  - Achievements
+  tags_raw:
   - achievements
   properties:
   - type: OpenAPI
@@ -102,6 +115,8 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
+  - Authentication
+  tags_raw:
   - Auth
   properties:
   - type: OpenAPI
@@ -180,6 +195,8 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
+  - B2B
+  tags_raw:
   - b2b
   properties:
   - type: OpenAPI
@@ -232,6 +249,8 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
+  - Chatbots
+  tags_raw:
   - chatbot
   properties:
   - type: OpenAPI
@@ -310,6 +329,8 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
+  - Churches
+  tags_raw:
   - churches
   properties:
   - type: OpenAPI
@@ -336,6 +357,8 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
+  - Config
+  tags_raw:
   - config
   properties:
   - type: OpenAPI
@@ -492,6 +515,8 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
+  - Friends
+  tags_raw:
   - friends
   properties:
   - type: OpenAPI
@@ -518,6 +543,8 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
+  - Gamification
+  tags_raw:
   - gamification
   properties:
   - type: OpenAPI
@@ -544,6 +571,8 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
+  - Gifts
+  tags_raw:
   - gifts
   properties:
   - type: OpenAPI
@@ -596,6 +625,8 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
+  - Group Chat
+  tags_raw:
   - group-chat
   properties:
   - type: OpenAPI
@@ -622,6 +653,8 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
+  - Health
+  tags_raw:
   - health
   properties:
   - type: OpenAPI
@@ -648,6 +681,8 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
+  - Image-Generation
+  tags_raw:
   - image-generation
   properties:
   - type: OpenAPI
@@ -700,6 +735,8 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
+  - Leaderboard
+  tags_raw:
   - leaderboard
   properties:
   - type: OpenAPI
@@ -726,6 +763,8 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
+  - Learning Plans
+  tags_raw:
   - learning-plans
   properties:
   - type: OpenAPI
@@ -752,6 +791,8 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
+  - Live Activity
+  tags_raw:
   - live-activity
   properties:
   - type: OpenAPI
@@ -778,6 +819,8 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
+  - Live Streams
+  tags_raw:
   - live-streams
   properties:
   - type: OpenAPI
@@ -804,6 +847,8 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
+  - Livekit
+  tags_raw:
   - livekit
   properties:
   - type: OpenAPI
@@ -934,6 +979,8 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
+  - Referrals
+  tags_raw:
   - referrals
   properties:
   - type: OpenAPI
@@ -960,6 +1007,8 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
+  - Reminders
+  tags_raw:
   - reminders
   properties:
   - type: OpenAPI
@@ -1012,6 +1061,8 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
+  - Scheduled Notifications
+  tags_raw:
   - scheduled-notifications
   properties:
   - type: OpenAPI
@@ -1038,6 +1089,8 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
+  - SEO
+  tags_raw:
   - seo
   properties:
   - type: OpenAPI
@@ -1090,6 +1143,8 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
+  - Sponsorship
+  tags_raw:
   - sponsorship
   properties:
   - type: OpenAPI
@@ -1116,6 +1171,8 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
+  - Spotlight
+  tags_raw:
   - spotlight
   properties:
   - type: OpenAPI
@@ -1142,6 +1199,8 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
+  - Streaks
+  tags_raw:
   - streaks
   properties:
   - type: OpenAPI
@@ -1194,6 +1253,8 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
+  - TTS
+  tags_raw:
   - tts
   properties:
   - type: OpenAPI
@@ -1246,6 +1307,8 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
+  - User
+  tags_raw:
   - users
   properties:
   - type: OpenAPI
@@ -1298,6 +1361,8 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
+  - Webhook
+  tags_raw:
   - webhooks
   properties:
   - type: OpenAPI
