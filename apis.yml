@@ -52,7 +52,7 @@ tags:
 - Bible
 - Prayer
 - Artificial Intelligence
-- Chatbots
+- Chatbot
 - Consumer
 - Community
 tags_raw:
@@ -73,7 +73,7 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
-  - Achievements
+  - achievements
   tags_raw:
   - achievements
   properties:
@@ -207,7 +207,7 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
-  - B2B
+  - b2b
   tags_raw:
   - b2b
   properties:
@@ -341,7 +341,7 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
-  - Churches
+  - churches
   tags_raw:
   - churches
   properties:
@@ -527,7 +527,7 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
-  - Friends
+  - friends
   tags_raw:
   - friends
   properties:
@@ -555,7 +555,7 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
-  - Gamification
+  - gamification
   tags_raw:
   - gamification
   properties:
@@ -583,7 +583,7 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
-  - Gifts
+  - gifts
   tags_raw:
   - gifts
   properties:
@@ -637,7 +637,7 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
-  - Group Chat
+  - group-chat
   tags_raw:
   - group-chat
   properties:
@@ -775,7 +775,7 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
-  - Learning Plans
+  - learning-plans
   tags_raw:
   - learning-plans
   properties:
@@ -803,7 +803,7 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
-  - Live Activity
+  - live-activity
   tags_raw:
   - live-activity
   properties:
@@ -831,7 +831,7 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
-  - Live Streams
+  - live-streams
   tags_raw:
   - live-streams
   properties:
@@ -859,7 +859,7 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
-  - Livekit
+  - livekit
   tags_raw:
   - livekit
   properties:
@@ -1073,7 +1073,7 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
-  - Scheduled Notifications
+  - scheduled-notifications
   tags_raw:
   - scheduled-notifications
   properties:
@@ -1155,7 +1155,7 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
-  - Sponsorship
+  - sponsorship
   tags_raw:
   - sponsorship
   properties:
@@ -1183,7 +1183,7 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
-  - Spotlight
+  - spotlight
   tags_raw:
   - spotlight
   properties:
@@ -1211,7 +1211,7 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
-  - Streaks
+  - streaks
   tags_raw:
   - streaks
   properties:
@@ -1265,7 +1265,7 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
-  - TTS
+  - tts
   tags_raw:
   - tts
   properties:
