@@ -202,34 +202,6 @@ apis:
     url: conformance/creed-conformance.yml
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
-- aid: creed:creed-b2b-api
-  name: Creed b2b API
-  description: The b2b API from Creed — 1 operation(s) for b2b.
-  humanURL: https://api.usecreed.com/docs
-  baseURL: https://api.usecreed.com
-  tags:
-  - B2B
-  tags_raw:
-  - b2b
-  properties:
-  - type: OpenAPI
-    url: openapi/creed-b2b-api-openapi.yml
-  - type: APIReference
-    url: https://api.usecreed.com/docs
-  - type: Documentation
-    url: https://api.usecreed.com/docs
-  - type: Authentication
-    url: authentication/creed-authentication.yml
-  - type: Conventions
-    url: conventions/creed-conventions.yml
-  - type: ErrorCatalog
-    url: errors/creed-problem-types.yml
-  - type: DataModel
-    url: data-model/creed-data-model.yml
-  - type: Conformance
-    url: conformance/creed-conformance.yml
-  - type: Lifecycle
-    url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-bible-progress-api
   name: Creed bible-progress API
   description: The bible-progress API from Creed — 2 operation(s) for bible-progress.
@@ -1382,6 +1354,32 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/creed-webhooks-api-openapi.yml
+  - type: APIReference
+    url: https://api.usecreed.com/docs
+  - type: Documentation
+    url: https://api.usecreed.com/docs
+  - type: Authentication
+    url: authentication/creed-authentication.yml
+  - type: Conventions
+    url: conventions/creed-conventions.yml
+  - type: ErrorCatalog
+    url: errors/creed-problem-types.yml
+  - type: DataModel
+    url: data-model/creed-data-model.yml
+  - type: Conformance
+    url: conformance/creed-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/creed-lifecycle.yml
+- aid: creed:creed-b2-b-api
+  name: Creed B2 B API
+  description: The B2 B API from Creed — 1 operation(s) for b2 b.
+  humanURL: https://api.usecreed.com/docs
+  baseURL: https://api.usecreed.com
+  tags:
+  - B2 B
+  properties:
+  - type: OpenAPI
+    url: openapi/creed-b2-b-api-openapi.yml
   - type: APIReference
     url: https://api.usecreed.com/docs
   - type: Documentation
