@@ -694,7 +694,7 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
-  - Journal
+  - Journals
   tags_raw:
   - journal
   properties:
@@ -722,7 +722,7 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
-  - Leaderboard
+  - Leaderboards
   tags_raw:
   - leaderboard
   properties:
@@ -1376,6 +1376,8 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
+  - B2B
+  tags_raw:
   - B2 B
   properties:
   - type: OpenAPI
