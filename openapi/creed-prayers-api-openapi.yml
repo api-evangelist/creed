@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Creed achievements prayers API
+  title: Creed Prayers API
   description: Creed API - Christian AI Chatbot
   version: 1.0.0
 tags:
@@ -11,7 +11,24 @@ paths:
       tags:
       - prayers
       summary: Generate Daily Prayer
-      description: "Generate a daily prayer (text only).\n\nThis endpoint creates a personalized prayer (approximately 1 minute long) that ends with \"Amen\".\nAudio is fetched separately via the /daily-prayer/audio endpoint to improve response time.\n\nArgs:\n    request: Prayer request (sendAudio flag is ignored)\n    current_user: Authenticated user\n    \nReturns:\n    PrayerResponse containing prayer_text only (audio_base64 will be None)"
+      description: 'Generate a daily prayer (text only).
+
+
+        This endpoint creates a personalized prayer (approximately 1 minute long) that ends with "Amen".
+
+        Audio is fetched separately via the /daily-prayer/audio endpoint to improve response time.
+
+
+        Args:
+
+        request: Prayer request (sendAudio flag is ignored)
+
+        current_user: Authenticated user
+
+
+        Returns:
+
+        PrayerResponse containing prayer_text only (audio_base64 will be None)'
       operationId: generate_daily_prayer_api_daily_prayer_post
       security:
       - HTTPBearer: []
@@ -48,7 +65,22 @@ paths:
       tags:
       - prayers
       summary: Get Daily Prayer Audio
-      description: "Get daily prayer audio, generating it if not already cached.\n\nThis endpoint retrieves the daily prayer audio from the database if it exists,\nor generates both the prayer text and audio if not cached.\n\nArgs:\n    current_user: Authenticated user\n    \nReturns:\n    PrayerResponse containing prayer_text and audio_base64"
+      description: 'Get daily prayer audio, generating it if not already cached.
+
+
+        This endpoint retrieves the daily prayer audio from the database if it exists,
+
+        or generates both the prayer text and audio if not cached.
+
+
+        Args:
+
+        current_user: Authenticated user
+
+
+        Returns:
+
+        PrayerResponse containing prayer_text and audio_base64'
       operationId: get_daily_prayer_audio_api_daily_prayer_audio_get
       security:
       - HTTPBearer: []
@@ -76,6 +108,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -97,15 +138,6 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     PrayerResponse:
       properties:
         prayer_text:

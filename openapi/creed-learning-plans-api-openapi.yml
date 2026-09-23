@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Creed achievements learning-plans API
+  title: Creed Learning Plans API
   description: Creed API - Christian AI Chatbot
   version: 1.0.0
 tags:
@@ -172,27 +172,6 @@ components:
       - type
       - reference
       title: ScriptureSegment
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     Plan:
       properties:
         id:
@@ -232,48 +211,6 @@ components:
       - description
       - days
       title: Plan
-    MarkSegmentRequest:
-      properties:
-        day_index:
-          type: integer
-          title: Day Index
-        segment_type:
-          type: string
-          enum:
-          - devotional
-          - scripture
-          title: Segment Type
-      type: object
-      required:
-      - day_index
-      - segment_type
-      title: MarkSegmentRequest
-    ScriptureReference:
-      properties:
-        book:
-          type: string
-          title: Book
-        chapter:
-          type: integer
-          title: Chapter
-        verses:
-          type: string
-          title: Verses
-      type: object
-      required:
-      - book
-      - chapter
-      - verses
-      title: ScriptureReference
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     StartInstanceRequest:
       properties:
         plan_key:
@@ -283,23 +220,15 @@ components:
       required:
       - plan_key
       title: StartInstanceRequest
-    ScriptureOpener:
+    HTTPValidationError:
       properties:
-        reference:
-          type: string
-          title: Reference
-        translation:
-          type: string
-          title: Translation
-        text:
-          type: string
-          title: Text
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      required:
-      - reference
-      - translation
-      - text
-      title: ScriptureOpener
+      title: HTTPValidationError
     DevotionalSegment:
       properties:
         type:
@@ -321,23 +250,39 @@ components:
       - scripture_opener
       - body
       title: DevotionalSegment
-    PlanDay:
+    ScriptureReference:
+      properties:
+        book:
+          type: string
+          title: Book
+        chapter:
+          type: integer
+          title: Chapter
+        verses:
+          type: string
+          title: Verses
+      type: object
+      required:
+      - book
+      - chapter
+      - verses
+      title: ScriptureReference
+    MarkSegmentRequest:
       properties:
         day_index:
           type: integer
           title: Day Index
-        segments:
-          items:
-            anyOf:
-            - $ref: '#/components/schemas/DevotionalSegment'
-            - $ref: '#/components/schemas/ScriptureSegment'
-          type: array
-          title: Segments
+        segment_type:
+          type: string
+          enum:
+          - devotional
+          - scripture
+          title: Segment Type
       type: object
       required:
       - day_index
-      - segments
-      title: PlanDay
+      - segment_type
+      title: MarkSegmentRequest
     LearningPlanInstance:
       properties:
         instance_id:
@@ -364,6 +309,61 @@ components:
       - plan_key
       - started_at
       title: LearningPlanInstance
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    PlanDay:
+      properties:
+        day_index:
+          type: integer
+          title: Day Index
+        segments:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/DevotionalSegment'
+            - $ref: '#/components/schemas/ScriptureSegment'
+          type: array
+          title: Segments
+      type: object
+      required:
+      - day_index
+      - segments
+      title: PlanDay
+    ScriptureOpener:
+      properties:
+        reference:
+          type: string
+          title: Reference
+        translation:
+          type: string
+          title: Translation
+        text:
+          type: string
+          title: Text
+      type: object
+      required:
+      - reference
+      - translation
+      - text
+      title: ScriptureOpener
   securitySchemes:
     HTTPBearer:
       type: http

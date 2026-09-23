@@ -1,15 +1,15 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Creed achievements scheduled-notifications API
+  title: Creed Scheduled Notifications API
   description: Creed API - Christian AI Chatbot
   version: 1.0.0
 tags:
-- name: scheduled-notifications
+- name: Scheduled Notifications
 paths:
   /api/scheduled-notifications/admin/schedule-daily:
     post:
       tags:
-      - scheduled-notifications
+      - Scheduled Notifications
       summary: Schedule Daily Notifications
       description: 'Daily cron job endpoint to schedule notifications for all users.
 
@@ -65,7 +65,7 @@ paths:
   /api/scheduled-notifications/admin/send-due:
     post:
       tags:
-      - scheduled-notifications
+      - Scheduled Notifications
       summary: Send Due Notifications
       description: '5-minute cron job endpoint to send all due notifications.
 
@@ -104,7 +104,7 @@ paths:
   /api/scheduled-notifications/admin/generate-content:
     post:
       tags:
-      - scheduled-notifications
+      - Scheduled Notifications
       summary: Generate Content
       description: 'Hourly cron job endpoint to pre-generate notification content.
 
@@ -168,7 +168,7 @@ paths:
   /api/scheduled-notifications/admin/test:
     post:
       tags:
-      - scheduled-notifications
+      - Scheduled Notifications
       summary: Test Notification
       description: 'Generate a test notification for a user.
 
@@ -237,9 +237,25 @@ paths:
   /api/scheduled-notifications/admin/test-live-activity:
     post:
       tags:
-      - scheduled-notifications
+      - Scheduled Notifications
       summary: Test Live Activity
-      description: "Trigger a Live Activity on a user's device for testing.\n\nPick a variant from the Swagger \"Examples\" dropdown (prayer / church /\ndevotional / custom reminder, streak, or standard) and send. Reminders carry\nthe per-subtype artwork (via the deep link's reminderType), the weekly streak\nbubbles, and the interactive snooze.\n\n- x-user-id (header): user to send the Live Activity to (must have a stored\n  live_activity_tokens pushToStart token)\n- Requires x-api-key header for authentication."
+      description: 'Trigger a Live Activity on a user''s device for testing.
+
+
+        Pick a variant from the Swagger "Examples" dropdown (prayer / church /
+
+        devotional / custom reminder, streak, or standard) and send. Reminders carry
+
+        the per-subtype artwork (via the deep link''s reminderType), the weekly streak
+
+        bubbles, and the interactive snooze.
+
+
+        - x-user-id (header): user to send the Live Activity to (must have a stored
+
+        live_activity_tokens pushToStart token)
+
+        - Requires x-api-key header for authentication.'
       operationId: test_live_activity_api_scheduled_notifications_admin_test_live_activity_post
       parameters:
       - name: x-user-id
@@ -352,6 +368,54 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    TestNotificationRequest:
+      properties:
+        sendToDevice:
+          type: boolean
+          title: Sendtodevice
+          default: false
+        deliveryMethod:
+          type: string
+          title: Deliverymethod
+          default: push
+        notificationType:
+          type: string
+          title: Notificationtype
+          default: personalized
+        timeOfDay:
+          type: string
+          title: Timeofday
+          default: generic
+        imageUrl:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Imageurl
+        senderName:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sendername
+      type: object
+      title: TestNotificationRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    LiveActivityType:
+      type: string
+      enum:
+      - standard
+      - reminder
+      - streak
+      - call
+      title: LiveActivityType
+      description: Enum for Live Activity notification types
     ValidationError:
       properties:
         loc:
@@ -373,24 +437,6 @@ components:
       - msg
       - type
       title: ValidationError
-    LiveActivityType:
-      type: string
-      enum:
-      - standard
-      - reminder
-      - streak
-      - call
-      title: LiveActivityType
-      description: Enum for Live Activity notification types
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     TestLiveActivityRequest:
       properties:
         notificationType:
@@ -447,36 +493,6 @@ components:
       required:
       - title
       title: TestLiveActivityRequest
-    TestNotificationRequest:
-      properties:
-        sendToDevice:
-          type: boolean
-          title: Sendtodevice
-          default: false
-        deliveryMethod:
-          type: string
-          title: Deliverymethod
-          default: push
-        notificationType:
-          type: string
-          title: Notificationtype
-          default: personalized
-        timeOfDay:
-          type: string
-          title: Timeofday
-          default: generic
-        imageUrl:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Imageurl
-        senderName:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Sendername
-      type: object
-      title: TestNotificationRequest
   securitySchemes:
     HTTPBearer:
       type: http

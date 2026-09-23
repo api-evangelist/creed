@@ -1,15 +1,15 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Creed achievements seo API
+  title: Creed Seo API
   description: Creed API - Christian AI Chatbot
   version: 1.0.0
 tags:
-- name: seo
+- name: SEO
 paths:
   /api/seo/biblical-chat:
     post:
       tags:
-      - seo
+      - SEO
       summary: Seo Biblical Chat Endpoint
       operationId: seo_biblical_chat_endpoint_api_seo_biblical_chat_post
       parameters:
@@ -50,6 +50,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     SeoBiblicalChatRequest:
       properties:
         question:
@@ -75,15 +84,6 @@ components:
       required:
       - question
       title: SeoBiblicalChatRequest
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:

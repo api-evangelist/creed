@@ -1,15 +1,15 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Creed achievements leaderboard API
+  title: Creed Leaderboard API
   description: Creed API - Christian AI Chatbot
   version: 1.0.0
 tags:
-- name: leaderboard
+- name: Leaderboard
 paths:
   /api/leaderboard/country:
     get:
       tags:
-      - leaderboard
+      - Leaderboard
       summary: Get Country Leaderboard
       description: 'Get the country-level leaderboard based on streak count.
 
@@ -59,7 +59,7 @@ paths:
   /api/leaderboard/church:
     get:
       tags:
-      - leaderboard
+      - Leaderboard
       summary: Get Church Leaderboard
       description: 'Get the community leaderboard based on streak count.
 
@@ -116,7 +116,7 @@ paths:
   /api/leaderboard/by-church/{church_id}:
     get:
       tags:
-      - leaderboard
+      - Leaderboard
       summary: Get Leaderboard By Church
       description: 'Get the streak leaderboard for a specific church id.
 
@@ -159,7 +159,7 @@ paths:
   /api/leaderboard/global:
     get:
       tags:
-      - leaderboard
+      - Leaderboard
       summary: Get Global Leaderboard
       description: 'Get the global leaderboard based on streak count.
 
@@ -217,27 +217,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     LeaderboardEntry:
       properties:
         rank:
@@ -313,6 +292,27 @@ components:
       - entries
       - total_count
       title: LeaderboardResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
   securitySchemes:
     HTTPBearer:
       type: http

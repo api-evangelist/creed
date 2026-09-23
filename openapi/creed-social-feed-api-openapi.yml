@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Creed achievements social-feed API
+  title: Creed Social Feed API
   description: Creed API - Christian AI Chatbot
   version: 1.0.0
 tags:
@@ -125,76 +125,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    SocialFeedUser:
-      properties:
-        id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Id
-        first_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: First Name
-        last_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Last Name
-        profile_picture:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Profile Picture
-      type: object
-      title: SocialFeedUser
-      description: Embedded user info returned in social feed responses.
-    SocialFeedEventType:
-      type: string
-      enum:
-      - streak
-      - journal
-      - prayer
-      - prayer_wall
-      - achievement
-      title: SocialFeedEventType
-      description: 'Event types for the user social feed.
-
-
-        NOTE: The `social_feed_event_type` enum in the database also needs to be
-
-        updated whenever values are added or removed here.'
     SocialFeedEventResponse:
       properties:
         id:
@@ -227,6 +157,76 @@ components:
       - created_at
       title: SocialFeedEventResponse
       description: Response model for a social feed event — includes nested user, excludes user_id.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    SocialFeedEventType:
+      type: string
+      enum:
+      - streak
+      - journal
+      - prayer
+      - prayer_wall
+      - achievement
+      title: SocialFeedEventType
+      description: 'Event types for the user social feed.
+
+
+        NOTE: The `social_feed_event_type` enum in the database also needs to be
+
+        updated whenever values are added or removed here.'
+    SocialFeedUser:
+      properties:
+        id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Id
+        first_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: First Name
+        last_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Name
+        profile_picture:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Profile Picture
+      type: object
+      title: SocialFeedUser
+      description: Embedded user info returned in social feed responses.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
   securitySchemes:
     HTTPBearer:
       type: http

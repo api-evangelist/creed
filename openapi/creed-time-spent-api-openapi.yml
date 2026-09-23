@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Creed achievements time-spent API
+  title: Creed Time Spent API
   description: Creed API - Christian AI Chatbot
   version: 1.0.0
 tags:
@@ -77,50 +77,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    TimeSpentRecord:
-      properties:
-        id:
-          type: string
-          title: Id
-          description: Record ID (UUID from frontend)
-        started_at:
-          type: string
-          format: date-time
-          title: Started At
-          description: Session start timestamp
-        ended_at:
-          type: string
-          format: date-time
-          title: Ended At
-          description: Session end timestamp
-      type: object
-      required:
-      - id
-      - started_at
-      - ended_at
-      title: TimeSpentRecord
-      description: Single time spent record.
     TotalTimeSpentResponse:
       properties:
         total_minutes:
@@ -146,6 +102,29 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    TimeSpentRecord:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Record ID (UUID from frontend)
+        started_at:
+          type: string
+          format: date-time
+          title: Started At
+          description: Session start timestamp
+        ended_at:
+          type: string
+          format: date-time
+          title: Ended At
+          description: Session end timestamp
+      type: object
+      required:
+      - id
+      - started_at
+      - ended_at
+      title: TimeSpentRecord
+      description: Single time spent record.
     SubmitTimeSpentRequest:
       properties:
         records:
@@ -173,6 +152,27 @@ components:
       - message
       title: SubmitTimeSpentResponse
       description: Response model for submitting time spent.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
   securitySchemes:
     HTTPBearer:
       type: http

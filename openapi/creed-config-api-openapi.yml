@@ -1,15 +1,15 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Creed achievements config API
+  title: Creed Config API
   description: Creed API - Christian AI Chatbot
   version: 1.0.0
 tags:
-- name: config
+- name: Config
 paths:
   /api/config:
     get:
       tags:
-      - config
+      - Config
       summary: Get Config
       description: Get dynamic configuration and feature flags.
       operationId: get_config_api_config_get
@@ -22,6 +22,15 @@ paths:
                 $ref: '#/components/schemas/ConfigResponse'
 components:
   schemas:
+    FeatureFlags:
+      properties:
+        cpp_paywall:
+          type: boolean
+          title: Cpp Paywall
+      type: object
+      required:
+      - cpp_paywall
+      title: FeatureFlags
     ConfigResponse:
       properties:
         feature_flags:
@@ -120,15 +129,6 @@ components:
       - tiered_sub_exp_treatment_allocation
       - compaction_interval
       title: ConfigResponse
-    FeatureFlags:
-      properties:
-        cpp_paywall:
-          type: boolean
-          title: Cpp Paywall
-      type: object
-      required:
-      - cpp_paywall
-      title: FeatureFlags
   securitySchemes:
     HTTPBearer:
       type: http

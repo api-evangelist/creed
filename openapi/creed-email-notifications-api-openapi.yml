@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Creed achievements Email Notifications API
+  title: Creed Email Notifications API
   description: Creed API - Christian AI Chatbot
   version: 1.0.0
 tags:
@@ -331,6 +331,60 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    DailyDevotionalBroadcastVarsRequest:
+      properties:
+        verse_string:
+          type: string
+          title: Verse String
+          default: ''
+        verse_text:
+          type: string
+          title: Verse Text
+          default: ''
+        reflection:
+          type: string
+          title: Reflection
+          default: ''
+        prayer:
+          type: string
+          title: Prayer
+          default: ''
+      type: object
+      title: DailyDevotionalBroadcastVarsRequest
+      description: Body for daily devotional preview-broadcast and send-broadcast debug endpoints.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ResendCreateContactRequest:
+      properties:
+        email:
+          type: string
+          title: Email
+        first_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: First Name
+        last_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Name
+        add_to_segment:
+          type: boolean
+          title: Add To Segment
+          default: false
+      type: object
+      required:
+      - email
+      title: ResendCreateContactRequest
+      description: Body for Resend create-contact debug endpoint.
     ValidationError:
       properties:
         loc:
@@ -373,60 +427,6 @@ components:
       type: object
       title: PrayerWallBroadcastVarsRequest
       description: Body for preview-broadcast and send-broadcast debug endpoints.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    DailyDevotionalBroadcastVarsRequest:
-      properties:
-        verse_string:
-          type: string
-          title: Verse String
-          default: ''
-        verse_text:
-          type: string
-          title: Verse Text
-          default: ''
-        reflection:
-          type: string
-          title: Reflection
-          default: ''
-        prayer:
-          type: string
-          title: Prayer
-          default: ''
-      type: object
-      title: DailyDevotionalBroadcastVarsRequest
-      description: Body for daily devotional preview-broadcast and send-broadcast debug endpoints.
-    ResendCreateContactRequest:
-      properties:
-        email:
-          type: string
-          title: Email
-        first_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: First Name
-        last_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Last Name
-        add_to_segment:
-          type: boolean
-          title: Add To Segment
-          default: false
-      type: object
-      required:
-      - email
-      title: ResendCreateContactRequest
-      description: Body for Resend create-contact debug endpoint.
   securitySchemes:
     HTTPBearer:
       type: http

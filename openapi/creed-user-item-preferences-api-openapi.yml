@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Creed achievements user-item-preferences API
+  title: Creed User Item Preferences API
   description: Creed API - Christian AI Chatbot
   version: 1.0.0
 tags:
@@ -83,6 +83,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     UpdateUserItemPreferencesRequest:
       properties:
         preferred_background:
@@ -127,15 +136,6 @@ components:
           title: Preferred Face
       type: object
       title: UpdateUserItemPreferencesRequest
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:

@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Creed achievements live-activity API
+  title: Creed Live Activity API
   description: Creed API - Christian AI Chatbot
   version: 1.0.0
 tags:
@@ -87,15 +87,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    StorePushToStartTokenResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-      type: object
-      required:
-      - success
-      title: StorePushToStartTokenResponse
     HTTPValidationError:
       properties:
         detail:
@@ -105,6 +96,29 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    StorePushToStartTokenRequest:
+      properties:
+        token:
+          type: string
+          title: Token
+        source:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Source
+      type: object
+      required:
+      - token
+      title: StorePushToStartTokenRequest
+    StorePushToStartTokenResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+      type: object
+      required:
+      - success
+      title: StorePushToStartTokenResponse
     ValidationError:
       properties:
         loc:
@@ -126,20 +140,6 @@ components:
       - msg
       - type
       title: ValidationError
-    StorePushToStartTokenRequest:
-      properties:
-        token:
-          type: string
-          title: Token
-        source:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Source
-      type: object
-      required:
-      - token
-      title: StorePushToStartTokenRequest
   securitySchemes:
     HTTPBearer:
       type: http

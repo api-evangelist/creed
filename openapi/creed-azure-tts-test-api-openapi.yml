@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Creed achievements azure-tts-test API
+  title: Creed Azure Tts Test API
   description: Creed API - Christian AI Chatbot
   version: 1.0.0
 tags:
@@ -44,6 +44,19 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    AzureTTSRequest:
+      properties:
+        text:
+          type: string
+          title: Text
+        voice:
+          type: string
+          title: Voice
+          default: echo
+      type: object
+      required:
+      - text
+      title: AzureTTSRequest
     ValidationError:
       properties:
         loc:
@@ -65,19 +78,6 @@ components:
       - msg
       - type
       title: ValidationError
-    AzureTTSRequest:
-      properties:
-        text:
-          type: string
-          title: Text
-        voice:
-          type: string
-          title: Voice
-          default: echo
-      type: object
-      required:
-      - text
-      title: AzureTTSRequest
   securitySchemes:
     HTTPBearer:
       type: http

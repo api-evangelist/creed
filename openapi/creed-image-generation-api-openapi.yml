@@ -1,15 +1,15 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Creed achievements image-generation API
+  title: Creed Image Generation API
   description: Creed API - Christian AI Chatbot
   version: 1.0.0
 tags:
-- name: image-generation
+- name: Image Generation
 paths:
   /api/generate-image:
     post:
       tags:
-      - image-generation
+      - Image Generation
       summary: Generate Image
       description: 'Generate an image using OpenAI''s image generation API.
 
@@ -50,60 +50,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    ImageGenerationResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          description: Whether the generation was successful
-        data:
-          items:
-            $ref: '#/components/schemas/ImageData'
-          type: array
-          title: Data
-          description: List of generated images
-        error:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Error
-          description: Error message if generation failed
-      type: object
-      required:
-      - success
-      - data
-      title: ImageGenerationResponse
-      description: Response model for image generation
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ImageData:
       properties:
         url:
@@ -181,6 +127,60 @@ components:
       - image
       - prompt
       title: Body_generate_image_api_generate_image_post
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ImageGenerationResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          description: Whether the generation was successful
+        data:
+          items:
+            $ref: '#/components/schemas/ImageData'
+          type: array
+          title: Data
+          description: List of generated images
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+          description: Error message if generation failed
+      type: object
+      required:
+      - success
+      - data
+      title: ImageGenerationResponse
+      description: Response model for image generation
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
   securitySchemes:
     HTTPBearer:
       type: http

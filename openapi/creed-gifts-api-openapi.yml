@@ -1,17 +1,32 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Creed achievements gifts API
+  title: Creed Gifts API
   description: Creed API - Christian AI Chatbot
   version: 1.0.0
 tags:
-- name: gifts
+- name: Gifts
 paths:
   /api/gifts/code:
     post:
       tags:
-      - gifts
+      - Gifts
       summary: Create Gift Code
-      description: "Create a new gift code for the authenticated user.\n\nThis endpoint creates a gift code that can be shared with others.\nThe gift code grants 1 year of premium access when redeemed.\n\nArgs:\n    request: CreateGiftCodeRequest with RevenueCat product and purchase IDs\n\nReturns:\n    CreateGiftCodeResponse with the generated gift code"
+      description: 'Create a new gift code for the authenticated user.
+
+
+        This endpoint creates a gift code that can be shared with others.
+
+        The gift code grants 1 year of premium access when redeemed.
+
+
+        Args:
+
+        request: CreateGiftCodeRequest with RevenueCat product and purchase IDs
+
+
+        Returns:
+
+        CreateGiftCodeResponse with the generated gift code'
       operationId: create_gift_code_api_gifts_code_post
       security:
       - HTTPBearer: []
@@ -46,9 +61,19 @@ paths:
   /api/gifts/my-codes:
     get:
       tags:
-      - gifts
+      - Gifts
       summary: Get My Gift Codes
-      description: "Get all gift codes created by the authenticated user.\n\nThis endpoint returns a list of all gift codes the user has created,\nincluding their redemption status.\n\nReturns:\n    MyGiftCodesResponse with list of gift codes and counts"
+      description: 'Get all gift codes created by the authenticated user.
+
+
+        This endpoint returns a list of all gift codes the user has created,
+
+        including their redemption status.
+
+
+        Returns:
+
+        MyGiftCodesResponse with list of gift codes and counts'
       operationId: get_my_gift_codes_api_gifts_my_codes_get
       security:
       - HTTPBearer: []
@@ -77,9 +102,24 @@ paths:
   /api/gifts/redeem:
     post:
       tags:
-      - gifts
+      - Gifts
       summary: Redeem Gift Code
-      description: "Redeem a gift code to receive 1 year of premium access.\n\nThe premium access is stacked on top of any existing subscription.\nUsers cannot redeem their own gift codes.\n\nArgs:\n    request: RedeemGiftCodeRequest with the gift code\n\nReturns:\n    RedeemGiftCodeResponse with success status and message"
+      description: 'Redeem a gift code to receive 1 year of premium access.
+
+
+        The premium access is stacked on top of any existing subscription.
+
+        Users cannot redeem their own gift codes.
+
+
+        Args:
+
+        request: RedeemGiftCodeRequest with the gift code
+
+
+        Returns:
+
+        RedeemGiftCodeResponse with success status and message'
       operationId: redeem_gift_code_api_gifts_redeem_post
       security:
       - HTTPBearer: []
@@ -113,6 +153,27 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    RedeemGiftCodeRequest:
+      properties:
+        code:
+          type: string
+          minLength: 1
+          title: Code
+          description: The gift code to redeem
+      type: object
+      required:
+      - code
+      title: RedeemGiftCodeRequest
+      description: Request model for redeeming a gift code
     MyGiftCodesResponse:
       properties:
         success:
@@ -141,27 +202,6 @@ components:
       - unredeemed_count
       title: MyGiftCodesResponse
       description: Response model for getting user's gift codes
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     RedeemGiftCodeResponse:
       properties:
         success:
@@ -178,27 +218,6 @@ components:
       - message
       title: RedeemGiftCodeResponse
       description: Response model for redeeming a gift code
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    RedeemGiftCodeRequest:
-      properties:
-        code:
-          type: string
-          minLength: 1
-          title: Code
-          description: The gift code to redeem
-      type: object
-      required:
-      - code
-      title: RedeemGiftCodeRequest
-      description: Request model for redeeming a gift code
     CreateGiftCodeRequest:
       properties:
         rc_product:
@@ -217,24 +236,6 @@ components:
       - rc_transaction
       title: CreateGiftCodeRequest
       description: Request model for creating a gift code
-    CreateGiftCodeResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-        code:
-          type: string
-          title: Code
-        message:
-          type: string
-          title: Message
-      type: object
-      required:
-      - success
-      - code
-      - message
-      title: CreateGiftCodeResponse
-      description: Response model for creating a gift code
     GiftCodeRecord:
       properties:
         code:
@@ -277,6 +278,45 @@ components:
       - created_at
       title: GiftCodeRecord
       description: Model for a single gift code record
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    CreateGiftCodeResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - success
+      - code
+      - message
+      title: CreateGiftCodeResponse
+      description: Response model for creating a gift code
   securitySchemes:
     HTTPBearer:
       type: http

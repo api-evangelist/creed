@@ -1,17 +1,31 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Creed achievements users API
+  title: Creed Users API
   description: Creed API - Christian AI Chatbot
   version: 1.0.0
 tags:
-- name: users
+- name: Users
 paths:
   /api/users/update:
     patch:
       tags:
-      - users
+      - Users
       summary: Update User Info
-      description: "Update user information in the user_info table.\nAccepts any key-value pairs to update flexible user data.\n\nArgs:\n    update_payload: Dictionary with any fields to update\n    current_user: Current authenticated user from dependency\n\nReturns:\n    Dict with success status, message, and updated data"
+      description: 'Update user information in the user_info table.
+
+        Accepts any key-value pairs to update flexible user data.
+
+
+        Args:
+
+        update_payload: Dictionary with any fields to update
+
+        current_user: Current authenticated user from dependency
+
+
+        Returns:
+
+        Dict with success status, message, and updated data'
       operationId: update_user_info_api_users_update_patch
       security:
       - HTTPBearer: []
@@ -50,9 +64,18 @@ paths:
   /api/users/delete-account:
     delete:
       tags:
-      - users
+      - Users
       summary: Delete User Account
-      description: "Delete user account.\nCurrently this only clears push notification tokens.\nIn the future, this can be extended to handle full account deletion.\n\nReturns:\n    Dict with success status and message"
+      description: 'Delete user account.
+
+        Currently this only clears push notification tokens.
+
+        In the future, this can be extended to handle full account deletion.
+
+
+        Returns:
+
+        Dict with success status and message'
       operationId: delete_user_account_api_users_delete_account_delete
       security:
       - HTTPBearer: []

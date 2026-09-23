@@ -1,15 +1,15 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Creed achievements streaks API
+  title: Creed Streaks API
   description: Creed API - Christian AI Chatbot
   version: 1.0.0
 tags:
-- name: streaks
+- name: Streaks
 paths:
   /api/streaks:
     get:
       tags:
-      - streaks
+      - Streaks
       summary: Get Streaks
       description: Get the current streak count for the authenticated user.
       operationId: get_streaks_api_streaks_get
@@ -40,7 +40,7 @@ paths:
   /api/streaks/extend:
     post:
       tags:
-      - streaks
+      - Streaks
       summary: Update Oneoff Event
       description: 'Update one-off daily event completion for a user.
 
@@ -120,7 +120,7 @@ paths:
   /api/streaks/send-reminders-cron:
     post:
       tags:
-      - streaks
+      - Streaks
       summary: Send Streak Reminders Cron
       description: 'Cron endpoint to send solo streak loss reminders via Live Activity.
 
@@ -168,41 +168,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    StreakRestoreRequest:
-      properties:
-        useFreeOffer:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Usefreeoffer
-        txnId:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Txnid
-      type: object
-      title: StreakRestoreRequest
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     StreakResponse:
       properties:
         streak_count:
@@ -244,6 +209,41 @@ components:
       required:
       - streak_count
       title: StreakResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    StreakRestoreRequest:
+      properties:
+        useFreeOffer:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Usefreeoffer
+        txnId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Txnid
+      type: object
+      title: StreakRestoreRequest
   securitySchemes:
     HTTPBearer:
       type: http

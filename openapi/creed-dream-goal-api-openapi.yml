@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Creed achievements dream-goal API
+  title: Creed Dream Goal API
   description: Creed API - Christian AI Chatbot
   version: 1.0.0
 tags:
@@ -11,7 +11,23 @@ paths:
       tags:
       - dream-goal
       summary: Get User Dream Goal Resource
-      description: "Get the latest unread dream goal resource for the current user.\n\nReturns personalized articles and resources found through LLM web search\nbased on the user's dream goal.\n\nReturns:\n    Dictionary with:\n    - success: boolean indicating operation success\n    - message: descriptive status message\n    - resource: single resource object with title, description, and URL (or None if none found)"
+      description: 'Get the latest unread dream goal resource for the current user.
+
+
+        Returns personalized articles and resources found through LLM web search
+
+        based on the user''s dream goal.
+
+
+        Returns:
+
+        Dictionary with:
+
+        - success: boolean indicating operation success
+
+        - message: descriptive status message
+
+        - resource: single resource object with title, description, and URL (or None if none found)'
       operationId: get_user_dream_goal_resource_api_dream_goal_resource_get
       security:
       - HTTPBearer: []
@@ -44,7 +60,24 @@ paths:
       tags:
       - dream-goal
       summary: Mark Resource As Read
-      description: "Mark a dream goal resource as read.\n\nThis endpoint allows users to mark specific resources as read, which:\n- Updates the resource status in the database\n- Provides clear feedback on the operation result\n\nArgs:\n    resource_id: Unique identifier of the resource to mark as read\n\nReturns:\n    Dictionary with success status and descriptive message"
+      description: 'Mark a dream goal resource as read.
+
+
+        This endpoint allows users to mark specific resources as read, which:
+
+        - Updates the resource status in the database
+
+        - Provides clear feedback on the operation result
+
+
+        Args:
+
+        resource_id: Unique identifier of the resource to mark as read
+
+
+        Returns:
+
+        Dictionary with success status and descriptive message'
       operationId: mark_resource_as_read_api_dream_goal_resource__resource_id__patch
       security:
       - HTTPBearer: []
@@ -83,7 +116,21 @@ paths:
       tags:
       - dream-goal
       summary: Process Dream Goal
-      description: "Process the user's dream goal and find relevant resources.\n\nThis endpoint:\n1. Queues the dream goal processing as a background task\n2. Uses Gemini with Google Search to find and save relevant resources\n3. Returns immediately without waiting for completion\n\nReturns:\n    Dictionary with success status indicating processing has been started"
+      description: 'Process the user''s dream goal and find relevant resources.
+
+
+        This endpoint:
+
+        1. Queues the dream goal processing as a background task
+
+        2. Uses Gemini with Google Search to find and save relevant resources
+
+        3. Returns immediately without waiting for completion
+
+
+        Returns:
+
+        Dictionary with success status indicating processing has been started'
       operationId: process_dream_goal_api_dream_goal_test_process_post
       security:
       - HTTPBearer: []
@@ -141,15 +188,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    TestDreamGoalRequest:
-      properties:
-        goal:
-          type: string
-          title: Goal
-      type: object
-      required:
-      - goal
-      title: TestDreamGoalRequest
     HTTPValidationError:
       properties:
         detail:
@@ -159,6 +197,15 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    TestDreamGoalRequest:
+      properties:
+        goal:
+          type: string
+          title: Goal
+      type: object
+      required:
+      - goal
+      title: TestDreamGoalRequest
     ValidationError:
       properties:
         loc:

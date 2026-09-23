@@ -1,15 +1,15 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Creed achievements spotlight API
+  title: Creed Spotlight API
   description: Creed API - Christian AI Chatbot
   version: 1.0.0
 tags:
-- name: spotlight
+- name: Spotlight
 paths:
   /api/spotlight/seen:
     get:
       tags:
-      - spotlight
+      - Spotlight
       summary: Get Seen
       operationId: get_seen_api_spotlight_seen_get
       security:
@@ -41,7 +41,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     post:
       tags:
-      - spotlight
+      - Spotlight
       summary: Mark Seen
       operationId: mark_seen_api_spotlight_seen_post
       security:
@@ -72,15 +72,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    MarkSeenRequest:
-      properties:
-        spotlightId:
-          type: string
-          title: Spotlightid
-      type: object
-      required:
-      - spotlightId
-      title: MarkSeenRequest
     HTTPValidationError:
       properties:
         detail:
@@ -90,6 +81,28 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    SeenEntry:
+      properties:
+        spotlight_id:
+          type: string
+          title: Spotlight Id
+        seen_at:
+          type: string
+          title: Seen At
+      type: object
+      required:
+      - spotlight_id
+      - seen_at
+      title: SeenEntry
+    MarkSeenRequest:
+      properties:
+        spotlightId:
+          type: string
+          title: Spotlightid
+      type: object
+      required:
+      - spotlightId
+      title: MarkSeenRequest
     ValidationError:
       properties:
         loc:
@@ -111,19 +124,6 @@ components:
       - msg
       - type
       title: ValidationError
-    SeenEntry:
-      properties:
-        spotlight_id:
-          type: string
-          title: Spotlight Id
-        seen_at:
-          type: string
-          title: Seen At
-      type: object
-      required:
-      - spotlight_id
-      - seen_at
-      title: SeenEntry
   securitySchemes:
     HTTPBearer:
       type: http

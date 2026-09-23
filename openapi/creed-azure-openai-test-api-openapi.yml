@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Creed achievements azure-openai-test API
+  title: Creed Azure Openai Test API
   description: Creed API - Christian AI Chatbot
   version: 1.0.0
 tags:
@@ -45,15 +45,23 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    AzureChatRequest:
+    AzureChatResponse:
       properties:
-        message:
+        text:
           type: string
-          title: Message
+          title: Text
+        model:
+          type: string
+          title: Model
+        success:
+          type: boolean
+          title: Success
       type: object
       required:
-      - message
-      title: AzureChatRequest
+      - text
+      - model
+      - success
+      title: AzureChatResponse
     ValidationError:
       properties:
         loc:
@@ -75,23 +83,15 @@ components:
       - msg
       - type
       title: ValidationError
-    AzureChatResponse:
+    AzureChatRequest:
       properties:
-        text:
+        message:
           type: string
-          title: Text
-        model:
-          type: string
-          title: Model
-        success:
-          type: boolean
-          title: Success
+          title: Message
       type: object
       required:
-      - text
-      - model
-      - success
-      title: AzureChatResponse
+      - message
+      title: AzureChatRequest
   securitySchemes:
     HTTPBearer:
       type: http

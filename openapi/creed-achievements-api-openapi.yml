@@ -1,15 +1,15 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Creed achievements API
+  title: Creed Achievements API
   description: Creed API - Christian AI Chatbot
   version: 1.0.0
 tags:
-- name: achievements
+- name: Achievements
 paths:
   /api/achievements/all:
     get:
       tags:
-      - achievements
+      - Achievements
       summary: Get All Achievements
       description: Fetch all active achievements available in the system.
       operationId: get_all_achievements_api_achievements_all_get
@@ -43,7 +43,7 @@ paths:
   /api/achievements:
     get:
       tags:
-      - achievements
+      - Achievements
       summary: Get User Achievements
       description: 'Fetch all achievements unlocked by the authenticated user.
 
@@ -80,7 +80,7 @@ paths:
   /api/achievements/unlock:
     post:
       tags:
-      - achievements
+      - Achievements
       summary: Unlock Achievement
       description: 'Manually unlock an achievement for the authenticated user.
 
@@ -124,27 +124,47 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ValidationError:
+    UserAchievementResponse:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        id:
+          type: integer
+          title: Id
+        achievement_id:
           type: string
-          title: Message
-        type:
+          title: Achievement Id
+        achieved_at:
           type: string
-          title: Error Type
+          format: date-time
+          title: Achieved At
+        achievement:
+          $ref: '#/components/schemas/AchievementResponse'
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - id
+      - achievement_id
+      - achieved_at
+      - achievement
+      title: UserAchievementResponse
+      description: User achievement response with embedded achievement details.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    UnlockAchievementRequest:
+      properties:
+        achievement_key:
+          type: string
+          title: Achievement Key
+      type: object
+      required:
+      - achievement_key
+      title: UnlockAchievementRequest
+      description: Request model for unlocking an achievement.
     AchievementResponse:
       properties:
         id:
@@ -186,47 +206,27 @@ components:
       - stackable
       title: AchievementResponse
       description: Achievement response model (public-facing).
-    HTTPValidationError:
+    ValidationError:
       properties:
-        detail:
+        loc:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    UserAchievementResponse:
-      properties:
-        id:
-          type: integer
-          title: Id
-        achievement_id:
+          title: Location
+        msg:
           type: string
-          title: Achievement Id
-        achieved_at:
+          title: Message
+        type:
           type: string
-          format: date-time
-          title: Achieved At
-        achievement:
-          $ref: '#/components/schemas/AchievementResponse'
+          title: Error Type
       type: object
       required:
-      - id
-      - achievement_id
-      - achieved_at
-      - achievement
-      title: UserAchievementResponse
-      description: User achievement response with embedded achievement details.
-    UnlockAchievementRequest:
-      properties:
-        achievement_key:
-          type: string
-          title: Achievement Key
-      type: object
-      required:
-      - achievement_key
-      title: UnlockAchievementRequest
-      description: Request model for unlocking an achievement.
+      - loc
+      - msg
+      - type
+      title: ValidationError
   securitySchemes:
     HTTPBearer:
       type: http

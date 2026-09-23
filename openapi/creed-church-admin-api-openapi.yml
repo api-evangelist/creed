@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Creed achievements church-admin API
+  title: Creed Church Admin API
   description: Creed API - Christian AI Chatbot
   version: 1.0.0
 tags:
@@ -370,164 +370,6 @@ components:
       - title
       - date
       title: CreateEventRequest
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    AnnouncementResponse:
-      properties:
-        id:
-          type: integer
-          title: Id
-        title:
-          type: string
-          title: Title
-        short_description:
-          type: string
-          title: Short Description
-        long_description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Long Description
-        created_at:
-          type: string
-          title: Created At
-      type: object
-      required:
-      - id
-      - title
-      - short_description
-      - created_at
-      title: AnnouncementResponse
-    ChurchPreviewMassTime:
-      properties:
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-        day_of_week:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Day Of Week
-        start_time:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Start Time
-        end_time:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: End Time
-        mass_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Mass Url
-      type: object
-      title: ChurchPreviewMassTime
-    LoginRequest:
-      properties:
-        username:
-          type: string
-          title: Username
-        password:
-          type: string
-          title: Password
-      type: object
-      required:
-      - username
-      - password
-      title: LoginRequest
-    CreateAnnouncementRequest:
-      properties:
-        title:
-          type: string
-          maxLength: 65
-          title: Title
-        short_description:
-          type: string
-          maxLength: 140
-          title: Short Description
-        long_description:
-          anyOf:
-          - type: string
-            maxLength: 1000
-          - type: 'null'
-          title: Long Description
-        notify_members:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Notify Members
-      type: object
-      required:
-      - title
-      - short_description
-      title: CreateAnnouncementRequest
-    ChurchPreviewEvent:
-      properties:
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-        date:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Date
-        start_time:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Start Time
-        end_time:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: End Time
-        location:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Location
-        event_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Event Url
-        source:
-          type: string
-          title: Source
-          default: website
-        admin_event_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Admin Event Id
-      type: object
-      title: ChurchPreviewEvent
     ChurchAdminEventResponse:
       properties:
         id:
@@ -569,24 +411,6 @@ components:
       - date
       - created_at
       title: ChurchAdminEventResponse
-    ProfileResponse:
-      properties:
-        admin_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Admin Name
-        church_name:
-          type: string
-          title: Church Name
-        church_id:
-          type: integer
-          title: Church Id
-      type: object
-      required:
-      - church_name
-      - church_id
-      title: ProfileResponse
     HTTPValidationError:
       properties:
         detail:
@@ -658,6 +482,182 @@ components:
       required:
       - id
       title: ChurchPreviewResponse
+    ChurchPreviewEvent:
+      properties:
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Date
+        start_time:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End Time
+        location:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Location
+        event_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Event Url
+        source:
+          type: string
+          title: Source
+          default: website
+        admin_event_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Admin Event Id
+      type: object
+      title: ChurchPreviewEvent
+    ProfileResponse:
+      properties:
+        admin_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Admin Name
+        church_name:
+          type: string
+          title: Church Name
+        church_id:
+          type: integer
+          title: Church Id
+      type: object
+      required:
+      - church_name
+      - church_id
+      title: ProfileResponse
+    AnnouncementResponse:
+      properties:
+        id:
+          type: integer
+          title: Id
+        title:
+          type: string
+          title: Title
+        short_description:
+          type: string
+          title: Short Description
+        long_description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Long Description
+        created_at:
+          type: string
+          title: Created At
+      type: object
+      required:
+      - id
+      - title
+      - short_description
+      - created_at
+      title: AnnouncementResponse
+    LoginRequest:
+      properties:
+        username:
+          type: string
+          title: Username
+        password:
+          type: string
+          title: Password
+      type: object
+      required:
+      - username
+      - password
+      title: LoginRequest
+    CreateAnnouncementRequest:
+      properties:
+        title:
+          type: string
+          maxLength: 65
+          title: Title
+        short_description:
+          type: string
+          maxLength: 140
+          title: Short Description
+        long_description:
+          anyOf:
+          - type: string
+            maxLength: 1000
+          - type: 'null'
+          title: Long Description
+        notify_members:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Notify Members
+      type: object
+      required:
+      - title
+      - short_description
+      title: CreateAnnouncementRequest
+    ChurchPreviewMassTime:
+      properties:
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        day_of_week:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Day Of Week
+        start_time:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End Time
+        mass_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Mass Url
+      type: object
+      title: ChurchPreviewMassTime
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     ChurchPreviewDonationLink:
       properties:
         title:

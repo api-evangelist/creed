@@ -1,15 +1,15 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Creed achievements b2b API
+  title: Creed B2b API
   description: Creed API - Christian AI Chatbot
   version: 1.0.0
 tags:
-- name: b2b
+- name: B2 B
 paths:
   /api/b2b/chatbot:
     post:
       tags:
-      - b2b
+      - B2 B
       summary: Chat
       operationId: chat_api_b2b_chatbot_post
       requestBody:
@@ -33,55 +33,35 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    Source:
+    B2BChatRequest:
       properties:
-        title:
-          type: string
-          title: Title
-        url:
-          type: string
-          title: Url
-        snippet:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Snippet
-        favicon:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Favicon
-        domain:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Domain
-      type: object
-      required:
-      - title
-      - url
-      title: Source
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        message:
           type: string
           title: Message
-        type:
-          type: string
-          title: Error Type
+        conversation_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Conversation Id
+        church_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Church Name
+        church_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Church Url
+        bible_version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Bible Version
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - message
+      title: B2BChatRequest
     HTTPValidationError:
       properties:
         detail:
@@ -123,35 +103,55 @@ components:
       required:
       - conversation_id
       title: B2BChatResponse
-    B2BChatRequest:
+    ValidationError:
       properties:
-        message:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
           type: string
           title: Message
-        conversation_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Conversation Id
-        church_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Church Name
-        church_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Church Url
-        bible_version:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Bible Version
+        type:
+          type: string
+          title: Error Type
       type: object
       required:
-      - message
-      title: B2BChatRequest
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Source:
+      properties:
+        title:
+          type: string
+          title: Title
+        url:
+          type: string
+          title: Url
+        snippet:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Snippet
+        favicon:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Favicon
+        domain:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Domain
+      type: object
+      required:
+      - title
+      - url
+      title: Source
   securitySchemes:
     HTTPBearer:
       type: http

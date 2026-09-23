@@ -1,15 +1,15 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Creed achievements webhooks API
+  title: Creed Webhooks API
   description: Creed API - Christian AI Chatbot
   version: 1.0.0
 tags:
-- name: webhooks
+- name: Webhooks
 paths:
   /api/webhooks/revenuecat:
     post:
       tags:
-      - webhooks
+      - Webhooks
       summary: Revenuecat Webhook
       description: 'Single entry point for all RevenueCat webhook events.
 

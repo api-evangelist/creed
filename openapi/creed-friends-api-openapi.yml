@@ -1,17 +1,27 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Creed achievements friends API
+  title: Creed Friends API
   description: Creed API - Christian AI Chatbot
   version: 1.0.0
 tags:
-- name: friends
+- name: Friends
 paths:
   /api/friends:
     get:
       tags:
-      - friends
+      - Friends
       summary: Get My Friends
-      description: "Get all friends for the current user with their profile information.\n\nArgs:\n    current_user: Current authenticated user from dependency\n\nReturns:\n    Dict with list of friends"
+      description: 'Get all friends for the current user with their profile information.
+
+
+        Args:
+
+        current_user: Current authenticated user from dependency
+
+
+        Returns:
+
+        Dict with list of friends'
       operationId: get_my_friends_api_friends_get
       security:
       - HTTPBearer: []
@@ -42,9 +52,19 @@ paths:
   /api/friends/requests:
     get:
       tags:
-      - friends
+      - Friends
       summary: Get My Friend Requests
-      description: "Get all pending friend requests received by the current user.\n\nArgs:\n    current_user: Current authenticated user from dependency\n\nReturns:\n    Dict with list of pending friend requests"
+      description: 'Get all pending friend requests received by the current user.
+
+
+        Args:
+
+        current_user: Current authenticated user from dependency
+
+
+        Returns:
+
+        Dict with list of pending friend requests'
       operationId: get_my_friend_requests_api_friends_requests_get
       security:
       - HTTPBearer: []
@@ -75,9 +95,19 @@ paths:
   /api/friends/requests/sent:
     get:
       tags:
-      - friends
+      - Friends
       summary: Get My Sent Friend Requests
-      description: "Get all pending friend requests sent by the current user.\n\nArgs:\n    current_user: Current authenticated user from dependency\n\nReturns:\n    Dict with list of pending sent friend requests"
+      description: 'Get all pending friend requests sent by the current user.
+
+
+        Args:
+
+        current_user: Current authenticated user from dependency
+
+
+        Returns:
+
+        Dict with list of pending sent friend requests'
       operationId: get_my_sent_friend_requests_api_friends_requests_sent_get
       security:
       - HTTPBearer: []
@@ -108,9 +138,23 @@ paths:
   /api/friends/search/{user_id}:
     get:
       tags:
-      - friends
+      - Friends
       summary: Search User
-      description: "Search for a user by ID and check if already friends.\n\nArgs:\n    user_id: ID of the user to search for\n    allow_self_search: If true, allow looking up the authenticated user by their own ID\n    current_user: Current authenticated user from dependency\n\nReturns:\n    Dict with user info and friendship status"
+      description: 'Search for a user by ID and check if already friends.
+
+
+        Args:
+
+        user_id: ID of the user to search for
+
+        allow_self_search: If true, allow looking up the authenticated user by their own ID
+
+        current_user: Current authenticated user from dependency
+
+
+        Returns:
+
+        Dict with user info and friendship status'
       operationId: search_user_api_friends_search__user_id__get
       security:
       - HTTPBearer: []
@@ -156,9 +200,21 @@ paths:
   /api/friends/request/send/{receiver_id}:
     post:
       tags:
-      - friends
+      - Friends
       summary: Send Friend Request
-      description: "Send a friend request to another user.\n\nArgs:\n    receiver_id: ID of the user to send friend request to\n    current_user: Current authenticated user from dependency\n\nReturns:\n    Dict with the created friend request"
+      description: 'Send a friend request to another user.
+
+
+        Args:
+
+        receiver_id: ID of the user to send friend request to
+
+        current_user: Current authenticated user from dependency
+
+
+        Returns:
+
+        Dict with the created friend request'
       operationId: send_friend_request_api_friends_request_send__receiver_id__post
       security:
       - HTTPBearer: []
@@ -195,7 +251,7 @@ paths:
   /api/friends/nudge/{friend_id}:
     post:
       tags:
-      - friends
+      - Friends
       summary: Nudge Friend
       description: 'Send a push notification nudge to a friend.
 
@@ -243,7 +299,7 @@ paths:
   /api/friends/auto-add/{sender_id}:
     post:
       tags:
-      - friends
+      - Friends
       summary: Auto Add Friend
       description: 'Directly add a user as a friend without a request/accept flow.
 
@@ -287,7 +343,7 @@ paths:
   /api/friends/remove/{friend_id}:
     post:
       tags:
-      - friends
+      - Friends
       summary: Remove Friend
       description: 'Remove an existing friendship with another user.
 
@@ -331,9 +387,21 @@ paths:
   /api/friends/request/accept/{request_id}:
     post:
       tags:
-      - friends
+      - Friends
       summary: Accept Friend Request
-      description: "Accept a friend request by ID.\n\nArgs:\n    request_id: ID of the friend request\n    current_user: Current authenticated user from dependency\n\nReturns:\n    Dict with success status and friendship details"
+      description: 'Accept a friend request by ID.
+
+
+        Args:
+
+        request_id: ID of the friend request
+
+        current_user: Current authenticated user from dependency
+
+
+        Returns:
+
+        Dict with success status and friendship details'
       operationId: accept_friend_request_api_friends_request_accept__request_id__post
       security:
       - HTTPBearer: []
@@ -377,9 +445,21 @@ paths:
   /api/friends/request/reject/{request_id}:
     post:
       tags:
-      - friends
+      - Friends
       summary: Reject Friend Request
-      description: "Reject a friend request by ID.\n\nArgs:\n    request_id: ID of the friend request\n    current_user: Current authenticated user from dependency\n\nReturns:\n    Dict with success status"
+      description: 'Reject a friend request by ID.
+
+
+        Args:
+
+        request_id: ID of the friend request
+
+        current_user: Current authenticated user from dependency
+
+
+        Returns:
+
+        Dict with success status'
       operationId: reject_friend_request_api_friends_request_reject__request_id__post
       security:
       - HTTPBearer: []
@@ -416,9 +496,21 @@ paths:
   /api/friends/request/cancel/{request_id}:
     post:
       tags:
-      - friends
+      - Friends
       summary: Cancel Friend Request
-      description: "Cancel a friend request by ID (sender can cancel their own sent request).\n\nArgs:\n    request_id: ID of the friend request\n    current_user: Current authenticated user from dependency\n\nReturns:\n    Dict with success status"
+      description: 'Cancel a friend request by ID (sender can cancel their own sent request).
+
+
+        Args:
+
+        request_id: ID of the friend request
+
+        current_user: Current authenticated user from dependency
+
+
+        Returns:
+
+        Dict with success status'
       operationId: cancel_friend_request_api_friends_request_cancel__request_id__post
       security:
       - HTTPBearer: []
@@ -455,7 +547,7 @@ paths:
   /api/friends/streaks/auto-start/{sender_id}:
     post:
       tags:
-      - friends
+      - Friends
       summary: Auto Start Streak
       description: 'Directly add a user as a friend and immediately start an active streak.
 
@@ -499,7 +591,7 @@ paths:
   /api/friends/streaks:
     get:
       tags:
-      - friends
+      - Friends
       summary: List Friend Streaks
       description: List active friend streak partnerships for the current user.
       operationId: list_friend_streaks_api_friends_streaks_get
@@ -532,7 +624,7 @@ paths:
   /api/friends/streaks/requests:
     get:
       tags:
-      - friends
+      - Friends
       summary: Get Friend Streak Requests Incoming
       description: Pending friend streak requests received by the current user.
       operationId: get_friend_streak_requests_incoming_api_friends_streaks_requests_get
@@ -565,7 +657,7 @@ paths:
   /api/friends/streaks/requests/sent:
     get:
       tags:
-      - friends
+      - Friends
       summary: Get Friend Streak Requests Sent
       description: Pending friend streak requests sent by the current user.
       operationId: get_friend_streak_requests_sent_api_friends_streaks_requests_sent_get
@@ -598,7 +690,7 @@ paths:
   /api/friends/streaks/{friend_id}:
     get:
       tags:
-      - friends
+      - Friends
       summary: Get Friend Streak With Friend
       description: Get active friend streak row + partner profile for one friend.
       operationId: get_friend_streak_with_friend_api_friends_streaks__friend_id__get
@@ -637,7 +729,7 @@ paths:
   /api/friends/streaks/request/send/{receiver_id}:
     post:
       tags:
-      - friends
+      - Friends
       summary: Send Friend Streak Request
       description: Send a friend streak request (must already be friends).
       operationId: send_friend_streak_request_api_friends_streaks_request_send__receiver_id__post
@@ -676,7 +768,7 @@ paths:
   /api/friends/streaks/request/accept/{request_id}:
     post:
       tags:
-      - friends
+      - Friends
       summary: Accept Friend Streak Request
       description: Accept a pending friend streak request.
       operationId: accept_friend_streak_request_api_friends_streaks_request_accept__request_id__post
@@ -715,7 +807,7 @@ paths:
   /api/friends/streaks/request/reject/{request_id}:
     post:
       tags:
-      - friends
+      - Friends
       summary: Reject Friend Streak Request
       description: Reject a pending friend streak request.
       operationId: reject_friend_streak_request_api_friends_streaks_request_reject__request_id__post
@@ -754,7 +846,7 @@ paths:
   /api/friends/streaks/request/cancel/{request_id}:
     post:
       tags:
-      - friends
+      - Friends
       summary: Cancel Friend Streak Request
       description: Cancel a pending friend streak request (sender only).
       operationId: cancel_friend_streak_request_api_friends_streaks_request_cancel__request_id__post
@@ -793,7 +885,7 @@ paths:
   /api/friends/streaks/end/{friend_id}:
     post:
       tags:
-      - friends
+      - Friends
       summary: End Friend Streak
       description: End an active friend streak partnership with the given friend.
       operationId: end_friend_streak_api_friends_streaks_end__friend_id__post
@@ -832,7 +924,7 @@ paths:
   /api/friends/streaks/send-reminders-cron:
     post:
       tags:
-      - friends
+      - Friends
       summary: Send Friend Streak Reminders Cron
       description: 'Cron endpoint to send friend streak loss reminders via Expo push.
 
@@ -874,6 +966,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     NudgeFriendRequest:
       properties:
         text:
@@ -889,15 +990,6 @@ components:
       required:
       - text
       title: NudgeFriendRequest
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:

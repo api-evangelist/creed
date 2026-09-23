@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Creed achievements daily-quests API
+  title: Creed Daily Quests API
   description: Creed API - Christian AI Chatbot
   version: 1.0.0
 tags:
@@ -581,6 +581,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     DailyQuestResponse:
       properties:
         daily_prayer_completed:
@@ -675,15 +684,6 @@ components:
       - customize_completed
       - sponsor_completed
       title: DailyQuestResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:

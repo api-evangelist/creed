@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Creed achievements gratitude API
+  title: Creed Gratitude API
   description: Creed API - Christian AI Chatbot
   version: 1.0.0
 tags:
@@ -260,6 +260,24 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    UpdateGratitudeRequest:
+      properties:
+        gratitude_text:
+          type: string
+          title: Gratitude Text
+      type: object
+      required:
+      - gratitude_text
+      title: UpdateGratitudeRequest
     AddGratitudeRequest:
       properties:
         gratitude_text:
@@ -290,15 +308,6 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     GratitudeJournalResponse:
       properties:
         id:
@@ -322,15 +331,6 @@ components:
       - gratitude_text
       - created_at
       title: GratitudeJournalResponse
-    UpdateGratitudeRequest:
-      properties:
-        gratitude_text:
-          type: string
-          title: Gratitude Text
-      type: object
-      required:
-      - gratitude_text
-      title: UpdateGratitudeRequest
   securitySchemes:
     HTTPBearer:
       type: http

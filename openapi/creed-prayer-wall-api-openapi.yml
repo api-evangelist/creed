@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Creed achievements prayer-wall API
+  title: Creed Prayer Wall API
   description: Creed API - Christian AI Chatbot
   version: 1.0.0
 tags:
@@ -481,22 +481,29 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    PrayerWallPaginatedResponse:
+    ErrorResponse:
       properties:
-        data:
-          items:
-            $ref: '#/components/schemas/PrayerWall'
-          type: array
-          title: Data
-        total_count:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Total Count
+        detail:
+          type: string
+          title: Detail
       type: object
       required:
-      - data
-      title: PrayerWallPaginatedResponse
+      - detail
+      title: ErrorResponse
+    SubmitCommentRequest:
+      properties:
+        comment_text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment Text
+        quick_reply_text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Quick Reply Text
+      type: object
+      title: SubmitCommentRequest
     PrayerWallComment:
       properties:
         id:
@@ -537,72 +544,6 @@ components:
       - created_at
       title: PrayerWallComment
       description: DB model for prayer_wall_comments table.
-    SubmitCommentRequest:
-      properties:
-        comment_text:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Comment Text
-        quick_reply_text:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Quick Reply Text
-      type: object
-      title: SubmitCommentRequest
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    ApproveRejectResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-        prayer_id:
-          type: integer
-          title: Prayer Id
-      type: object
-      required:
-      - success
-      - prayer_id
-      title: ApproveRejectResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ErrorResponse:
-      properties:
-        detail:
-          type: string
-          title: Detail
-      type: object
-      required:
-      - detail
-      title: ErrorResponse
     SubmitCommentResponse:
       properties:
         success:
@@ -626,6 +567,53 @@ components:
       required:
       - prayer_text
       title: SubmitPrayerRequest
+    PrayerWallUser:
+      properties:
+        user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Id
+        first_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: First Name
+        last_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Name
+        profile_picture:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Profile Picture
+      type: object
+      title: PrayerWallUser
+      description: User info for prayer wall.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ApproveRejectResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        prayer_id:
+          type: integer
+          title: Prayer Id
+      type: object
+      required:
+      - success
+      - prayer_id
+      title: ApproveRejectResponse
     PrayingCountResponse:
       properties:
         count:
@@ -660,6 +648,43 @@ components:
       type: object
       title: PrayerWallCommentUser
       description: User info for prayer wall comments.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    PrayerWallPaginatedResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/PrayerWall'
+          type: array
+          title: Data
+        total_count:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Total Count
+      type: object
+      required:
+      - data
+      title: PrayerWallPaginatedResponse
     PrayerWall:
       properties:
         id:
@@ -717,31 +742,6 @@ components:
       - created_at
       title: PrayerWall
       description: DB model for prayer_wall table.
-    PrayerWallUser:
-      properties:
-        user_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: User Id
-        first_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: First Name
-        last_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Last Name
-        profile_picture:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Profile Picture
-      type: object
-      title: PrayerWallUser
-      description: User info for prayer wall.
   securitySchemes:
     HTTPBearer:
       type: http
