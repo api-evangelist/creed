@@ -22,15 +22,6 @@ paths:
                 $ref: '#/components/schemas/ConfigResponse'
 components:
   schemas:
-    FeatureFlags:
-      properties:
-        cpp_paywall:
-          type: boolean
-          title: Cpp Paywall
-      type: object
-      required:
-      - cpp_paywall
-      title: FeatureFlags
     ConfigResponse:
       properties:
         feature_flags:
@@ -129,6 +120,15 @@ components:
       - tiered_sub_exp_treatment_allocation
       - compaction_interval
       title: ConfigResponse
+    FeatureFlags:
+      properties:
+        cpp_paywall:
+          type: boolean
+          title: Cpp Paywall
+      type: object
+      required:
+      - cpp_paywall
+      title: FeatureFlags
   securitySchemes:
     HTTPBearer:
       type: http

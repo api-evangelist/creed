@@ -299,33 +299,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    SponsorProfileRequest:
-      properties:
-        message:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Message
-        discord_username:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Discord Username
-        share_on_kindness_wall:
-          type: boolean
-          title: Share On Kindness Wall
-          default: true
-      type: object
-      title: SponsorProfileRequest
     ValidationError:
       properties:
         loc:
@@ -347,6 +320,33 @@ components:
       - msg
       - type
       title: ValidationError
+    SponsorProfileRequest:
+      properties:
+        message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Message
+        discord_username:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Discord Username
+        share_on_kindness_wall:
+          type: boolean
+          title: Share On Kindness Wall
+          default: true
+      type: object
+      title: SponsorProfileRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

@@ -260,33 +260,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    UpdateGratitudeRequest:
-      properties:
-        gratitude_text:
-          type: string
-          title: Gratitude Text
-      type: object
-      required:
-      - gratitude_text
-      title: UpdateGratitudeRequest
-    AddGratitudeRequest:
-      properties:
-        gratitude_text:
-          type: string
-          title: Gratitude Text
-      type: object
-      required:
-      - gratitude_text
-      title: AddGratitudeRequest
     ValidationError:
       properties:
         loc:
@@ -331,6 +304,33 @@ components:
       - gratitude_text
       - created_at
       title: GratitudeJournalResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    AddGratitudeRequest:
+      properties:
+        gratitude_text:
+          type: string
+          title: Gratitude Text
+      type: object
+      required:
+      - gratitude_text
+      title: AddGratitudeRequest
+    UpdateGratitudeRequest:
+      properties:
+        gratitude_text:
+          type: string
+          title: Gratitude Text
+      type: object
+      required:
+      - gratitude_text
+      title: UpdateGratitudeRequest
   securitySchemes:
     HTTPBearer:
       type: http

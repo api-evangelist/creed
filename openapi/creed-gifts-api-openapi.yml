@@ -153,6 +153,45 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    CreateGiftCodeRequest:
+      properties:
+        rc_product:
+          type: string
+          minLength: 1
+          title: Rc Product
+          description: RevenueCat product ID
+        rc_transaction:
+          type: string
+          minLength: 1
+          title: Rc Transaction
+          description: RevenueCat transaction ID
+      type: object
+      required:
+      - rc_product
+      - rc_transaction
+      title: CreateGiftCodeRequest
+      description: Request model for creating a gift code
     HTTPValidationError:
       properties:
         detail:
@@ -162,18 +201,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    RedeemGiftCodeRequest:
-      properties:
-        code:
-          type: string
-          minLength: 1
-          title: Code
-          description: The gift code to redeem
-      type: object
-      required:
-      - code
-      title: RedeemGiftCodeRequest
-      description: Request model for redeeming a gift code
     MyGiftCodesResponse:
       properties:
         success:
@@ -202,40 +229,24 @@ components:
       - unredeemed_count
       title: MyGiftCodesResponse
       description: Response model for getting user's gift codes
-    RedeemGiftCodeResponse:
+    CreateGiftCodeResponse:
       properties:
         success:
           type: boolean
           title: Success
-          description: Whether the redemption was successful
+        code:
+          type: string
+          title: Code
         message:
           type: string
           title: Message
-          description: Success or error message
       type: object
       required:
       - success
+      - code
       - message
-      title: RedeemGiftCodeResponse
-      description: Response model for redeeming a gift code
-    CreateGiftCodeRequest:
-      properties:
-        rc_product:
-          type: string
-          minLength: 1
-          title: Rc Product
-          description: RevenueCat product ID
-        rc_transaction:
-          type: string
-          minLength: 1
-          title: Rc Transaction
-          description: RevenueCat transaction ID
-      type: object
-      required:
-      - rc_product
-      - rc_transaction
-      title: CreateGiftCodeRequest
-      description: Request model for creating a gift code
+      title: CreateGiftCodeResponse
+      description: Response model for creating a gift code
     GiftCodeRecord:
       properties:
         code:
@@ -278,45 +289,34 @@ components:
       - created_at
       title: GiftCodeRecord
       description: Model for a single gift code record
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    CreateGiftCodeResponse:
+    RedeemGiftCodeResponse:
       properties:
         success:
           type: boolean
           title: Success
-        code:
-          type: string
-          title: Code
+          description: Whether the redemption was successful
         message:
           type: string
           title: Message
+          description: Success or error message
       type: object
       required:
       - success
-      - code
       - message
-      title: CreateGiftCodeResponse
-      description: Response model for creating a gift code
+      title: RedeemGiftCodeResponse
+      description: Response model for redeeming a gift code
+    RedeemGiftCodeRequest:
+      properties:
+        code:
+          type: string
+          minLength: 1
+          title: Code
+          description: The gift code to redeem
+      type: object
+      required:
+      - code
+      title: RedeemGiftCodeRequest
+      description: Request model for redeeming a gift code
   securitySchemes:
     HTTPBearer:
       type: http

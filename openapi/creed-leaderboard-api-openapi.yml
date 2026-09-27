@@ -208,6 +208,60 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    LeaderboardResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        entries:
+          items:
+            $ref: '#/components/schemas/LeaderboardEntry'
+          type: array
+          title: Entries
+        total_count:
+          type: integer
+          title: Total Count
+        user_rank:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: User Rank
+        user_entry:
+          anyOf:
+          - $ref: '#/components/schemas/LeaderboardEntry'
+          - type: 'null'
+        context_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Context Name
+      type: object
+      required:
+      - success
+      - entries
+      - total_count
+      title: LeaderboardResponse
     HTTPValidationError:
       properties:
         detail:
@@ -259,60 +313,6 @@ components:
       - rank
       - user_id
       title: LeaderboardEntry
-    LeaderboardResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-        entries:
-          items:
-            $ref: '#/components/schemas/LeaderboardEntry'
-          type: array
-          title: Entries
-        total_count:
-          type: integer
-          title: Total Count
-        user_rank:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: User Rank
-        user_entry:
-          anyOf:
-          - $ref: '#/components/schemas/LeaderboardEntry'
-          - type: 'null'
-        context_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Context Name
-      type: object
-      required:
-      - success
-      - entries
-      - total_count
-      title: LeaderboardResponse
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
   securitySchemes:
     HTTPBearer:
       type: http

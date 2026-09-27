@@ -50,40 +50,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    SeoBiblicalChatRequest:
-      properties:
-        question:
-          type: string
-          title: Question
-        topic_question:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Topic Question
-        memory:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Memory
-          default: false
-        system_prompt:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: System Prompt
-      type: object
-      required:
-      - question
-      title: SeoBiblicalChatRequest
     ValidationError:
       properties:
         loc:
@@ -120,6 +86,40 @@ components:
       required:
       - answer
       title: SeoBiblicalChatResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    SeoBiblicalChatRequest:
+      properties:
+        question:
+          type: string
+          title: Question
+        topic_question:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Topic Question
+        memory:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Memory
+          default: false
+        system_prompt:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: System Prompt
+      type: object
+      required:
+      - question
+      title: SeoBiblicalChatRequest
   securitySchemes:
     HTTPBearer:
       type: http

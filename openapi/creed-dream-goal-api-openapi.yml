@@ -188,24 +188,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    TestDreamGoalRequest:
-      properties:
-        goal:
-          type: string
-          title: Goal
-      type: object
-      required:
-      - goal
-      title: TestDreamGoalRequest
     ValidationError:
       properties:
         loc:
@@ -227,6 +209,24 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    TestDreamGoalRequest:
+      properties:
+        goal:
+          type: string
+          title: Goal
+      type: object
+      required:
+      - goal
+      title: TestDreamGoalRequest
   securitySchemes:
     HTTPBearer:
       type: http

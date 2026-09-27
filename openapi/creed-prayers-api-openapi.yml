@@ -108,15 +108,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -138,6 +129,28 @@ components:
       - msg
       - type
       title: ValidationError
+    PrayerRequest:
+      properties:
+        sendAudio:
+          type: boolean
+          title: Sendaudio
+          default: false
+        topic:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Topic
+      type: object
+      title: PrayerRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     PrayerResponse:
       properties:
         prayer_text:
@@ -152,19 +165,6 @@ components:
       required:
       - prayer_text
       title: PrayerResponse
-    PrayerRequest:
-      properties:
-        sendAudio:
-          type: boolean
-          title: Sendaudio
-          default: false
-        topic:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Topic
-      type: object
-      title: PrayerRequest
   securitySchemes:
     HTTPBearer:
       type: http

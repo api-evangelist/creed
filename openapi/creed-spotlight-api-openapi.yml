@@ -72,37 +72,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    SeenEntry:
-      properties:
-        spotlight_id:
-          type: string
-          title: Spotlight Id
-        seen_at:
-          type: string
-          title: Seen At
-      type: object
-      required:
-      - spotlight_id
-      - seen_at
-      title: SeenEntry
-    MarkSeenRequest:
-      properties:
-        spotlightId:
-          type: string
-          title: Spotlightid
-      type: object
-      required:
-      - spotlightId
-      title: MarkSeenRequest
     ValidationError:
       properties:
         loc:
@@ -124,6 +93,37 @@ components:
       - msg
       - type
       title: ValidationError
+    SeenEntry:
+      properties:
+        spotlight_id:
+          type: string
+          title: Spotlight Id
+        seen_at:
+          type: string
+          title: Seen At
+      type: object
+      required:
+      - spotlight_id
+      - seen_at
+      title: SeenEntry
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    MarkSeenRequest:
+      properties:
+        spotlightId:
+          type: string
+          title: Spotlightid
+      type: object
+      required:
+      - spotlightId
+      title: MarkSeenRequest
   securitySchemes:
     HTTPBearer:
       type: http

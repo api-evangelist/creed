@@ -48,6 +48,50 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    GratitudeJournalResponse:
+      properties:
+        id:
+          type: integer
+          title: Id
+        gratitude_text:
+          type: string
+          title: Gratitude Text
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        is_first_entry:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is First Entry
+      type: object
+      required:
+      - id
+      - gratitude_text
+      - created_at
+      title: GratitudeJournalResponse
     HTTPValidationError:
       properties:
         detail:
@@ -57,29 +101,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    PrayerJournalResponse:
-      properties:
-        id:
-          type: integer
-          title: Id
-        prayer_text:
-          type: string
-          title: Prayer Text
-        topic:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Topic
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-      type: object
-      required:
-      - id
-      - prayer_text
-      - created_at
-      title: PrayerJournalResponse
     JournalBundleResponse:
       properties:
         gratitudes:
@@ -108,27 +129,6 @@ components:
       - prayers
       - verses
       title: JournalBundleResponse
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     SavedVerse:
       properties:
         version:
@@ -170,29 +170,29 @@ components:
         created_at: '2024-05-11T19:42:00+00:00'
         verse: 16
         version: KJV
-    GratitudeJournalResponse:
+    PrayerJournalResponse:
       properties:
         id:
           type: integer
           title: Id
-        gratitude_text:
+        prayer_text:
           type: string
-          title: Gratitude Text
+          title: Prayer Text
+        topic:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Topic
         created_at:
           type: string
           format: date-time
           title: Created At
-        is_first_entry:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is First Entry
       type: object
       required:
       - id
-      - gratitude_text
+      - prayer_text
       - created_at
-      title: GratitudeJournalResponse
+      title: PrayerJournalResponse
   securitySchemes:
     HTTPBearer:
       type: http

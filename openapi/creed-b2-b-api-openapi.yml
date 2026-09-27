@@ -33,6 +33,36 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     B2BChatRequest:
       properties:
         message:
@@ -62,15 +92,34 @@ components:
       required:
       - message
       title: B2BChatRequest
-    HTTPValidationError:
+    Source:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        title:
+          type: string
+          title: Title
+        url:
+          type: string
+          title: Url
+        snippet:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Snippet
+        favicon:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Favicon
+        domain:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Domain
       type: object
-      title: HTTPValidationError
+      required:
+      - title
+      - url
+      title: Source
     B2BChatResponse:
       properties:
         reply:
@@ -103,55 +152,6 @@ components:
       required:
       - conversation_id
       title: B2BChatResponse
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    Source:
-      properties:
-        title:
-          type: string
-          title: Title
-        url:
-          type: string
-          title: Url
-        snippet:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Snippet
-        favicon:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Favicon
-        domain:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Domain
-      type: object
-      required:
-      - title
-      - url
-      title: Source
   securitySchemes:
     HTTPBearer:
       type: http

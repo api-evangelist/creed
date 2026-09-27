@@ -69,7 +69,7 @@ tags_raw:
 - Community
 apis:
 - aid: creed:creed-achievements-api
-  name: Creed achievements API
+  name: Creed Achievements API
   description: The achievements API from Creed — 3 operation(s) for achievements.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -151,7 +151,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-azure-openai-test-api
-  name: Creed azure-openai-test API
+  name: Creed Azure Openai Test API
   description: The azure-openai-test API from Creed — 1 operation(s) for azure-openai-test.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -177,7 +177,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-azure-tts-test-api
-  name: Creed azure-tts-test API
+  name: Creed Azure Tts Test API
   description: The azure-tts-test API from Creed — 1 operation(s) for azure-tts-test.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -203,7 +203,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-bible-progress-api
-  name: Creed bible-progress API
+  name: Creed Bible Progress API
   description: The bible-progress API from Creed — 2 operation(s) for bible-progress.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -229,7 +229,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-chatbot-api
-  name: Creed chatbot API
+  name: Creed Chatbot API
   description: The chatbot API from Creed — 7 operation(s) for chatbot.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -257,7 +257,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-church-admin-api
-  name: Creed church-admin API
+  name: Creed Church Admin API
   description: The church-admin API from Creed — 8 operation(s) for church-admin.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -283,7 +283,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-church-announcements-api
-  name: Creed church-announcements API
+  name: Creed Church Announcements API
   description: The church-announcements API from Creed — 2 operation(s) for church-announcements.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -309,7 +309,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-churches-api
-  name: Creed churches API
+  name: Creed Churches API
   description: The churches API from Creed — 9 operation(s) for churches.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -337,7 +337,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-config-api
-  name: Creed config API
+  name: Creed Config API
   description: The config API from Creed — 1 operation(s) for config.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -365,7 +365,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-cron-tasks-api
-  name: Creed cron-tasks API
+  name: Creed Cron Tasks API
   description: The cron-tasks API from Creed — 3 operation(s) for cron-tasks.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -391,7 +391,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-daily-devotional-api
-  name: Creed daily-devotional API
+  name: Creed Daily Devotional API
   description: The daily-devotional API from Creed — 1 operation(s) for daily-devotional.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -417,7 +417,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-daily-quests-api
-  name: Creed daily-quests API
+  name: Creed Daily Quests API
   description: The daily-quests API from Creed — 18 operation(s) for daily-quests.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -443,7 +443,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-dream-goal-api
-  name: Creed dream-goal API
+  name: Creed Dream Goal API
   description: The dream-goal API from Creed — 4 operation(s) for dream-goal.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -495,7 +495,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-friends-api
-  name: Creed friends API
+  name: Creed Friends API
   description: The friends API from Creed — 22 operation(s) for friends.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -523,7 +523,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-gamification-api
-  name: Creed gamification API
+  name: Creed Gamification API
   description: The gamification API from Creed — 9 operation(s) for gamification.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -551,7 +551,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-gifts-api
-  name: Creed gifts API
+  name: Creed Gifts API
   description: The gifts API from Creed — 3 operation(s) for gifts.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -579,7 +579,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-gratitude-api
-  name: Creed gratitude API
+  name: Creed Gratitude API
   description: The gratitude API from Creed — 5 operation(s) for gratitude.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -605,7 +605,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-group-chat-api
-  name: Creed group-chat API
+  name: Creed Group Chat API
   description: The group-chat API from Creed — 3 operation(s) for group-chat.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -633,7 +633,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-health-api
-  name: Creed health API
+  name: Creed Health API
   description: The health API from Creed — 3 operation(s) for health.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -661,14 +661,15 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-image-generation-api
-  name: Creed image-generation API
+  name: Creed Image Generation API
   description: The image-generation API from Creed — 1 operation(s) for image-generation.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
-  - Image-Generation
+  - Image Generation
   tags_raw:
   - image-generation
+  - Image-Generation
   properties:
   - type: OpenAPI
     url: openapi/creed-image-generation-api-openapi.yml
@@ -689,7 +690,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-journal-api
-  name: Creed journal API
+  name: Creed Journal API
   description: The journal API from Creed — 1 operation(s) for journal.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -717,7 +718,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-leaderboard-api
-  name: Creed leaderboard API
+  name: Creed Leaderboard API
   description: The leaderboard API from Creed — 4 operation(s) for leaderboard.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -745,7 +746,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-learning-plans-api
-  name: Creed learning-plans API
+  name: Creed Learning Plans API
   description: The learning-plans API from Creed — 3 operation(s) for learning-plans.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -773,7 +774,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-live-activity-api
-  name: Creed live-activity API
+  name: Creed Live Activity API
   description: The live-activity API from Creed — 2 operation(s) for live-activity.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -801,7 +802,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-live-streams-api
-  name: Creed live-streams API
+  name: Creed Live Streams API
   description: The live-streams API from Creed — 4 operation(s) for live-streams.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -829,7 +830,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-livekit-api
-  name: Creed livekit API
+  name: Creed Livekit API
   description: The livekit API from Creed — 1 operation(s) for livekit.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -857,7 +858,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-prayer-journal-api
-  name: Creed prayer-journal API
+  name: Creed Prayer Journal API
   description: The prayer-journal API from Creed — 3 operation(s) for prayer-journal.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -883,7 +884,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-prayer-library-api
-  name: Creed prayer-library API
+  name: Creed Prayer Library API
   description: The prayer-library API from Creed — 1 operation(s) for prayer-library.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -909,7 +910,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-prayer-wall-api
-  name: Creed prayer-wall API
+  name: Creed Prayer Wall API
   description: The prayer-wall API from Creed — 11 operation(s) for prayer-wall.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -935,7 +936,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-prayers-api
-  name: Creed prayers API
+  name: Creed Prayers API
   description: The prayers API from Creed — 2 operation(s) for prayers.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -961,7 +962,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-referrals-api
-  name: Creed referrals API
+  name: Creed Referrals API
   description: The referrals API from Creed — 5 operation(s) for referrals.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -989,7 +990,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-reminders-api
-  name: Creed reminders API
+  name: Creed Reminders API
   description: The reminders API from Creed — 3 operation(s) for reminders.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -1017,7 +1018,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-sanctum-chatbot-api
-  name: Creed sanctum-chatbot API
+  name: Creed Sanctum Chatbot API
   description: The sanctum-chatbot API from Creed — 5 operation(s) for sanctum-chatbot.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -1043,7 +1044,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-scheduled-notifications-api
-  name: Creed scheduled-notifications API
+  name: Creed Scheduled Notifications API
   description: The scheduled-notifications API from Creed — 5 operation(s) for scheduled-notifications.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -1071,7 +1072,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-seo-api
-  name: Creed seo API
+  name: Creed Seo API
   description: The seo API from Creed — 1 operation(s) for seo.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -1099,7 +1100,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-social-feed-api
-  name: Creed social-feed API
+  name: Creed Social Feed API
   description: The social-feed API from Creed — 2 operation(s) for social-feed.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -1125,7 +1126,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-sponsorship-api
-  name: Creed sponsorship API
+  name: Creed Sponsorship API
   description: The sponsorship API from Creed — 7 operation(s) for sponsorship.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -1153,7 +1154,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-spotlight-api
-  name: Creed spotlight API
+  name: Creed Spotlight API
   description: The spotlight API from Creed — 1 operation(s) for spotlight.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -1181,7 +1182,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-streaks-api
-  name: Creed streaks API
+  name: Creed Streaks API
   description: The streaks API from Creed — 3 operation(s) for streaks.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -1209,7 +1210,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-time-spent-api
-  name: Creed time-spent API
+  name: Creed Time Spent API
   description: The time-spent API from Creed — 1 operation(s) for time-spent.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -1235,7 +1236,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-tts-api
-  name: Creed tts API
+  name: Creed Tts API
   description: The tts API from Creed — 2 operation(s) for tts.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -1263,7 +1264,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-user-item-preferences-api
-  name: Creed user-item-preferences API
+  name: Creed User Item Preferences API
   description: The user-item-preferences API from Creed — 1 operation(s) for user-item-preferences.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -1289,7 +1290,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-users-api
-  name: Creed users API
+  name: Creed Users API
   description: The users API from Creed — 2 operation(s) for users.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -1317,7 +1318,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-verses-api
-  name: Creed verses API
+  name: Creed Verses API
   description: The verses API from Creed — 2 operation(s) for verses.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -1343,7 +1344,7 @@ apis:
   - type: Lifecycle
     url: lifecycle/creed-lifecycle.yml
 - aid: creed:creed-webhooks-api
-  name: Creed webhooks API
+  name: Creed Webhooks API
   description: The webhooks API from Creed — 1 operation(s) for webhooks.
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
@@ -1376,8 +1377,6 @@ apis:
   humanURL: https://api.usecreed.com/docs
   baseURL: https://api.usecreed.com
   tags:
-  - B2B
-  tags_raw:
   - B2 B
   properties:
   - type: OpenAPI

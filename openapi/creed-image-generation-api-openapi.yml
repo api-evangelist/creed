@@ -50,23 +50,36 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ImageData:
+    ValidationError:
       properties:
-        url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Url
-          description: URL of the generated image
-        b64_json:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: B64 Json
-          description: Base64 encoded image data
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
-      title: ImageData
-      description: Individual image data in response
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     Body_generate_image_api_generate_image_post:
       properties:
         image:
@@ -127,15 +140,6 @@ components:
       - image
       - prompt
       title: Body_generate_image_api_generate_image_post
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ImageGenerationResponse:
       properties:
         success:
@@ -160,27 +164,23 @@ components:
       - data
       title: ImageGenerationResponse
       description: Response model for image generation
-    ValidationError:
+    ImageData:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+        url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Url
+          description: URL of the generated image
+        b64_json:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: B64 Json
+          description: Base64 encoded image data
       type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      title: ImageData
+      description: Individual image data in response
   securitySchemes:
     HTTPBearer:
       type: http

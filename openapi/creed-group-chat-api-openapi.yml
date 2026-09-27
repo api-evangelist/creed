@@ -122,37 +122,27 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    IdentityResponse:
+    ValidationError:
       properties:
-        mattermost_url:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
           type: string
-          title: Mattermost Url
-        team_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Team Id
-        channel_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Channel Id
-        user_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: User Id
-        has_identity:
-          type: boolean
-          title: Has Identity
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
       required:
-      - mattermost_url
-      - team_id
-      - channel_id
-      - user_id
-      - has_identity
-      title: IdentityResponse
+      - loc
+      - msg
+      - type
+      title: ValidationError
     HTTPValidationError:
       properties:
         detail:
@@ -162,6 +152,17 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    MembersRequest:
+      properties:
+        mm_user_ids:
+          items:
+            type: string
+          type: array
+          title: Mm User Ids
+      type: object
+      required:
+      - mm_user_ids
+      title: MembersRequest
     ProvisionResponse:
       properties:
         mattermost_url:
@@ -214,27 +215,37 @@ components:
       - last_name
       - profile_picture
       title: MemberProfile
-    ValidationError:
+    IdentityResponse:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        mattermost_url:
           type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+          title: Mattermost Url
+        team_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team Id
+        channel_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Channel Id
+        user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Id
+        has_identity:
+          type: boolean
+          title: Has Identity
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - mattermost_url
+      - team_id
+      - channel_id
+      - user_id
+      - has_identity
+      title: IdentityResponse
     MembersResponse:
       properties:
         members:
@@ -246,17 +257,6 @@ components:
       required:
       - members
       title: MembersResponse
-    MembersRequest:
-      properties:
-        mm_user_ids:
-          items:
-            type: string
-          type: array
-          title: Mm User Ids
-      type: object
-      required:
-      - mm_user_ids
-      title: MembersRequest
   securitySchemes:
     HTTPBearer:
       type: http

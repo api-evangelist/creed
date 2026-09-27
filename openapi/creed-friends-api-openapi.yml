@@ -966,30 +966,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    NudgeFriendRequest:
-      properties:
-        text:
-          type: string
-          maxLength: 2000
-          minLength: 1
-          title: Text
-        is_custom:
-          type: boolean
-          title: Is Custom
-          default: false
-      type: object
-      required:
-      - text
-      title: NudgeFriendRequest
     ValidationError:
       properties:
         loc:
@@ -1011,6 +987,30 @@ components:
       - msg
       - type
       title: ValidationError
+    NudgeFriendRequest:
+      properties:
+        text:
+          type: string
+          maxLength: 2000
+          minLength: 1
+          title: Text
+        is_custom:
+          type: boolean
+          title: Is Custom
+          default: false
+      type: object
+      required:
+      - text
+      title: NudgeFriendRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

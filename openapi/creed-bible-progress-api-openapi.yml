@@ -91,42 +91,27 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
+    ValidationError:
       properties:
-        detail:
+        loc:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    AppendProgressRequest:
-      properties:
-        book_id:
+          title: Location
+        msg:
           type: string
-          title: Book Id
-          description: Book ID (e.g., '1' for Genesis, '40' for Matthew)
-        book_code:
+          title: Message
+        type:
           type: string
-          title: Book Code
-          description: Book code (e.g., 'GEN', 'MAT', 'JOH')
-        chapter:
-          type: integer
-          exclusiveMinimum: 0.0
-          title: Chapter
-          description: Chapter number to append
-        version:
-          type: string
-          title: Version
-          description: Bible version (e.g., 'KJV', 'NIV', 'ESV')
+          title: Error Type
       type: object
       required:
-      - book_id
-      - book_code
-      - chapter
-      - version
-      title: AppendProgressRequest
-      description: Request model for appending Bible reading progress.
+      - loc
+      - msg
+      - type
+      title: ValidationError
     BibleProgressResponse:
       properties:
         id:
@@ -185,27 +170,42 @@ components:
       - progress
       title: BibleProgressResponse
       description: Response model for Bible reading progress.
-    ValidationError:
+    HTTPValidationError:
       properties:
-        loc:
+        detail:
           items:
-            anyOf:
-            - type: string
-            - type: integer
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Location
-        msg:
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    AppendProgressRequest:
+      properties:
+        book_id:
           type: string
-          title: Message
-        type:
+          title: Book Id
+          description: Book ID (e.g., '1' for Genesis, '40' for Matthew)
+        book_code:
           type: string
-          title: Error Type
+          title: Book Code
+          description: Book code (e.g., 'GEN', 'MAT', 'JOH')
+        chapter:
+          type: integer
+          exclusiveMinimum: 0.0
+          title: Chapter
+          description: Chapter number to append
+        version:
+          type: string
+          title: Version
+          description: Bible version (e.g., 'KJV', 'NIV', 'ESV')
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - book_id
+      - book_code
+      - chapter
+      - version
+      title: AppendProgressRequest
+      description: Request model for appending Bible reading progress.
   securitySchemes:
     HTTPBearer:
       type: http

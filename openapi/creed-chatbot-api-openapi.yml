@@ -274,74 +274,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    CompactResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-        messages_compacted:
-          type: integer
-          title: Messages Compacted
-          default: 0
-        skipped:
-          type: boolean
-          title: Skipped
-          default: false
-        reason:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Reason
-      type: object
-      required:
-      - success
-      title: CompactResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    CompactRequest:
-      properties:
-        conversation_id:
-          type: string
-          title: Conversation Id
-      type: object
-      required:
-      - conversation_id
-      title: CompactRequest
-    Source:
-      properties:
-        title:
-          type: string
-          title: Title
-        url:
-          type: string
-          title: Url
-        snippet:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Snippet
-        favicon:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Favicon
-        domain:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Domain
-      type: object
-      required:
-      - title
-      - url
-      title: Source
     ValidationError:
       properties:
         loc:
@@ -363,6 +295,35 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    SuggestionsResponse:
+      properties:
+        suggestions:
+          items:
+            type: string
+          type: array
+          title: Suggestions
+      type: object
+      required:
+      - suggestions
+      title: SuggestionsResponse
+    CompactRequest:
+      properties:
+        conversation_id:
+          type: string
+          title: Conversation Id
+      type: object
+      required:
+      - conversation_id
+      title: CompactRequest
     ChatRequest:
       properties:
         message:
@@ -438,17 +399,56 @@ components:
       required:
       - conversation_id
       title: ChatResponse
-    SuggestionsResponse:
+    CompactResponse:
       properties:
-        suggestions:
-          items:
-            type: string
-          type: array
-          title: Suggestions
+        success:
+          type: boolean
+          title: Success
+        messages_compacted:
+          type: integer
+          title: Messages Compacted
+          default: 0
+        skipped:
+          type: boolean
+          title: Skipped
+          default: false
+        reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reason
       type: object
       required:
-      - suggestions
-      title: SuggestionsResponse
+      - success
+      title: CompactResponse
+    Source:
+      properties:
+        title:
+          type: string
+          title: Title
+        url:
+          type: string
+          title: Url
+        snippet:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Snippet
+        favicon:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Favicon
+        domain:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Domain
+      type: object
+      required:
+      - title
+      - url
+      title: Source
   securitySchemes:
     HTTPBearer:
       type: http

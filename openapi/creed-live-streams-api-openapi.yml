@@ -165,24 +165,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    SubmitLiveStreamCommentResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-      type: object
-      required:
-      - success
-      title: SubmitLiveStreamCommentResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -204,31 +186,15 @@ components:
       - msg
       - type
       title: ValidationError
-    LiveStreamCommentUser:
+    HTTPValidationError:
       properties:
-        user_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: User Id
-        first_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: First Name
-        last_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Last Name
-        profile_picture:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Profile Picture
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      title: LiveStreamCommentUser
-      description: User info for live stream comments.
+      title: HTTPValidationError
     StartStreamRequest:
       properties:
         streamer_name:
@@ -297,6 +263,40 @@ components:
           title: Stream
       type: object
       title: ActiveStreamResponse
+    SubmitLiveStreamCommentResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+      type: object
+      required:
+      - success
+      title: SubmitLiveStreamCommentResponse
+    LiveStreamCommentUser:
+      properties:
+        user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Id
+        first_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: First Name
+        last_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Name
+        profile_picture:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Profile Picture
+      type: object
+      title: LiveStreamCommentUser
+      description: User info for live stream comments.
   securitySchemes:
     HTTPBearer:
       type: http

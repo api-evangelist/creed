@@ -369,34 +369,297 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    GoogleAutocompleteSuggestion:
+    ChurchValidationResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        valid:
+          type: boolean
+          title: Valid
+        duplicate:
+          type: boolean
+          title: Duplicate
+        message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Message
+        church_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Church Id
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        address:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Address
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+        zip:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Zip
+        state_iso:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State Iso
+        state_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State Name
+        country_iso:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country Iso
+        country_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country Name
+        step_timings:
+          anyOf:
+          - additionalProperties:
+              type: number
+            type: object
+          - type: 'null'
+          title: Step Timings
+      type: object
+      required:
+      - success
+      - valid
+      - duplicate
+      title: ChurchValidationResponse
+    GoogleAutocompleteRequest:
+      properties:
+        input:
+          type: string
+          title: Input
+        session_token:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Session Token
+        latitude:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Latitude
+        longitude:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Longitude
+      type: object
+      required:
+      - input
+      title: GoogleAutocompleteRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    GooglePreviewResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        place_id:
+          type: string
+          title: Place Id
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        formatted_address:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Formatted Address
+        latitude:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Latitude
+        longitude:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Longitude
+      type: object
+      required:
+      - success
+      - place_id
+      title: GooglePreviewResponse
+    ChurchDetailResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        church:
+          $ref: '#/components/schemas/ChurchResult'
+      type: object
+      required:
+      - success
+      - church
+      title: ChurchDetailResponse
+    ChurchDonationLink:
+      properties:
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        donation_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Donation Url
+      type: object
+      title: ChurchDonationLink
+    ChurchSuggestionsResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        churches:
+          items:
+            $ref: '#/components/schemas/ChurchResult'
+          type: array
+          title: Churches
+        count:
+          type: integer
+          title: Count
+      type: object
+      required:
+      - success
+      - churches
+      - count
+      title: ChurchSuggestionsResponse
+    GoogleSelectResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        duplicate:
+          type: boolean
+          title: Duplicate
+        church:
+          $ref: '#/components/schemas/ChurchResult'
+      type: object
+      required:
+      - success
+      - duplicate
+      - church
+      title: GoogleSelectResponse
+    GoogleAutocompleteResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        suggestions:
+          items:
+            $ref: '#/components/schemas/GoogleAutocompleteSuggestion'
+          type: array
+          title: Suggestions
+      type: object
+      required:
+      - success
+      - suggestions
+      title: GoogleAutocompleteResponse
+    GooglePreviewRequest:
       properties:
         place_id:
           type: string
           title: Place Id
-        primary_text:
+        session_token:
           anyOf:
           - type: string
           - type: 'null'
-          title: Primary Text
-        secondary_text:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Secondary Text
-        full_text:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Full Text
-        is_church:
-          type: boolean
-          title: Is Church
-          default: false
+          title: Session Token
       type: object
       required:
       - place_id
-      title: GoogleAutocompleteSuggestion
+      title: GooglePreviewRequest
+    ChurchMassTime:
+      properties:
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        day_of_week:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Day Of Week
+        start_time:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End Time
+        timezone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Timezone
+        mass_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Mass Url
+      type: object
+      title: ChurchMassTime
+    ChurchesInBoundsResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        churches:
+          items:
+            $ref: '#/components/schemas/ChurchMapPointResult'
+          type: array
+          title: Churches
+        count:
+          type: integer
+          title: Count
+        limit:
+          type: integer
+          title: Limit
+        truncated:
+          type: boolean
+          title: Truncated
+      type: object
+      required:
+      - success
+      - churches
+      - count
+      - limit
+      - truncated
+      title: ChurchesInBoundsResponse
     ChurchMapPointResult:
       properties:
         id:
@@ -423,21 +686,102 @@ components:
       - latitude
       - longitude
       title: ChurchMapPointResult
-    GoogleAutocompleteResponse:
+    GoogleSelectRequest:
       properties:
-        success:
-          type: boolean
-          title: Success
-        suggestions:
-          items:
-            $ref: '#/components/schemas/GoogleAutocompleteSuggestion'
-          type: array
-          title: Suggestions
+        place_id:
+          type: string
+          title: Place Id
+        session_token:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Session Token
       type: object
       required:
-      - success
-      - suggestions
-      title: GoogleAutocompleteResponse
+      - place_id
+      title: GoogleSelectRequest
+    ChurchUpcomingEvent:
+      properties:
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Date
+        start_time:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End Time
+        timezone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Timezone
+        location:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Location
+        event_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Event Url
+      type: object
+      title: ChurchUpcomingEvent
+    ChurchValidationRequest:
+      properties:
+        name:
+          type: string
+          title: Name
+        city:
+          type: string
+          title: City
+        state:
+          type: string
+          title: State
+        website:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Website
+      type: object
+      required:
+      - name
+      - city
+      - state
+      title: ChurchValidationRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     ChurchResult:
       properties:
         id:
@@ -559,146 +903,34 @@ components:
       required:
       - id
       title: ChurchResult
-    ValidationError:
+    GoogleAutocompleteSuggestion:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    ChurchDetailResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-        church:
-          $ref: '#/components/schemas/ChurchResult'
-      type: object
-      required:
-      - success
-      - church
-      title: ChurchDetailResponse
-    ChurchValidationResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-        valid:
-          type: boolean
-          title: Valid
-        duplicate:
-          type: boolean
-          title: Duplicate
-        message:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Message
-        church_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Church Id
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        address:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Address
-        city:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: City
-        zip:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Zip
-        state_iso:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: State Iso
-        state_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: State Name
-        country_iso:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Country Iso
-        country_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Country Name
-        step_timings:
-          anyOf:
-          - additionalProperties:
-              type: number
-            type: object
-          - type: 'null'
-          title: Step Timings
-      type: object
-      required:
-      - success
-      - valid
-      - duplicate
-      title: ChurchValidationResponse
-    GooglePreviewResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
         place_id:
           type: string
           title: Place Id
-        name:
+        primary_text:
           anyOf:
           - type: string
           - type: 'null'
-          title: Name
-        formatted_address:
+          title: Primary Text
+        secondary_text:
           anyOf:
           - type: string
           - type: 'null'
-          title: Formatted Address
-        latitude:
+          title: Secondary Text
+        full_text:
           anyOf:
-          - type: number
+          - type: string
           - type: 'null'
-          title: Latitude
-        longitude:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Longitude
+          title: Full Text
+        is_church:
+          type: boolean
+          title: Is Church
+          default: false
       type: object
       required:
-      - success
       - place_id
-      title: GooglePreviewResponse
+      title: GoogleAutocompleteSuggestion
     ChurchAnnouncement:
       properties:
         title:
@@ -728,238 +960,6 @@ components:
           title: First Seen At
       type: object
       title: ChurchAnnouncement
-    GoogleAutocompleteRequest:
-      properties:
-        input:
-          type: string
-          title: Input
-        session_token:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Session Token
-        latitude:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Latitude
-        longitude:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Longitude
-      type: object
-      required:
-      - input
-      title: GoogleAutocompleteRequest
-    ChurchUpcomingEvent:
-      properties:
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-        date:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Date
-        start_time:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Start Time
-        end_time:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: End Time
-        timezone:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Timezone
-        location:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Location
-        event_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Event Url
-      type: object
-      title: ChurchUpcomingEvent
-    ChurchMassTime:
-      properties:
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-        day_of_week:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Day Of Week
-        start_time:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Start Time
-        end_time:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: End Time
-        timezone:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Timezone
-        mass_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Mass Url
-      type: object
-      title: ChurchMassTime
-    GoogleSelectRequest:
-      properties:
-        place_id:
-          type: string
-          title: Place Id
-        session_token:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Session Token
-      type: object
-      required:
-      - place_id
-      title: GoogleSelectRequest
-    ChurchSuggestionsResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-        churches:
-          items:
-            $ref: '#/components/schemas/ChurchResult'
-          type: array
-          title: Churches
-        count:
-          type: integer
-          title: Count
-      type: object
-      required:
-      - success
-      - churches
-      - count
-      title: ChurchSuggestionsResponse
-    GoogleSelectResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-        duplicate:
-          type: boolean
-          title: Duplicate
-        church:
-          $ref: '#/components/schemas/ChurchResult'
-      type: object
-      required:
-      - success
-      - duplicate
-      - church
-      title: GoogleSelectResponse
-    ChurchesInBoundsResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-        churches:
-          items:
-            $ref: '#/components/schemas/ChurchMapPointResult'
-          type: array
-          title: Churches
-        count:
-          type: integer
-          title: Count
-        limit:
-          type: integer
-          title: Limit
-        truncated:
-          type: boolean
-          title: Truncated
-      type: object
-      required:
-      - success
-      - churches
-      - count
-      - limit
-      - truncated
-      title: ChurchesInBoundsResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ChurchValidationRequest:
-      properties:
-        name:
-          type: string
-          title: Name
-        city:
-          type: string
-          title: City
-        state:
-          type: string
-          title: State
-        website:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Website
-      type: object
-      required:
-      - name
-      - city
-      - state
-      title: ChurchValidationRequest
-    GooglePreviewRequest:
-      properties:
-        place_id:
-          type: string
-          title: Place Id
-        session_token:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Session Token
-      type: object
-      required:
-      - place_id
-      title: GooglePreviewRequest
-    ChurchDonationLink:
-      properties:
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-        donation_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Donation Url
-      type: object
-      title: ChurchDonationLink
   securitySchemes:
     HTTPBearer:
       type: http

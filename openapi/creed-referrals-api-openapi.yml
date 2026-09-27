@@ -260,6 +260,27 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     RedeemCodeRequest:
       properties:
         token:
@@ -272,31 +293,6 @@ components:
       - token
       title: RedeemCodeRequest
       description: Request model for redeeming a referral code
-    RedeemCodeResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          description: Whether the redemption was successful
-        message:
-          type: string
-          title: Message
-          description: Success or error message
-      type: object
-      required:
-      - success
-      - message
-      title: RedeemCodeResponse
-      description: Response model for redeeming a referral code
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ClaimRewardResponse:
       properties:
         success:
@@ -313,6 +309,15 @@ components:
       - message
       title: ClaimRewardResponse
       description: Response model for claiming referrer reward
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ClaimRewardRequest:
       properties:
         redemption_id:
@@ -337,65 +342,30 @@ components:
       - code
       title: RedeemPromoCodeRequest
       description: Request model for redeeming a promo code
-    ReferralCodeResponse:
+    RedemptionsResponse:
       properties:
         success:
           type: boolean
           title: Success
-        code:
-          type: string
-          title: Code
-        message:
-          type: string
-          title: Message
         redemptions:
-          type: integer
-          title: Redemptions
-      type: object
-      required:
-      - success
-      - code
-      - message
-      - redemptions
-      title: ReferralCodeResponse
-      description: Response model for creating a referral code
-    ValidationError:
-      properties:
-        loc:
           items:
-            anyOf:
-            - type: string
-            - type: integer
+            $ref: '#/components/schemas/RedemptionRecord'
           type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    RedeemPromoCodeResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          description: Whether the redemption was successful
-        message:
-          type: string
-          title: Message
-          description: Success or error message
+          title: Redemptions
+        total_count:
+          type: integer
+          title: Total Count
+        unclaimed_count:
+          type: integer
+          title: Unclaimed Count
       type: object
       required:
       - success
-      - message
-      title: RedeemPromoCodeResponse
-      description: Response model for redeeming a promo code
+      - redemptions
+      - total_count
+      - unclaimed_count
+      title: RedemptionsResponse
+      description: Response model for getting user's redemptions
     RedemptionRecord:
       properties:
         id:
@@ -430,30 +400,60 @@ components:
       - referee_reward_claimed
       title: RedemptionRecord
       description: Model for a single redemption record
-    RedemptionsResponse:
+    RedeemPromoCodeResponse:
       properties:
         success:
           type: boolean
           title: Success
-        redemptions:
-          items:
-            $ref: '#/components/schemas/RedemptionRecord'
-          type: array
-          title: Redemptions
-        total_count:
-          type: integer
-          title: Total Count
-        unclaimed_count:
-          type: integer
-          title: Unclaimed Count
+          description: Whether the redemption was successful
+        message:
+          type: string
+          title: Message
+          description: Success or error message
       type: object
       required:
       - success
+      - message
+      title: RedeemPromoCodeResponse
+      description: Response model for redeeming a promo code
+    RedeemCodeResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          description: Whether the redemption was successful
+        message:
+          type: string
+          title: Message
+          description: Success or error message
+      type: object
+      required:
+      - success
+      - message
+      title: RedeemCodeResponse
+      description: Response model for redeeming a referral code
+    ReferralCodeResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        redemptions:
+          type: integer
+          title: Redemptions
+      type: object
+      required:
+      - success
+      - code
+      - message
       - redemptions
-      - total_count
-      - unclaimed_count
-      title: RedemptionsResponse
-      description: Response model for getting user's redemptions
+      title: ReferralCodeResponse
+      description: Response model for creating a referral code
   securitySchemes:
     HTTPBearer:
       type: http

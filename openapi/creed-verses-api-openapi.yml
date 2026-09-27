@@ -114,39 +114,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    SaveVerseRequest:
-      properties:
-        version:
-          type: string
-          title: Version
-        book:
-          type: string
-          title: Book
-        chapter:
-          type: integer
-          minimum: 1.0
-          title: Chapter
-        verse:
-          type: integer
-          minimum: 1.0
-          title: Verse
-      type: object
-      required:
-      - version
-      - book
-      - chapter
-      - verse
-      title: SaveVerseRequest
-      description: Request model for saving a verse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -168,6 +135,33 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    SaveVerseResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        message:
+          type: string
+          title: Message
+        verse:
+          anyOf:
+          - $ref: '#/components/schemas/SavedVerse'
+          - type: 'null'
+      type: object
+      required:
+      - success
+      - message
+      title: SaveVerseResponse
+      description: Response model for saving a verse
     GetSavedVersesResponse:
       properties:
         success:
@@ -188,24 +182,6 @@ components:
       - count
       title: GetSavedVersesResponse
       description: Response model for getting saved verses
-    SaveVerseResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-        message:
-          type: string
-          title: Message
-        verse:
-          anyOf:
-          - $ref: '#/components/schemas/SavedVerse'
-          - type: 'null'
-      type: object
-      required:
-      - success
-      - message
-      title: SaveVerseResponse
-      description: Response model for saving a verse
     SavedVerse:
       properties:
         version:
@@ -247,6 +223,30 @@ components:
         created_at: '2024-05-11T19:42:00+00:00'
         verse: 16
         version: KJV
+    SaveVerseRequest:
+      properties:
+        version:
+          type: string
+          title: Version
+        book:
+          type: string
+          title: Book
+        chapter:
+          type: integer
+          minimum: 1.0
+          title: Chapter
+        verse:
+          type: integer
+          minimum: 1.0
+          title: Verse
+      type: object
+      required:
+      - version
+      - book
+      - chapter
+      - verse
+      title: SaveVerseRequest
+      description: Request model for saving a verse
   securitySchemes:
     HTTPBearer:
       type: http
