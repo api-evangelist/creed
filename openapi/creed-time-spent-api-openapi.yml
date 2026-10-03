@@ -77,59 +77,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    TimeSpentRecord:
-      properties:
-        id:
-          type: string
-          title: Id
-          description: Record ID (UUID from frontend)
-        started_at:
-          type: string
-          format: date-time
-          title: Started At
-          description: Session start timestamp
-        ended_at:
-          type: string
-          format: date-time
-          title: Ended At
-          description: Session end timestamp
-      type: object
-      required:
-      - id
-      - started_at
-      - ended_at
-      title: TimeSpentRecord
-      description: Single time spent record.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     SubmitTimeSpentResponse:
       properties:
         success:
@@ -173,6 +120,59 @@ components:
       - total_sessions
       title: TotalTimeSpentResponse
       description: Response model for total time spent.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    TimeSpentRecord:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Record ID (UUID from frontend)
+        started_at:
+          type: string
+          format: date-time
+          title: Started At
+          description: Session start timestamp
+        ended_at:
+          type: string
+          format: date-time
+          title: Ended At
+          description: Session end timestamp
+      type: object
+      required:
+      - id
+      - started_at
+      - ended_at
+      title: TimeSpentRecord
+      description: Single time spent record.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

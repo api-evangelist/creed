@@ -274,36 +274,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ValidationError:
+    CompactRequest:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        conversation_id:
           type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+          title: Conversation Id
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+      - conversation_id
+      title: CompactRequest
     SuggestionsResponse:
       properties:
         suggestions:
@@ -315,15 +294,6 @@ components:
       required:
       - suggestions
       title: SuggestionsResponse
-    CompactRequest:
-      properties:
-        conversation_id:
-          type: string
-          title: Conversation Id
-      type: object
-      required:
-      - conversation_id
-      title: CompactRequest
     ChatRequest:
       properties:
         message:
@@ -362,6 +332,56 @@ components:
           title: Image Ids
       type: object
       title: ChatRequest
+    Source:
+      properties:
+        title:
+          type: string
+          title: Title
+        url:
+          type: string
+          title: Url
+        snippet:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Snippet
+        favicon:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Favicon
+        domain:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Domain
+      type: object
+      required:
+      - title
+      - url
+      title: Source
+    CompactResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        messages_compacted:
+          type: integer
+          title: Messages Compacted
+          default: 0
+        skipped:
+          type: boolean
+          title: Skipped
+          default: false
+        reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reason
+      type: object
+      required:
+      - success
+      title: CompactResponse
     ChatResponse:
       properties:
         reply:
@@ -399,56 +419,36 @@ components:
       required:
       - conversation_id
       title: ChatResponse
-    CompactResponse:
+    ValidationError:
       properties:
-        success:
-          type: boolean
-          title: Success
-        messages_compacted:
-          type: integer
-          title: Messages Compacted
-          default: 0
-        skipped:
-          type: boolean
-          title: Skipped
-          default: false
-        reason:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Reason
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
       required:
-      - success
-      title: CompactResponse
-    Source:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
       properties:
-        title:
-          type: string
-          title: Title
-        url:
-          type: string
-          title: Url
-        snippet:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Snippet
-        favicon:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Favicon
-        domain:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Domain
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      required:
-      - title
-      - url
-      title: Source
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

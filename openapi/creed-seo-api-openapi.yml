@@ -71,30 +71,6 @@ components:
       - msg
       - type
       title: ValidationError
-    SeoBiblicalChatResponse:
-      properties:
-        answer:
-          type: string
-          title: Answer
-        bible_verses:
-          items:
-            type: string
-          type: array
-          title: Bible Verses
-          default: []
-      type: object
-      required:
-      - answer
-      title: SeoBiblicalChatResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     SeoBiblicalChatRequest:
       properties:
         question:
@@ -120,6 +96,30 @@ components:
       required:
       - question
       title: SeoBiblicalChatRequest
+    SeoBiblicalChatResponse:
+      properties:
+        answer:
+          type: string
+          title: Answer
+        bible_verses:
+          items:
+            type: string
+          type: array
+          title: Bible Verses
+          default: []
+      type: object
+      required:
+      - answer
+      title: SeoBiblicalChatResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

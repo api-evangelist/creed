@@ -153,82 +153,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    CreateGiftCodeRequest:
-      properties:
-        rc_product:
-          type: string
-          minLength: 1
-          title: Rc Product
-          description: RevenueCat product ID
-        rc_transaction:
-          type: string
-          minLength: 1
-          title: Rc Transaction
-          description: RevenueCat transaction ID
-      type: object
-      required:
-      - rc_product
-      - rc_transaction
-      title: CreateGiftCodeRequest
-      description: Request model for creating a gift code
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    MyGiftCodesResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-        gift_codes:
-          items:
-            $ref: '#/components/schemas/GiftCodeRecord'
-          type: array
-          title: Gift Codes
-        total_count:
-          type: integer
-          title: Total Count
-        redeemed_count:
-          type: integer
-          title: Redeemed Count
-        unredeemed_count:
-          type: integer
-          title: Unredeemed Count
-      type: object
-      required:
-      - success
-      - gift_codes
-      - total_count
-      - redeemed_count
-      - unredeemed_count
-      title: MyGiftCodesResponse
-      description: Response model for getting user's gift codes
     CreateGiftCodeResponse:
       properties:
         success:
@@ -247,6 +171,18 @@ components:
       - message
       title: CreateGiftCodeResponse
       description: Response model for creating a gift code
+    RedeemGiftCodeRequest:
+      properties:
+        code:
+          type: string
+          minLength: 1
+          title: Code
+          description: The gift code to redeem
+      type: object
+      required:
+      - code
+      title: RedeemGiftCodeRequest
+      description: Request model for redeeming a gift code
     GiftCodeRecord:
       properties:
         code:
@@ -305,18 +241,82 @@ components:
       - message
       title: RedeemGiftCodeResponse
       description: Response model for redeeming a gift code
-    RedeemGiftCodeRequest:
+    MyGiftCodesResponse:
       properties:
-        code:
-          type: string
-          minLength: 1
-          title: Code
-          description: The gift code to redeem
+        success:
+          type: boolean
+          title: Success
+        gift_codes:
+          items:
+            $ref: '#/components/schemas/GiftCodeRecord'
+          type: array
+          title: Gift Codes
+        total_count:
+          type: integer
+          title: Total Count
+        redeemed_count:
+          type: integer
+          title: Redeemed Count
+        unredeemed_count:
+          type: integer
+          title: Unredeemed Count
       type: object
       required:
-      - code
-      title: RedeemGiftCodeRequest
-      description: Request model for redeeming a gift code
+      - success
+      - gift_codes
+      - total_count
+      - redeemed_count
+      - unredeemed_count
+      title: MyGiftCodesResponse
+      description: Response model for getting user's gift codes
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    CreateGiftCodeRequest:
+      properties:
+        rc_product:
+          type: string
+          minLength: 1
+          title: Rc Product
+          description: RevenueCat product ID
+        rc_transaction:
+          type: string
+          minLength: 1
+          title: Rc Transaction
+          description: RevenueCat transaction ID
+      type: object
+      required:
+      - rc_product
+      - rc_transaction
+      title: CreateGiftCodeRequest
+      description: Request model for creating a gift code
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

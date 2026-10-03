@@ -114,74 +114,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    SaveVerseResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-        message:
-          type: string
-          title: Message
-        verse:
-          anyOf:
-          - $ref: '#/components/schemas/SavedVerse'
-          - type: 'null'
-      type: object
-      required:
-      - success
-      - message
-      title: SaveVerseResponse
-      description: Response model for saving a verse
-    GetSavedVersesResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-        verses:
-          items:
-            $ref: '#/components/schemas/SavedVerse'
-          type: array
-          title: Verses
-        count:
-          type: integer
-          title: Count
-      type: object
-      required:
-      - success
-      - verses
-      - count
-      title: GetSavedVersesResponse
-      description: Response model for getting saved verses
     SavedVerse:
       properties:
         version:
@@ -223,6 +155,44 @@ components:
         created_at: '2024-05-11T19:42:00+00:00'
         verse: 16
         version: KJV
+    GetSavedVersesResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        verses:
+          items:
+            $ref: '#/components/schemas/SavedVerse'
+          type: array
+          title: Verses
+        count:
+          type: integer
+          title: Count
+      type: object
+      required:
+      - success
+      - verses
+      - count
+      title: GetSavedVersesResponse
+      description: Response model for getting saved verses
+    SaveVerseResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        message:
+          type: string
+          title: Message
+        verse:
+          anyOf:
+          - $ref: '#/components/schemas/SavedVerse'
+          - type: 'null'
+      type: object
+      required:
+      - success
+      - message
+      title: SaveVerseResponse
+      description: Response model for saving a verse
     SaveVerseRequest:
       properties:
         version:
@@ -247,6 +217,36 @@ components:
       - verse
       title: SaveVerseRequest
       description: Request model for saving a verse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

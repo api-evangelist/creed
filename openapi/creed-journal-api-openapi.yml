@@ -48,59 +48,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    GratitudeJournalResponse:
-      properties:
-        id:
-          type: integer
-          title: Id
-        gratitude_text:
-          type: string
-          title: Gratitude Text
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        is_first_entry:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is First Entry
-      type: object
-      required:
-      - id
-      - gratitude_text
-      - created_at
-      title: GratitudeJournalResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     JournalBundleResponse:
       properties:
         gratitudes:
@@ -193,6 +140,59 @@ components:
       - prayer_text
       - created_at
       title: PrayerJournalResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    GratitudeJournalResponse:
+      properties:
+        id:
+          type: integer
+          title: Id
+        gratitude_text:
+          type: string
+          title: Gratitude Text
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        is_first_entry:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is First Entry
+      type: object
+      required:
+      - id
+      - gratitude_text
+      - created_at
+      title: GratitudeJournalResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

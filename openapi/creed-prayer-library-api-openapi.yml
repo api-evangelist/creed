@@ -83,6 +83,18 @@ components:
       - msg
       - type
       title: ValidationError
+    PrayerLibraryResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        prayer:
+          $ref: '#/components/schemas/PrayerLibraryItem'
+      type: object
+      required:
+      - success
+      - prayer
+      title: PrayerLibraryResponse
     PrayerLibraryItem:
       properties:
         id:
@@ -125,18 +137,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    PrayerLibraryResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-        prayer:
-          $ref: '#/components/schemas/PrayerLibraryItem'
-      type: object
-      required:
-      - success
-      - prayer
-      title: PrayerLibraryResponse
   securitySchemes:
     HTTPBearer:
       type: http

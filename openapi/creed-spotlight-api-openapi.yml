@@ -106,15 +106,6 @@ components:
       - spotlight_id
       - seen_at
       title: SeenEntry
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     MarkSeenRequest:
       properties:
         spotlightId:
@@ -124,6 +115,15 @@ components:
       required:
       - spotlightId
       title: MarkSeenRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

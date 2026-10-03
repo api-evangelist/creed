@@ -122,47 +122,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    MembersRequest:
-      properties:
-        mm_user_ids:
-          items:
-            type: string
-          type: array
-          title: Mm User Ids
-      type: object
-      required:
-      - mm_user_ids
-      title: MembersRequest
     ProvisionResponse:
       properties:
         mattermost_url:
@@ -188,33 +147,17 @@ components:
       - user_id
       - access_token
       title: ProvisionResponse
-    MemberProfile:
+    MembersResponse:
       properties:
-        mm_user_id:
-          type: string
-          title: Mm User Id
-        first_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: First Name
-        last_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Last Name
-        profile_picture:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Profile Picture
+        members:
+          items:
+            $ref: '#/components/schemas/MemberProfile'
+          type: array
+          title: Members
       type: object
       required:
-      - mm_user_id
-      - first_name
-      - last_name
-      - profile_picture
-      title: MemberProfile
+      - members
+      title: MembersResponse
     IdentityResponse:
       properties:
         mattermost_url:
@@ -246,17 +189,74 @@ components:
       - user_id
       - has_identity
       title: IdentityResponse
-    MembersResponse:
+    MemberProfile:
       properties:
-        members:
-          items:
-            $ref: '#/components/schemas/MemberProfile'
-          type: array
-          title: Members
+        mm_user_id:
+          type: string
+          title: Mm User Id
+        first_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: First Name
+        last_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Name
+        profile_picture:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Profile Picture
       type: object
       required:
-      - members
-      title: MembersResponse
+      - mm_user_id
+      - first_name
+      - last_name
+      - profile_picture
+      title: MemberProfile
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    MembersRequest:
+      properties:
+        mm_user_ids:
+          items:
+            type: string
+          type: array
+          title: Mm User Ids
+      type: object
+      required:
+      - mm_user_ids
+      title: MembersRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

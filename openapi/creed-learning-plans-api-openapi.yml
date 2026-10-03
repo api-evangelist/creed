@@ -159,109 +159,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    ScriptureSegment:
-      properties:
-        type:
-          type: string
-          const: scripture
-          title: Type
-        reference:
-          $ref: '#/components/schemas/ScriptureReference'
-      type: object
-      required:
-      - type
-      - reference
-      title: ScriptureSegment
-    ScriptureReference:
-      properties:
-        book:
-          type: string
-          title: Book
-        chapter:
-          type: integer
-          title: Chapter
-        verses:
-          type: string
-          title: Verses
-      type: object
-      required:
-      - book
-      - chapter
-      - verses
-      title: ScriptureReference
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    LearningPlanInstance:
-      properties:
-        instance_id:
-          type: string
-          title: Instance Id
-        user_id:
-          type: string
-          title: User Id
-        plan_key:
-          type: string
-          title: Plan Key
-        started_at:
-          type: string
-          title: Started At
-        completed_segments:
-          items:
-            type: string
-          type: array
-          title: Completed Segments
-      type: object
-      required:
-      - instance_id
-      - user_id
-      - plan_key
-      - started_at
-      title: LearningPlanInstance
-    PlanDay:
-      properties:
-        day_index:
-          type: integer
-          title: Day Index
-        segments:
-          items:
-            anyOf:
-            - $ref: '#/components/schemas/DevotionalSegment'
-            - $ref: '#/components/schemas/ScriptureSegment'
-          type: array
-          title: Segments
-      type: object
-      required:
-      - day_index
-      - segments
-      title: PlanDay
     ScriptureOpener:
       properties:
         reference:
@@ -318,6 +215,40 @@ components:
       - description
       - days
       title: Plan
+    PlanDay:
+      properties:
+        day_index:
+          type: integer
+          title: Day Index
+        segments:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/DevotionalSegment'
+            - $ref: '#/components/schemas/ScriptureSegment'
+          type: array
+          title: Segments
+      type: object
+      required:
+      - day_index
+      - segments
+      title: PlanDay
+    ScriptureReference:
+      properties:
+        book:
+          type: string
+          title: Book
+        chapter:
+          type: integer
+          title: Chapter
+        verses:
+          type: string
+          title: Verses
+      type: object
+      required:
+      - book
+      - chapter
+      - verses
+      title: ScriptureReference
     StartInstanceRequest:
       properties:
         plan_key:
@@ -327,6 +258,56 @@ components:
       required:
       - plan_key
       title: StartInstanceRequest
+    MarkSegmentRequest:
+      properties:
+        day_index:
+          type: integer
+          title: Day Index
+        segment_type:
+          type: string
+          enum:
+          - devotional
+          - scripture
+          title: Segment Type
+      type: object
+      required:
+      - day_index
+      - segment_type
+      title: MarkSegmentRequest
+    ScriptureSegment:
+      properties:
+        type:
+          type: string
+          const: scripture
+          title: Type
+        reference:
+          $ref: '#/components/schemas/ScriptureReference'
+      type: object
+      required:
+      - type
+      - reference
+      title: ScriptureSegment
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     DevotionalSegment:
       properties:
         type:
@@ -348,22 +329,41 @@ components:
       - scripture_opener
       - body
       title: DevotionalSegment
-    MarkSegmentRequest:
+    LearningPlanInstance:
       properties:
-        day_index:
-          type: integer
-          title: Day Index
-        segment_type:
+        instance_id:
           type: string
-          enum:
-          - devotional
-          - scripture
-          title: Segment Type
+          title: Instance Id
+        user_id:
+          type: string
+          title: User Id
+        plan_key:
+          type: string
+          title: Plan Key
+        started_at:
+          type: string
+          title: Started At
+        completed_segments:
+          items:
+            type: string
+          type: array
+          title: Completed Segments
       type: object
       required:
-      - day_index
-      - segment_type
-      title: MarkSegmentRequest
+      - instance_id
+      - user_id
+      - plan_key
+      - started_at
+      title: LearningPlanInstance
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

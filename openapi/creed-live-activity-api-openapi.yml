@@ -117,15 +117,6 @@ components:
       required:
       - success
       title: StorePushToStartTokenResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     StorePushToStartTokenRequest:
       properties:
         token:
@@ -140,6 +131,15 @@ components:
       required:
       - token
       title: StorePushToStartTokenRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

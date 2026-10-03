@@ -93,15 +93,6 @@ components:
       - access_token
       - url
       title: RoomResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     CreateRoomRequest:
       properties:
         room_id:
@@ -123,6 +114,15 @@ components:
       required:
       - room_id
       title: CreateRoomRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

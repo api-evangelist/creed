@@ -260,27 +260,44 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ValidationError:
+    RedeemPromoCodeResponse:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        success:
+          type: boolean
+          title: Success
+          description: Whether the redemption was successful
+        message:
           type: string
           title: Message
-        type:
-          type: string
-          title: Error Type
+          description: Success or error message
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - success
+      - message
+      title: RedeemPromoCodeResponse
+      description: Response model for redeeming a promo code
+    ReferralCodeResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        redemptions:
+          type: integer
+          title: Redemptions
+      type: object
+      required:
+      - success
+      - code
+      - message
+      - redemptions
+      title: ReferralCodeResponse
+      description: Response model for creating a referral code
     RedeemCodeRequest:
       properties:
         token:
@@ -293,55 +310,6 @@ components:
       - token
       title: RedeemCodeRequest
       description: Request model for redeeming a referral code
-    ClaimRewardResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          description: Whether the claim was successful
-        message:
-          type: string
-          title: Message
-          description: Success or error message
-      type: object
-      required:
-      - success
-      - message
-      title: ClaimRewardResponse
-      description: Response model for claiming referrer reward
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ClaimRewardRequest:
-      properties:
-        redemption_id:
-          type: integer
-          exclusiveMinimum: 0.0
-          title: Redemption Id
-          description: The ID of the redemption record
-      type: object
-      required:
-      - redemption_id
-      title: ClaimRewardRequest
-      description: Request model for claiming referrer reward
-    RedeemPromoCodeRequest:
-      properties:
-        code:
-          type: string
-          minLength: 1
-          title: Code
-          description: The promo code to redeem
-      type: object
-      required:
-      - code
-      title: RedeemPromoCodeRequest
-      description: Request model for redeeming a promo code
     RedemptionsResponse:
       properties:
         success:
@@ -366,6 +334,18 @@ components:
       - unclaimed_count
       title: RedemptionsResponse
       description: Response model for getting user's redemptions
+    ClaimRewardRequest:
+      properties:
+        redemption_id:
+          type: integer
+          exclusiveMinimum: 0.0
+          title: Redemption Id
+          description: The ID of the redemption record
+      type: object
+      required:
+      - redemption_id
+      title: ClaimRewardRequest
+      description: Request model for claiming referrer reward
     RedemptionRecord:
       properties:
         id:
@@ -400,12 +380,12 @@ components:
       - referee_reward_claimed
       title: RedemptionRecord
       description: Model for a single redemption record
-    RedeemPromoCodeResponse:
+    ClaimRewardResponse:
       properties:
         success:
           type: boolean
           title: Success
-          description: Whether the redemption was successful
+          description: Whether the claim was successful
         message:
           type: string
           title: Message
@@ -414,8 +394,41 @@ components:
       required:
       - success
       - message
-      title: RedeemPromoCodeResponse
-      description: Response model for redeeming a promo code
+      title: ClaimRewardResponse
+      description: Response model for claiming referrer reward
+    RedeemPromoCodeRequest:
+      properties:
+        code:
+          type: string
+          minLength: 1
+          title: Code
+          description: The promo code to redeem
+      type: object
+      required:
+      - code
+      title: RedeemPromoCodeRequest
+      description: Request model for redeeming a promo code
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     RedeemCodeResponse:
       properties:
         success:
@@ -432,28 +445,15 @@ components:
       - message
       title: RedeemCodeResponse
       description: Response model for redeeming a referral code
-    ReferralCodeResponse:
+    HTTPValidationError:
       properties:
-        success:
-          type: boolean
-          title: Success
-        code:
-          type: string
-          title: Code
-        message:
-          type: string
-          title: Message
-        redemptions:
-          type: integer
-          title: Redemptions
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      required:
-      - success
-      - code
-      - message
-      - redemptions
-      title: ReferralCodeResponse
-      description: Response model for creating a referral code
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

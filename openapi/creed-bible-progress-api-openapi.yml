@@ -170,15 +170,6 @@ components:
       - progress
       title: BibleProgressResponse
       description: Response model for Bible reading progress.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     AppendProgressRequest:
       properties:
         book_id:
@@ -206,6 +197,15 @@ components:
       - version
       title: AppendProgressRequest
       description: Request model for appending Bible reading progress.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

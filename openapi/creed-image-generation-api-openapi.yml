@@ -50,6 +50,30 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    ImageGenerationResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          description: Whether the generation was successful
+        data:
+          items:
+            $ref: '#/components/schemas/ImageData'
+          type: array
+          title: Data
+          description: List of generated images
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+          description: Error message if generation failed
+      type: object
+      required:
+      - success
+      - data
+      title: ImageGenerationResponse
+      description: Response model for image generation
     ValidationError:
       properties:
         loc:
@@ -71,15 +95,6 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     Body_generate_image_api_generate_image_post:
       properties:
         image:
@@ -140,30 +155,6 @@ components:
       - image
       - prompt
       title: Body_generate_image_api_generate_image_post
-    ImageGenerationResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          description: Whether the generation was successful
-        data:
-          items:
-            $ref: '#/components/schemas/ImageData'
-          type: array
-          title: Data
-          description: List of generated images
-        error:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Error
-          description: Error message if generation failed
-      type: object
-      required:
-      - success
-      - data
-      title: ImageGenerationResponse
-      description: Response model for image generation
     ImageData:
       properties:
         url:
@@ -181,6 +172,15 @@ components:
       type: object
       title: ImageData
       description: Individual image data in response
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

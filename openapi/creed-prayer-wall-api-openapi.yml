@@ -481,61 +481,76 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    HTTPValidationError:
+    ErrorResponse:
       properties:
         detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
+          type: string
           title: Detail
       type: object
-      title: HTTPValidationError
-    PrayerWallUser:
+      required:
+      - detail
+      title: ErrorResponse
+    ApproveRejectResponse:
       properties:
-        user_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: User Id
-        first_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: First Name
-        last_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Last Name
-        profile_picture:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Profile Picture
+        success:
+          type: boolean
+          title: Success
+        prayer_id:
+          type: integer
+          title: Prayer Id
       type: object
-      title: PrayerWallUser
-      description: User info for prayer wall.
+      required:
+      - success
+      - prayer_id
+      title: ApproveRejectResponse
+    SubmitCommentResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+      type: object
+      required:
+      - success
+      title: SubmitCommentResponse
+    SubmitPrayerRequest:
+      properties:
+        prayer_text:
+          type: string
+          title: Prayer Text
+        source_lang:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Source Lang
+      type: object
+      required:
+      - prayer_text
+      title: SubmitPrayerRequest
+    PrayingCountResponse:
+      properties:
+        count:
+          type: integer
+          title: Count
+      type: object
+      required:
+      - count
+      title: PrayingCountResponse
+    PrayerWallPaginatedResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/PrayerWall'
+          type: array
+          title: Data
+        total_count:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Total Count
+      type: object
+      required:
+      - data
+      title: PrayerWallPaginatedResponse
     PrayerWallCommentUser:
       properties:
         user_id:
@@ -561,15 +576,27 @@ components:
       type: object
       title: PrayerWallCommentUser
       description: User info for prayer wall comments.
-    SubmitCommentResponse:
+    ValidationError:
       properties:
-        success:
-          type: boolean
-          title: Success
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
       required:
-      - success
-      title: SubmitCommentResponse
+      - loc
+      - msg
+      - type
+      title: ValidationError
     SubmitCommentRequest:
       properties:
         comment_text:
@@ -584,6 +611,31 @@ components:
           title: Quick Reply Text
       type: object
       title: SubmitCommentRequest
+    PrayerWallUser:
+      properties:
+        user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Id
+        first_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: First Name
+        last_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Name
+        profile_picture:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Profile Picture
+      type: object
+      title: PrayerWallUser
+      description: User info for prayer wall.
     PrayerWall:
       properties:
         id:
@@ -641,28 +693,6 @@ components:
       - created_at
       title: PrayerWall
       description: DB model for prayer_wall table.
-    PrayingCountResponse:
-      properties:
-        count:
-          type: integer
-          title: Count
-      type: object
-      required:
-      - count
-      title: PrayingCountResponse
-    ApproveRejectResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-        prayer_id:
-          type: integer
-          title: Prayer Id
-      type: object
-      required:
-      - success
-      - prayer_id
-      title: ApproveRejectResponse
     PrayerWallComment:
       properties:
         id:
@@ -703,45 +733,15 @@ components:
       - created_at
       title: PrayerWallComment
       description: DB model for prayer_wall_comments table.
-    SubmitPrayerRequest:
-      properties:
-        prayer_text:
-          type: string
-          title: Prayer Text
-        source_lang:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Source Lang
-      type: object
-      required:
-      - prayer_text
-      title: SubmitPrayerRequest
-    PrayerWallPaginatedResponse:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/PrayerWall'
-          type: array
-          title: Data
-        total_count:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Total Count
-      type: object
-      required:
-      - data
-      title: PrayerWallPaginatedResponse
-    ErrorResponse:
+    HTTPValidationError:
       properties:
         detail:
-          type: string
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
           title: Detail
       type: object
-      required:
-      - detail
-      title: ErrorResponse
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

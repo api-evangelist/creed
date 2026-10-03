@@ -126,15 +126,6 @@ components:
         prayer: Dear Lord, help us to...
         verse_string: John 3:16
         verse_text: For God so loved the world...
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     DailyDevotionalResponse:
       properties:
         success:
@@ -155,6 +146,15 @@ components:
       - count
       title: DailyDevotionalResponse
       description: Response model for getting daily devotionals
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

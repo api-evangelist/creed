@@ -159,15 +159,6 @@ components:
       - prayer_text
       - created_at
       title: PrayerJournalResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     AddPrayerJournalRequest:
       properties:
         prayer_text:
@@ -182,6 +173,15 @@ components:
       required:
       - prayer_text
       title: AddPrayerJournalRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

@@ -142,15 +142,6 @@ components:
           title: Topic
       type: object
       title: PrayerRequest
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     PrayerResponse:
       properties:
         prayer_text:
@@ -165,6 +156,15 @@ components:
       required:
       - prayer_text
       title: PrayerResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

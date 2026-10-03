@@ -237,36 +237,28 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ValidationError:
+    SnoozeReminderRequest:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        user_id:
           type: string
-          title: Message
-        type:
+          title: User Id
+          description: User who owns the reminder (from the Live Activity)
+        task_id:
           type: string
-          title: Error Type
+          title: Task Id
+          description: cron_tasks id of the reminder to snooze (from the Live Activity)
+        minutes:
+          type: integer
+          maximum: 1440.0
+          minimum: 1.0
+          title: Minutes
+          description: Minutes to wait before re-sending the reminder
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+      - user_id
+      - task_id
+      - minutes
+      title: SnoozeReminderRequest
     UpdateReminderRequest:
       properties:
         subtype:
@@ -307,6 +299,27 @@ components:
           description: Whether the reminder is active
       type: object
       title: UpdateReminderRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     CreateReminderRequest:
       properties:
         subtype:
@@ -339,28 +352,15 @@ components:
       - schedule_type
       - schedule_time
       title: CreateReminderRequest
-    SnoozeReminderRequest:
+    HTTPValidationError:
       properties:
-        user_id:
-          type: string
-          title: User Id
-          description: User who owns the reminder (from the Live Activity)
-        task_id:
-          type: string
-          title: Task Id
-          description: cron_tasks id of the reminder to snooze (from the Live Activity)
-        minutes:
-          type: integer
-          maximum: 1440.0
-          minimum: 1.0
-          title: Minutes
-          description: Minutes to wait before re-sending the reminder
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      required:
-      - user_id
-      - task_id
-      - minutes
-      title: SnoozeReminderRequest
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

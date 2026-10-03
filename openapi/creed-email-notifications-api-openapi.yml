@@ -331,78 +331,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    PrayerWallBroadcastVarsRequest:
-      properties:
-        name:
-          type: string
-          title: Name
-          default: ''
-        prayer:
-          type: string
-          title: Prayer
-          default: ''
-        prayer_request:
-          type: string
-          title: Prayer Request
-          default: ''
-        title:
-          type: string
-          title: Title
-          default: ''
-      type: object
-      title: PrayerWallBroadcastVarsRequest
-      description: Body for preview-broadcast and send-broadcast debug endpoints.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    DailyDevotionalBroadcastVarsRequest:
-      properties:
-        verse_string:
-          type: string
-          title: Verse String
-          default: ''
-        verse_text:
-          type: string
-          title: Verse Text
-          default: ''
-        reflection:
-          type: string
-          title: Reflection
-          default: ''
-        prayer:
-          type: string
-          title: Prayer
-          default: ''
-      type: object
-      title: DailyDevotionalBroadcastVarsRequest
-      description: Body for daily devotional preview-broadcast and send-broadcast debug endpoints.
     ResendCreateContactRequest:
       properties:
         email:
@@ -427,6 +355,78 @@ components:
       - email
       title: ResendCreateContactRequest
       description: Body for Resend create-contact debug endpoint.
+    DailyDevotionalBroadcastVarsRequest:
+      properties:
+        verse_string:
+          type: string
+          title: Verse String
+          default: ''
+        verse_text:
+          type: string
+          title: Verse Text
+          default: ''
+        reflection:
+          type: string
+          title: Reflection
+          default: ''
+        prayer:
+          type: string
+          title: Prayer
+          default: ''
+      type: object
+      title: DailyDevotionalBroadcastVarsRequest
+      description: Body for daily devotional preview-broadcast and send-broadcast debug endpoints.
+    PrayerWallBroadcastVarsRequest:
+      properties:
+        name:
+          type: string
+          title: Name
+          default: ''
+        prayer:
+          type: string
+          title: Prayer
+          default: ''
+        prayer_request:
+          type: string
+          title: Prayer Request
+          default: ''
+        title:
+          type: string
+          title: Title
+          default: ''
+      type: object
+      title: PrayerWallBroadcastVarsRequest
+      description: Body for preview-broadcast and send-broadcast debug endpoints.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http
