@@ -274,26 +274,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    CompactRequest:
-      properties:
-        conversation_id:
-          type: string
-          title: Conversation Id
-      type: object
-      required:
-      - conversation_id
-      title: CompactRequest
-    SuggestionsResponse:
-      properties:
-        suggestions:
-          items:
-            type: string
-          type: array
-          title: Suggestions
-      type: object
-      required:
-      - suggestions
-      title: SuggestionsResponse
     ChatRequest:
       properties:
         message:
@@ -332,56 +312,6 @@ components:
           title: Image Ids
       type: object
       title: ChatRequest
-    Source:
-      properties:
-        title:
-          type: string
-          title: Title
-        url:
-          type: string
-          title: Url
-        snippet:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Snippet
-        favicon:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Favicon
-        domain:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Domain
-      type: object
-      required:
-      - title
-      - url
-      title: Source
-    CompactResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-        messages_compacted:
-          type: integer
-          title: Messages Compacted
-          default: 0
-        skipped:
-          type: boolean
-          title: Skipped
-          default: false
-        reason:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Reason
-      type: object
-      required:
-      - success
-      title: CompactResponse
     ChatResponse:
       properties:
         reply:
@@ -419,6 +349,15 @@ components:
       required:
       - conversation_id
       title: ChatResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -440,15 +379,76 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
+    CompactResponse:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        success:
+          type: boolean
+          title: Success
+        messages_compacted:
+          type: integer
+          title: Messages Compacted
+          default: 0
+        skipped:
+          type: boolean
+          title: Skipped
+          default: false
+        reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reason
       type: object
-      title: HTTPValidationError
+      required:
+      - success
+      title: CompactResponse
+    Source:
+      properties:
+        title:
+          type: string
+          title: Title
+        url:
+          type: string
+          title: Url
+        snippet:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Snippet
+        favicon:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Favicon
+        domain:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Domain
+      type: object
+      required:
+      - title
+      - url
+      title: Source
+    CompactRequest:
+      properties:
+        conversation_id:
+          type: string
+          title: Conversation Id
+      type: object
+      required:
+      - conversation_id
+      title: CompactRequest
+    SuggestionsResponse:
+      properties:
+        suggestions:
+          items:
+            type: string
+          type: array
+          title: Suggestions
+      type: object
+      required:
+      - suggestions
+      title: SuggestionsResponse
   securitySchemes:
     HTTPBearer:
       type: http

@@ -54,6 +54,33 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    RoomResponse:
+      properties:
+        room:
+          additionalProperties: true
+          type: object
+          title: Room
+        access_token:
+          type: string
+          title: Access Token
+        url:
+          type: string
+          title: Url
+      type: object
+      required:
+      - room
+      - access_token
+      - url
+      title: RoomResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -75,24 +102,6 @@ components:
       - msg
       - type
       title: ValidationError
-    RoomResponse:
-      properties:
-        room:
-          additionalProperties: true
-          type: object
-          title: Room
-        access_token:
-          type: string
-          title: Access Token
-        url:
-          type: string
-          title: Url
-      type: object
-      required:
-      - room
-      - access_token
-      - url
-      title: RoomResponse
     CreateRoomRequest:
       properties:
         room_id:
@@ -114,15 +123,6 @@ components:
       required:
       - room_id
       title: CreateRoomRequest
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

@@ -114,6 +114,30 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    SaveVerseRequest:
+      properties:
+        version:
+          type: string
+          title: Version
+        book:
+          type: string
+          title: Book
+        chapter:
+          type: integer
+          minimum: 1.0
+          title: Chapter
+        verse:
+          type: integer
+          minimum: 1.0
+          title: Verse
+      type: object
+      required:
+      - version
+      - book
+      - chapter
+      - verse
+      title: SaveVerseRequest
+      description: Request model for saving a verse
     SavedVerse:
       properties:
         version:
@@ -155,6 +179,36 @@ components:
         created_at: '2024-05-11T19:42:00+00:00'
         verse: 16
         version: KJV
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     GetSavedVersesResponse:
       properties:
         success:
@@ -193,60 +247,6 @@ components:
       - message
       title: SaveVerseResponse
       description: Response model for saving a verse
-    SaveVerseRequest:
-      properties:
-        version:
-          type: string
-          title: Version
-        book:
-          type: string
-          title: Book
-        chapter:
-          type: integer
-          minimum: 1.0
-          title: Chapter
-        verse:
-          type: integer
-          minimum: 1.0
-          title: Verse
-      type: object
-      required:
-      - version
-      - book
-      - chapter
-      - verse
-      title: SaveVerseRequest
-      description: Request model for saving a verse
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

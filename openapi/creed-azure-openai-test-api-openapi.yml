@@ -36,6 +36,32 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    AzureChatResponse:
+      properties:
+        text:
+          type: string
+          title: Text
+        model:
+          type: string
+          title: Model
+        success:
+          type: boolean
+          title: Success
+      type: object
+      required:
+      - text
+      - model
+      - success
+      title: AzureChatResponse
     ValidationError:
       properties:
         loc:
@@ -57,23 +83,6 @@ components:
       - msg
       - type
       title: ValidationError
-    AzureChatResponse:
-      properties:
-        text:
-          type: string
-          title: Text
-        model:
-          type: string
-          title: Model
-        success:
-          type: boolean
-          title: Success
-      type: object
-      required:
-      - text
-      - model
-      - success
-      title: AzureChatResponse
     AzureChatRequest:
       properties:
         message:
@@ -83,15 +92,6 @@ components:
       required:
       - message
       title: AzureChatRequest
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

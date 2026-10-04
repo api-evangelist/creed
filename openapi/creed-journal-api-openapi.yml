@@ -48,34 +48,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    JournalBundleResponse:
-      properties:
-        gratitudes:
-          items:
-            $ref: '#/components/schemas/GratitudeJournalResponse'
-          type: array
-          title: Gratitudes
-        prayers:
-          items:
-            $ref: '#/components/schemas/PrayerJournalResponse'
-          type: array
-          title: Prayers
-        verses:
-          items:
-            $ref: '#/components/schemas/SavedVerse'
-          type: array
-          title: Verses
-        latest_change:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Latest Change
-      type: object
-      required:
-      - gratitudes
-      - prayers
-      - verses
-      title: JournalBundleResponse
     SavedVerse:
       properties:
         version:
@@ -117,6 +89,34 @@ components:
         created_at: '2024-05-11T19:42:00+00:00'
         verse: 16
         version: KJV
+    JournalBundleResponse:
+      properties:
+        gratitudes:
+          items:
+            $ref: '#/components/schemas/GratitudeJournalResponse'
+          type: array
+          title: Gratitudes
+        prayers:
+          items:
+            $ref: '#/components/schemas/PrayerJournalResponse'
+          type: array
+          title: Prayers
+        verses:
+          items:
+            $ref: '#/components/schemas/SavedVerse'
+          type: array
+          title: Verses
+        latest_change:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Latest Change
+      type: object
+      required:
+      - gratitudes
+      - prayers
+      - verses
+      title: JournalBundleResponse
     PrayerJournalResponse:
       properties:
         id:
@@ -140,6 +140,15 @@ components:
       - prayer_text
       - created_at
       title: PrayerJournalResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -184,15 +193,6 @@ components:
       - gratitude_text
       - created_at
       title: GratitudeJournalResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

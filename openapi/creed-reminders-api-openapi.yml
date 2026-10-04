@@ -237,28 +237,38 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    SnoozeReminderRequest:
+    CreateReminderRequest:
       properties:
-        user_id:
+        subtype:
           type: string
-          title: User Id
-          description: User who owns the reminder (from the Live Activity)
-        task_id:
+          title: Subtype
+          description: 'Reminder subtype: prayer, church, devotional, or custom'
+        schedule_type:
           type: string
-          title: Task Id
-          description: cron_tasks id of the reminder to snooze (from the Live Activity)
-        minutes:
-          type: integer
-          maximum: 1440.0
-          minimum: 1.0
-          title: Minutes
-          description: Minutes to wait before re-sending the reminder
+          title: Schedule Type
+          description: 'Schedule type: daily or weekly'
+        schedule_time:
+          type: string
+          title: Schedule Time
+          description: Time of day in HH:MM format (e.g., '09:00')
+        schedule_day:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Schedule Day
+          description: Day of week for weekly (0=Sunday, 6=Saturday)
+        custom_text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Custom Text
+          description: Custom reminder text (required for custom subtype)
       type: object
       required:
-      - user_id
-      - task_id
-      - minutes
-      title: SnoozeReminderRequest
+      - subtype
+      - schedule_type
+      - schedule_time
+      title: CreateReminderRequest
     UpdateReminderRequest:
       properties:
         subtype:
@@ -299,6 +309,15 @@ components:
           description: Whether the reminder is active
       type: object
       title: UpdateReminderRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -320,47 +339,28 @@ components:
       - msg
       - type
       title: ValidationError
-    CreateReminderRequest:
+    SnoozeReminderRequest:
       properties:
-        subtype:
+        user_id:
           type: string
-          title: Subtype
-          description: 'Reminder subtype: prayer, church, devotional, or custom'
-        schedule_type:
+          title: User Id
+          description: User who owns the reminder (from the Live Activity)
+        task_id:
           type: string
-          title: Schedule Type
-          description: 'Schedule type: daily or weekly'
-        schedule_time:
-          type: string
-          title: Schedule Time
-          description: Time of day in HH:MM format (e.g., '09:00')
-        schedule_day:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Schedule Day
-          description: Day of week for weekly (0=Sunday, 6=Saturday)
-        custom_text:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Custom Text
-          description: Custom reminder text (required for custom subtype)
+          title: Task Id
+          description: cron_tasks id of the reminder to snooze (from the Live Activity)
+        minutes:
+          type: integer
+          maximum: 1440.0
+          minimum: 1.0
+          title: Minutes
+          description: Minutes to wait before re-sending the reminder
       type: object
       required:
-      - subtype
-      - schedule_type
-      - schedule_time
-      title: CreateReminderRequest
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+      - user_id
+      - task_id
+      - minutes
+      title: SnoozeReminderRequest
   securitySchemes:
     HTTPBearer:
       type: http

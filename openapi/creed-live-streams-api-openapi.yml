@@ -165,34 +165,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    SubmitLiveStreamCommentResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-      type: object
-      required:
-      - success
-      title: SubmitLiveStreamCommentResponse
-    ActiveStreamResponse:
-      properties:
-        stream:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Stream
-      type: object
-      title: ActiveStreamResponse
-    StartStreamRequest:
-      properties:
-        streamer_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Streamer Name
-      type: object
-      title: StartStreamRequest
     LiveStreamCommentUser:
       properties:
         user_id:
@@ -218,36 +190,6 @@ components:
       type: object
       title: LiveStreamCommentUser
       description: User info for live stream comments.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    SubmitLiveStreamCommentRequest:
-      properties:
-        comment_text:
-          type: string
-          title: Comment Text
-      type: object
-      required:
-      - comment_text
-      title: SubmitLiveStreamCommentRequest
     LiveStreamComment:
       properties:
         id:
@@ -297,6 +239,64 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ActiveStreamResponse:
+      properties:
+        stream:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Stream
+      type: object
+      title: ActiveStreamResponse
+    SubmitLiveStreamCommentRequest:
+      properties:
+        comment_text:
+          type: string
+          title: Comment Text
+      type: object
+      required:
+      - comment_text
+      title: SubmitLiveStreamCommentRequest
+    SubmitLiveStreamCommentResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+      type: object
+      required:
+      - success
+      title: SubmitLiveStreamCommentResponse
+    StartStreamRequest:
+      properties:
+        streamer_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Streamer Name
+      type: object
+      title: StartStreamRequest
   securitySchemes:
     HTTPBearer:
       type: http

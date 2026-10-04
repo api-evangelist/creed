@@ -122,42 +122,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ProvisionResponse:
-      properties:
-        mattermost_url:
-          type: string
-          title: Mattermost Url
-        team_id:
-          type: string
-          title: Team Id
-        channel_id:
-          type: string
-          title: Channel Id
-        user_id:
-          type: string
-          title: User Id
-        access_token:
-          type: string
-          title: Access Token
-      type: object
-      required:
-      - mattermost_url
-      - team_id
-      - channel_id
-      - user_id
-      - access_token
-      title: ProvisionResponse
-    MembersResponse:
-      properties:
-        members:
-          items:
-            $ref: '#/components/schemas/MemberProfile'
-          type: array
-          title: Members
-      type: object
-      required:
-      - members
-      title: MembersResponse
     IdentityResponse:
       properties:
         mattermost_url:
@@ -189,6 +153,83 @@ components:
       - user_id
       - has_identity
       title: IdentityResponse
+    MembersRequest:
+      properties:
+        mm_user_ids:
+          items:
+            type: string
+          type: array
+          title: Mm User Ids
+      type: object
+      required:
+      - mm_user_ids
+      title: MembersRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    MembersResponse:
+      properties:
+        members:
+          items:
+            $ref: '#/components/schemas/MemberProfile'
+          type: array
+          title: Members
+      type: object
+      required:
+      - members
+      title: MembersResponse
+    ProvisionResponse:
+      properties:
+        mattermost_url:
+          type: string
+          title: Mattermost Url
+        team_id:
+          type: string
+          title: Team Id
+        channel_id:
+          type: string
+          title: Channel Id
+        user_id:
+          type: string
+          title: User Id
+        access_token:
+          type: string
+          title: Access Token
+      type: object
+      required:
+      - mattermost_url
+      - team_id
+      - channel_id
+      - user_id
+      - access_token
+      title: ProvisionResponse
     MemberProfile:
       properties:
         mm_user_id:
@@ -216,47 +257,6 @@ components:
       - last_name
       - profile_picture
       title: MemberProfile
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    MembersRequest:
-      properties:
-        mm_user_ids:
-          items:
-            type: string
-          type: array
-          title: Mm User Ids
-      type: object
-      required:
-      - mm_user_ids
-      title: MembersRequest
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

@@ -134,6 +134,58 @@ components:
       - achievement_key
       title: UnlockAchievementRequest
       description: Request model for unlocking an achievement.
+    UserAchievementResponse:
+      properties:
+        id:
+          type: integer
+          title: Id
+        achievement_id:
+          type: string
+          title: Achievement Id
+        achieved_at:
+          type: string
+          format: date-time
+          title: Achieved At
+        achievement:
+          $ref: '#/components/schemas/AchievementResponse'
+      type: object
+      required:
+      - id
+      - achievement_id
+      - achieved_at
+      - achievement
+      title: UserAchievementResponse
+      description: User achievement response with embedded achievement details.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     AchievementResponse:
       properties:
         id:
@@ -175,58 +227,6 @@ components:
       - stackable
       title: AchievementResponse
       description: Achievement response model (public-facing).
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    UserAchievementResponse:
-      properties:
-        id:
-          type: integer
-          title: Id
-        achievement_id:
-          type: string
-          title: Achievement Id
-        achieved_at:
-          type: string
-          format: date-time
-          title: Achieved At
-        achievement:
-          $ref: '#/components/schemas/AchievementResponse'
-      type: object
-      required:
-      - id
-      - achievement_id
-      - achieved_at
-      - achievement
-      title: UserAchievementResponse
-      description: User achievement response with embedded achievement details.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http
