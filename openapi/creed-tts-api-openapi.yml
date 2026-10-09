@@ -119,6 +119,27 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    TTSRequest:
+      properties:
+        text:
+          type: string
+          maxLength: 4000
+          minLength: 1
+          title: Text
+          description: Text to convert to speech (max 400 words)
+      type: object
+      required:
+      - text
+      title: TTSRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -140,18 +161,6 @@ components:
       - msg
       - type
       title: ValidationError
-    TTSRequest:
-      properties:
-        text:
-          type: string
-          maxLength: 4000
-          minLength: 1
-          title: Text
-          description: Text to convert to speech (max 400 words)
-      type: object
-      required:
-      - text
-      title: TTSRequest
     TTSResponse:
       properties:
         audio_base64:
@@ -172,15 +181,6 @@ components:
       - mime_type
       - format
       title: TTSResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

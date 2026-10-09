@@ -87,6 +87,29 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    StorePushToStartTokenRequest:
+      properties:
+        token:
+          type: string
+          title: Token
+        source:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Source
+      type: object
+      required:
+      - token
+      title: StorePushToStartTokenRequest
     ValidationError:
       properties:
         loc:
@@ -117,29 +140,6 @@ components:
       required:
       - success
       title: StorePushToStartTokenResponse
-    StorePushToStartTokenRequest:
-      properties:
-        token:
-          type: string
-          title: Token
-        source:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Source
-      type: object
-      required:
-      - token
-      title: StorePushToStartTokenRequest
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

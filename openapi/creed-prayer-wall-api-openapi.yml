@@ -481,37 +481,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ErrorResponse:
-      properties:
-        detail:
-          type: string
-          title: Detail
-      type: object
-      required:
-      - detail
-      title: ErrorResponse
-    ApproveRejectResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-        prayer_id:
-          type: integer
-          title: Prayer Id
-      type: object
-      required:
-      - success
-      - prayer_id
-      title: ApproveRejectResponse
-    SubmitCommentResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-      type: object
-      required:
-      - success
-      title: SubmitCommentResponse
     SubmitPrayerRequest:
       properties:
         prayer_text:
@@ -526,31 +495,15 @@ components:
       required:
       - prayer_text
       title: SubmitPrayerRequest
-    PrayingCountResponse:
+    ErrorResponse:
       properties:
-        count:
-          type: integer
-          title: Count
+        detail:
+          type: string
+          title: Detail
       type: object
       required:
-      - count
-      title: PrayingCountResponse
-    PrayerWallPaginatedResponse:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/PrayerWall'
-          type: array
-          title: Data
-        total_count:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Total Count
-      type: object
-      required:
-      - data
-      title: PrayerWallPaginatedResponse
+      - detail
+      title: ErrorResponse
     PrayerWallCommentUser:
       properties:
         user_id:
@@ -576,27 +529,15 @@ components:
       type: object
       title: PrayerWallCommentUser
       description: User info for prayer wall comments.
-    ValidationError:
+    PrayingCountResponse:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+        count:
+          type: integer
+          title: Count
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - count
+      title: PrayingCountResponse
     SubmitCommentRequest:
       properties:
         comment_text:
@@ -611,6 +552,55 @@ components:
           title: Quick Reply Text
       type: object
       title: SubmitCommentRequest
+    PrayerWallComment:
+      properties:
+        id:
+          type: integer
+          title: Id
+        prayer_id:
+          type: integer
+          title: Prayer Id
+        user_id:
+          type: string
+          title: User Id
+        comment_text:
+          type: string
+          title: Comment Text
+        rejection_reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rejection Reason
+        bot_approved:
+          type: boolean
+          title: Bot Approved
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        user:
+          anyOf:
+          - $ref: '#/components/schemas/PrayerWallCommentUser'
+          - type: 'null'
+      type: object
+      required:
+      - id
+      - prayer_id
+      - user_id
+      - comment_text
+      - bot_approved
+      - created_at
+      title: PrayerWallComment
+      description: DB model for prayer_wall_comments table.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     PrayerWallUser:
       properties:
         user_id:
@@ -636,6 +626,49 @@ components:
       type: object
       title: PrayerWallUser
       description: User info for prayer wall.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    SubmitCommentResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+      type: object
+      required:
+      - success
+      title: SubmitCommentResponse
+    ApproveRejectResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        prayer_id:
+          type: integer
+          title: Prayer Id
+      type: object
+      required:
+      - success
+      - prayer_id
+      title: ApproveRejectResponse
     PrayerWall:
       properties:
         id:
@@ -693,55 +726,22 @@ components:
       - created_at
       title: PrayerWall
       description: DB model for prayer_wall table.
-    PrayerWallComment:
+    PrayerWallPaginatedResponse:
       properties:
-        id:
-          type: integer
-          title: Id
-        prayer_id:
-          type: integer
-          title: Prayer Id
-        user_id:
-          type: string
-          title: User Id
-        comment_text:
-          type: string
-          title: Comment Text
-        rejection_reason:
+        data:
+          items:
+            $ref: '#/components/schemas/PrayerWall'
+          type: array
+          title: Data
+        total_count:
           anyOf:
-          - type: string
+          - type: integer
           - type: 'null'
-          title: Rejection Reason
-        bot_approved:
-          type: boolean
-          title: Bot Approved
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        user:
-          anyOf:
-          - $ref: '#/components/schemas/PrayerWallCommentUser'
-          - type: 'null'
+          title: Total Count
       type: object
       required:
-      - id
-      - prayer_id
-      - user_id
-      - comment_text
-      - bot_approved
-      - created_at
-      title: PrayerWallComment
-      description: DB model for prayer_wall_comments table.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+      - data
+      title: PrayerWallPaginatedResponse
   securitySchemes:
     HTTPBearer:
       type: http

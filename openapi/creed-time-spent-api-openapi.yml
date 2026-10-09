@@ -77,6 +77,19 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    SubmitTimeSpentRequest:
+      properties:
+        records:
+          items:
+            $ref: '#/components/schemas/TimeSpentRecord'
+          type: array
+          title: Records
+          description: Array of time spent records
+      type: object
+      required:
+      - records
+      title: SubmitTimeSpentRequest
+      description: Request model for submitting time spent records.
     SubmitTimeSpentResponse:
       properties:
         success:
@@ -91,35 +104,15 @@ components:
       - message
       title: SubmitTimeSpentResponse
       description: Response model for submitting time spent.
-    SubmitTimeSpentRequest:
+    HTTPValidationError:
       properties:
-        records:
+        detail:
           items:
-            $ref: '#/components/schemas/TimeSpentRecord'
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Records
-          description: Array of time spent records
+          title: Detail
       type: object
-      required:
-      - records
-      title: SubmitTimeSpentRequest
-      description: Request model for submitting time spent records.
-    TotalTimeSpentResponse:
-      properties:
-        total_minutes:
-          type: integer
-          title: Total Minutes
-          description: Total time spent in minutes
-        total_sessions:
-          type: integer
-          title: Total Sessions
-          description: Total number of sessions
-      type: object
-      required:
-      - total_minutes
-      - total_sessions
-      title: TotalTimeSpentResponse
-      description: Response model for total time spent.
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -164,15 +157,22 @@ components:
       - ended_at
       title: TimeSpentRecord
       description: Single time spent record.
-    HTTPValidationError:
+    TotalTimeSpentResponse:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        total_minutes:
+          type: integer
+          title: Total Minutes
+          description: Total time spent in minutes
+        total_sessions:
+          type: integer
+          title: Total Sessions
+          description: Total number of sessions
       type: object
-      title: HTTPValidationError
+      required:
+      - total_minutes
+      - total_sessions
+      title: TotalTimeSpentResponse
+      description: Response model for total time spent.
   securitySchemes:
     HTTPBearer:
       type: http

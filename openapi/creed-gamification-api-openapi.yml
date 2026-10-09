@@ -419,55 +419,43 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ItemActionRequest:
+    EarnRewardRequest:
       properties:
-        item_key:
+        reward_key:
           type: string
-          title: Item Key
-          description: The unique key of the item
+          title: Reward Key
+          description: The reward key to earn tokens from (e.g., 'quest_daily_reading')
       type: object
       required:
-      - item_key
-      title: ItemActionRequest
-      description: Request for item actions (purchase/unlock).
-    TokenTransactionResponse:
+      - reward_key
+      title: EarnRewardRequest
+      description: Request to earn tokens from a reward.
+    TransactionType:
+      type: string
+      enum:
+      - earned
+      - spent
+      - purchased
+      - deducted
+      title: TransactionType
+      description: Transaction types.
+    RewardResponse:
       properties:
         id:
           type: string
           title: Id
-        user_id:
+        key:
           type: string
-          title: User Id
-        type:
-          $ref: '#/components/schemas/TransactionType'
+          title: Key
+        category:
+          type: string
+          title: Category
         amount:
           type: integer
           title: Amount
-        reward_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Reward Id
-        item_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Item Id
-        product_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Product Id
-        store_txn_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Store Txn Id
-        source:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Source
+        is_active:
+          type: boolean
+          title: Is Active
         created_at:
           type: string
           format: date-time
@@ -475,21 +463,112 @@ components:
       type: object
       required:
       - id
-      - user_id
-      - type
+      - key
+      - category
       - amount
+      - is_active
       - created_at
-      title: TokenTransactionResponse
-      description: Token transaction response model.
-    UnlockType:
+      title: RewardResponse
+      description: Token reward response model.
+    TokenProductsResponse:
+      properties:
+        products:
+          items:
+            $ref: '#/components/schemas/TokenProductResponse'
+          type: array
+          title: Products
+      type: object
+      required:
+      - products
+      title: TokenProductsResponse
+      description: Response wrapper for the token product catalog.
+    ItemActionResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        message:
+          type: string
+          title: Message
+        item:
+          anyOf:
+          - $ref: '#/components/schemas/ItemResponse'
+          - type: 'null'
+      type: object
+      required:
+      - success
+      - message
+      title: ItemActionResponse
+      description: Item action response (purchase/unlock).
+    ItemResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        key:
+          type: string
+          title: Key
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        item_type:
+          type: string
+          title: Item Type
+        unlock_type:
+          $ref: '#/components/schemas/UnlockType'
+        token_price:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Token Price
+        available_from:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Available From
+        available_until:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Available Until
+        sort_order:
+          type: integer
+          title: Sort Order
+          default: 0
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      required:
+      - id
+      - key
+      - name
+      - item_type
+      - unlock_type
+      - created_at
+      title: ItemResponse
+      description: Item response model for shop display.
+    PricingVariant:
       type: string
       enum:
-      - free
-      - purchasable
-      - premium
-      - special
-      title: UnlockType
-      description: Item unlock types.
+      - default
+      - paid_tokens
+      title: PricingVariant
+      description: 'Which shop pricing to apply. Cohort bucketing for the paid_token_exp
+
+        experiment happens client-side (see paid_token_exp_treatment_allocation /
+
+        paid_token_exp_legacy_cutoff_timestamp in /api/config), so the client
+
+        tells the backend which price column applies for a given request.'
     EarnTokensRequest:
       properties:
         amount:
@@ -507,6 +586,99 @@ components:
       - source
       title: EarnTokensRequest
       description: Request to earn a custom amount of tokens directly.
+    EarnTokensResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - success
+      - message
+      title: EarnTokensResponse
+      description: Response for earning tokens.
+    TokenProductResponse:
+      properties:
+        product_id:
+          $ref: '#/components/schemas/TokenProductIdentifiers'
+        token_amount:
+          type: integer
+          title: Token Amount
+        is_default:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Default
+      type: object
+      required:
+      - product_id
+      - token_amount
+      title: TokenProductResponse
+      description: Token product response model for the purchasable token catalog.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    TokenProductIdentifiers:
+      properties:
+        default:
+          type: string
+          title: Default
+        ios:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ios
+        android:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Android
+      type: object
+      required:
+      - default
+      title: TokenProductIdentifiers
+      description: Cross-platform identifiers for a token product.
+    ItemActionRequest:
+      properties:
+        item_key:
+          type: string
+          title: Item Key
+          description: The unique key of the item
+      type: object
+      required:
+      - item_key
+      title: ItemActionRequest
+      description: Request for item actions (purchase/unlock).
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     UnlockedItemResponse:
       properties:
         id:
@@ -576,160 +748,44 @@ components:
       - unlocked_at
       title: UnlockedItemResponse
       description: Enhanced unlocked item response with full item details
-    EarnRewardRequest:
-      properties:
-        reward_key:
-          type: string
-          title: Reward Key
-          description: The reward key to earn tokens from (e.g., 'quest_daily_reading')
-      type: object
-      required:
-      - reward_key
-      title: EarnRewardRequest
-      description: Request to earn tokens from a reward.
-    ItemActionResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-        message:
-          type: string
-          title: Message
-        item:
-          anyOf:
-          - $ref: '#/components/schemas/ItemResponse'
-          - type: 'null'
-      type: object
-      required:
-      - success
-      - message
-      title: ItemActionResponse
-      description: Item action response (purchase/unlock).
-    RewardResponse:
+    TokenTransactionResponse:
       properties:
         id:
           type: string
           title: Id
-        key:
+        user_id:
           type: string
-          title: Key
-        category:
-          type: string
-          title: Category
+          title: User Id
+        type:
+          $ref: '#/components/schemas/TransactionType'
         amount:
           type: integer
           title: Amount
-        is_active:
-          type: boolean
-          title: Is Active
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-      type: object
-      required:
-      - id
-      - key
-      - category
-      - amount
-      - is_active
-      - created_at
-      title: RewardResponse
-      description: Token reward response model.
-    EarnTokensResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-        message:
-          type: string
-          title: Message
-      type: object
-      required:
-      - success
-      - message
-      title: EarnTokensResponse
-      description: Response for earning tokens.
-    TokenProductResponse:
-      properties:
+        reward_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reward Id
+        item_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Item Id
         product_id:
-          $ref: '#/components/schemas/TokenProductIdentifiers'
-        token_amount:
-          type: integer
-          title: Token Amount
-        is_default:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Default
-      type: object
-      required:
-      - product_id
-      - token_amount
-      title: TokenProductResponse
-      description: Token product response model for the purchasable token catalog.
-    TokenProductIdentifiers:
-      properties:
-        default:
-          type: string
-          title: Default
-        ios:
           anyOf:
           - type: string
           - type: 'null'
-          title: Ios
-        android:
+          title: Product Id
+        store_txn_id:
           anyOf:
           - type: string
           - type: 'null'
-          title: Android
-      type: object
-      required:
-      - default
-      title: TokenProductIdentifiers
-      description: Cross-platform identifiers for a token product.
-    ItemResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-        key:
-          type: string
-          title: Key
-        name:
-          type: string
-          title: Name
-        description:
+          title: Store Txn Id
+        source:
           anyOf:
           - type: string
           - type: 'null'
-          title: Description
-        item_type:
-          type: string
-          title: Item Type
-        unlock_type:
-          $ref: '#/components/schemas/UnlockType'
-        token_price:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Token Price
-        available_from:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Available From
-        available_until:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Available Until
-        sort_order:
-          type: integer
-          title: Sort Order
-          default: 0
+          title: Source
         created_at:
           type: string
           format: date-time
@@ -737,77 +793,21 @@ components:
       type: object
       required:
       - id
-      - key
-      - name
-      - item_type
-      - unlock_type
-      - created_at
-      title: ItemResponse
-      description: Item response model for shop display.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
+      - user_id
       - type
-      title: ValidationError
-    PricingVariant:
+      - amount
+      - created_at
+      title: TokenTransactionResponse
+      description: Token transaction response model.
+    UnlockType:
       type: string
       enum:
-      - default
-      - paid_tokens
-      title: PricingVariant
-      description: 'Which shop pricing to apply. Cohort bucketing for the paid_token_exp
-
-        experiment happens client-side (see paid_token_exp_treatment_allocation /
-
-        paid_token_exp_legacy_cutoff_timestamp in /api/config), so the client
-
-        tells the backend which price column applies for a given request.'
-    TokenProductsResponse:
-      properties:
-        products:
-          items:
-            $ref: '#/components/schemas/TokenProductResponse'
-          type: array
-          title: Products
-      type: object
-      required:
-      - products
-      title: TokenProductsResponse
-      description: Response wrapper for the token product catalog.
-    TransactionType:
-      type: string
-      enum:
-      - earned
-      - spent
-      - purchased
-      - deducted
-      title: TransactionType
-      description: Transaction types.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+      - free
+      - purchasable
+      - premium
+      - special
+      title: UnlockType
+      description: Item unlock types.
   securitySchemes:
     HTTPBearer:
       type: http

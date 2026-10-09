@@ -269,6 +269,15 @@ components:
       required:
       - gratitude_text
       title: AddGratitudeRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     UpdateGratitudeRequest:
       properties:
         gratitude_text:
@@ -322,15 +331,6 @@ components:
       - gratitude_text
       - created_at
       title: GratitudeJournalResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http
