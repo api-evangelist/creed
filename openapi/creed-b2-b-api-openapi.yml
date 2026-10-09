@@ -4,12 +4,12 @@ info:
   description: Creed API - Christian AI Chatbot
   version: 1.0.0
 tags:
-- name: B2 B
+- name: B2B
 paths:
   /api/b2b/chatbot:
     post:
       tags:
-      - B2 B
+      - B2B
       summary: Chat
       operationId: chat_api_b2b_chatbot_post
       requestBody:
